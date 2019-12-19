@@ -1,79 +1,113 @@
 <template>
-  <div class="app-container">
-    <el-table
-      v-loading="listLoading"
-      :data="list"
-      element-loading-text="Loading"
-      border
-      fit
-      highlight-current-row
-    >
-      <el-table-column align="center" label="ID" width="95">
-        <template slot-scope="scope">
-          {{ scope.$index }}
-        </template>
-      </el-table-column>
-      <el-table-column label="Title">
-        <template slot-scope="scope">
-          {{ scope.row.title }}
-        </template>
-      </el-table-column>
-      <el-table-column label="Author" width="110" align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="Pageviews" width="110" align="center">
-        <template slot-scope="scope">
-          {{ scope.row.pageviews }}
-        </template>
-      </el-table-column>
-      <el-table-column class-name="status-col" label="Status" width="110" align="center">
-        <template slot-scope="scope">
-          <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" prop="created_at" label="Display_time" width="200">
-        <template slot-scope="scope">
-          <i class="el-icon-time" />
-          <span>{{ scope.row.display_time }}</span>
-        </template>
-      </el-table-column>
-    </el-table>
+  <div class="container">
+    <DecLeft :list="list" @on-add-component="addComponent"/>
+    <DecView :components="components" @on-change-list="changeComponents"/>
+    <DecRight :list="list"/>
   </div>
 </template>
 
 <script>
-import { getList } from '@/api/table'
-
+import DecLeft from '@/components/decoration/dec-left'
+import DecRight from '@/components/decoration/dec-right'
+import DecView from '@/components/decoration/dec-view'
 export default {
-  filters: {
-    statusFilter(status) {
-      const statusMap = {
-        published: 'success',
-        draft: 'gray',
-        deleted: 'danger'
-      }
-      return statusMap[status]
-    }
+  components:{
+    DecLeft,
+    DecView,
+    DecRight
   },
   data() {
     return {
-      list: null,
-      listLoading: true
+      list:[
+        {
+          name:"Top",
+          title:'店铺头部',
+          pic:require('../../assets/decoration/pic.gif'),
+          type:0,
+          options:{color:"deeppink"}
+        },
+        {
+          name:"Search",
+          title:'搜索模块',
+          pic:require('../../assets/decoration/pic.gif'),
+          type:0,
+          options:{color:"#e4e4e4",bgColor:'#fff',placeholder:'搜索店铺内商品',border:1,textAlign:'center'}
+        },
+        {
+          name:"Nav",
+          title:'图片导航',
+          pic:require('../../assets/decoration/pic.gif'),
+          type:0,
+          options:{color:"pink"}
+        },
+        {
+          name:"Title",
+          title:'标题栏',
+          pic:require('../../assets/decoration/pic.gif'),
+          type:0,
+          options:{color:"pink"}
+        },
+        {
+          name:"Banner",
+          title:'轮播广告',
+          pic:require('../../assets/decoration/pic.gif'),
+          type:0,
+          options:{color:"pink"}
+        },
+        {
+          name:"Coupon",
+          title:'优惠券',
+          pic:require('../../assets/decoration/pic.gif'),
+          type:1,
+          options:{color:"deeppink"}
+        },
+        {
+          name:"Discount",
+          title:'限时折扣',
+          pic:require('../../assets/decoration/pic.gif'),
+          type:1,
+          options:{color:"pink"}
+        },
+        {
+          name:"Nav",
+          title:'满包邮',
+          pic:require('../../assets/decoration/pic.gif'),
+          type:1,
+          options:{color:"pink"}
+        },
+        {
+          name:"Title",
+          title:'拼团',
+          pic:require('../../assets/decoration/pic.gif'),
+          type:1,
+          options:{color:"pink"}
+        },
+        {
+          name:"Banner",
+          title:'专题推荐',
+          pic:require('../../assets/decoration/pic.gif'),
+          type:1,
+          options:{color:"pink"}
+        }
+      ],
+      components:[]
     }
   },
   created() {
-    this.fetchData()
   },
   methods: {
-    fetchData() {
-      this.listLoading = true
-      getList().then(response => {
-        this.list = response.data.items
-        this.listLoading = false
-      })
+    addComponent(e){
+      this.components.push(e)
+    },
+    changeComponents(e){
+      this.components=e
     }
   }
 }
 </script>
+<style scoped lang="scss">
+.container{
+  display: flex;
+  padding: 20px 30px;
+}
+</style>
