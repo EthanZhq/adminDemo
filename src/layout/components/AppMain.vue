@@ -29,7 +29,7 @@ export default {
   overflow-y: scroll;
   width: 100%;
   position: relative;
-  background: #f8f8f8;
+  background: #fff;
 }
 .app-main::-webkit-scrollbar {display:none}
 .fixed-header+.app-main {

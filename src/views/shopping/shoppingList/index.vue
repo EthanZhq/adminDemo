@@ -1,57 +1,57 @@
 <template>
-  <div class="app-container container">
-    <div class="filter-container wrap">
-      <el-input
-        v-model="listQuery.search"
-        placeholder="Search"
-        style="width: 200px;"
-        class="filter-item title"
-      />
-      <el-select v-model="listQuery.type" placeholder="商品三级分类" clearable class="filter-item title" style="width: 130px">
-        <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
-      </el-select>
-      <el-select v-model="listQuery.type" placeholder="上架状态" clearable class="filter-item title" style="width: 130px">
-        <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
-      </el-select>
-      <el-select v-model="listQuery.type" placeholder="商品二级分类" clearable class="filter-item title" style="width: 130px">
-        <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
-      </el-select>
-      <el-select v-model="listQuery.type" placeholder="选择商品标签" clearable class="filter-item title" style="width: 130px">
-        <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
-      </el-select>
-      <el-button class="filter-item" type="primary" icon="el-icon-search">搜索</el-button>
-       <el-button
-        class="filter-item"
-        style="margin-left: 10px;"
-        type="primary"
-      >批量删除</el-button>
-       <el-button
-        class="filter-item"
-        style="margin-left: 10px;"
-        type="primary"
-      >新建评论</el-button>
-      <el-button
-        class="filter-item"
-        style="margin-left: 10px;"
-        type="primary"
-      >新建</el-button>
-      <el-button
-        class="filter-item"
-        style="margin-left: 10px;"
-        type="primary"
-        icon="el-icon-edit"
-      >修改</el-button>
-      <el-button
-        v-waves
-        :loading="downloadLoading"
-        class="filter-item"
-        style="margin-left: 10px;"
-        type="primary"
-        icon="el-icon-download"
-        @click="handleDownload"
-      >导出</el-button>
-    </div>
-    <div class="table">
+  <div class="wrap">
+    <div class="app-container container">
+      <div class="filter-container title">
+        <el-input
+          v-model="listQuery.search"
+          placeholder="搜索"
+          style="width: 200px;"
+          class="filter-item search-inp"
+        />
+        <el-select v-model="listQuery.type" placeholder="商品三级分类" clearable class="filter-item title" style="width: 160px">
+          <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
+        </el-select>
+        <el-select v-model="listQuery.type" placeholder="上架状态" clearable class="filter-item title" style="width: 130px">
+          <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
+        </el-select>
+        <el-select v-model="listQuery.type" placeholder="商品二级分类" clearable class="filter-item title" style="width: 160px">
+          <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
+        </el-select>
+        <el-select v-model="listQuery.type" placeholder="选择商品标签" clearable class="filter-item title" style="width: 160px">
+          <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
+        </el-select>
+        <el-button class="filter-item" type="primary" icon="el-icon-search">搜索</el-button>
+        <el-button
+          class="filter-item"
+          style="margin-left: 10px;"
+          type="primary"
+        >批量删除</el-button>
+        <el-button
+          class="filter-item"
+          style="margin-left: 10px;"
+          type="primary"
+        >新建评论</el-button>
+        <el-button
+          class="filter-item"
+          style="margin-left: 10px;"
+          type="primary"
+        >新建</el-button>
+        <el-button
+          class="filter-item"
+          style="margin-left: 10px;"
+          type="primary"
+          icon="el-icon-edit"
+        >修改</el-button>
+        <el-button
+          v-waves
+          :loading="downloadLoading"
+          class="filter-item"
+          style="margin-left: 10px;"
+          type="primary"
+          icon="el-icon-download"
+          @click="handleDownload"
+        >导出</el-button>
+      </div>
       <el-table
         :key="tableKey"
         ref="multipleTable"
@@ -61,7 +61,7 @@
         border
         fit
         highlight-current-row
-
+        class="table"
       >
         <el-table-column
           type="selection"
@@ -80,7 +80,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="商品编码" align="center" width="180">
+        <el-table-column label="商品编码" align="center" width="160">
           <template slot-scope="{ row }">
             <span>{{ row.code }}</span>
           </template>
@@ -126,7 +126,7 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="上下架时间" width="200px" align="center">
+        <el-table-column label="上下架时间" width="180px" align="center">
           <template slot-scope="{ row }">
             <span>{{ row.timestamp }}</span>
           </template>
@@ -212,6 +212,16 @@ export default {
           price: '1200.00 + 8000积分',
           money: '100',
           timestamp: '2019-12-12 20:00:00'
+        },
+        {
+          code: 1,
+          name: '运动鞋',
+          classify: '鞋子',
+          num: '200',
+          number: '43',
+          price: '250.00 + 8000积分',
+          money: '1000',
+          timestamp: '2019-12-12  20:00:00'
         }
       ],
       calendarTypeOptions: [
@@ -242,82 +252,100 @@ export default {
 </script>
 <style lang="scss">
 .wrap{
-  padding: 20px;
-  background: #fff;
-  border-radius: 10px
-}
-.container{
-  height: calc(100% - 55px);
-  overflow-y: scroll;
-  padding: 20px 20px 0;
-}
-.title {
-  margin-right: 12px;
-}
-.table{
-  width: 100%;
-  margin-top:30px;
-  border-radius:10px;
-}
-.el-table, .el-table__expanded-cell{
-  background: none;
-  width: 100%
-}
-.img{
-  width: 50px;
-  height: 50px;
-  border-radius: 8px;
-  margin-right: 16px
-}
-.shopping-pic{
-  width: 100%;
-  height: 100%;
-}
-.shopping-box{
-  display: flex
-}
-.shopping-name{
-  width: 80%;
-}
-.card-box{
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: space-between;
-  flex-wrap: wrap
-}
-.card{
-  width: 210px;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  border: 1px solid #EBEEF5;
-  border-radius: 6px;
-  font-size: 14px
-}
-.card-way{
-  width: 150px;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  border: 1px solid #EBEEF5;
-  border-radius: 6px;
-}
-.way{
-  background: #7cf2cf;
-  color:#fff;
-  padding: 4px 6px;
-  border-top-left-radius: 6px;
-  border-bottom-left-radius: 6px;
-}
-.buy-way{
-  background: #f9d45c;
-  color:#fff;
-  padding: 4px 6px;
-  border-top-left-radius: 6px;
-  border-bottom-left-radius: 6px;
-}
-.price{
-  padding: 4px 6px;
+  height: calc(100% - 55px);
+  .container{
+    flex: 1;
+    overflow-y: scroll;
+    padding: 20px;
+    background: #f1f4f6;
+    border-radius: 10px;
+    .title{
+      padding: 10px;
+      background: #fff;
+      border-radius: 10px;
+      .search-inp {
+        margin-right: 12px;
+      }
+    }
+    .table{
+      width: 100%;
+      margin-top:20px;
+      border-radius:10px;
+      .shopping-box{
+        display: flex;
+        .img{
+          width: 40px;
+          height: 40px;
+          border-radius: 8px;
+          margin-right: 16px;
+          .shopping-pic{
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .shopping-name{
+          width: 80%;
+        }
+      }
+      .card-box{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        .card{
+          width: 210px;
+          padding: 0;
+          display: flex;
+          align-items: center;
+          border: 1px solid #EBEEF5;
+          border-radius: 6px;
+          font-size: 14px;
+          .way{
+            background: #7cf2cf;
+            color:#fff;
+            padding: 4px 6px;
+            border-top-left-radius: 6px;
+            border-bottom-left-radius: 6px;
+          }
+          .price{
+            padding: 4px 6px;
+          }
+        }
+        .card-way{
+          width: 150px;
+          padding: 0;
+          display: flex;
+          align-items: center;
+          border: 1px solid #EBEEF5;
+          border-radius: 6px;
+          .buy-way{
+            background: #f9d45c;
+            color:#fff;
+            padding: 4px 6px;
+            border-top-left-radius: 6px;
+            border-bottom-left-radius: 6px;
+          }
+          .price{
+            padding: 4px 6px;
+          }
+        }
+      }
+    }
+    .el-table, .el-table__expanded-cell{
+      background: none;
+      width: 100%
+    }
+  }
+  .container::-webkit-scrollbar {
+    display:none
+  }
+  .pagination-container{
+    height: 60px;
+    margin: 0
+  }
 }
 .el-switch__label *{
   font-size: 12px
