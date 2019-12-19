@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-container container">
     <div class="filter-container wrap">
       <el-input
         v-model="listQuery.search"
@@ -51,91 +51,93 @@
         @click="handleDownload"
       >导出</el-button>
     </div>
-    <el-table
-      :key="tableKey"
-      ref="multipleTable"
-      v-loading="listLoading"
-      :data="list"
-      stripe
-      border
-      fit
-      highlight-current-row
-      class="table"
-    >
-      <el-table-column
-        type="selection"
-        align="center"
-        width="50"
-        style="background-color:#000"
+    <div class="table">
+      <el-table
+        :key="tableKey"
+        ref="multipleTable"
+        v-loading="listLoading"
+        :data="list"
+        stripe
+        border
+        fit
+        highlight-current-row
+
       >
-      </el-table-column>
-      <el-table-column label="商品名称" width="250px">
-        <template slot-scope="{ row }">
-          <div class="shopping-box">
-            <div class="img">
-              <img src="https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png" alt="" class="shopping-pic">
+        <el-table-column
+          type="selection"
+          align="center"
+          width="50"
+          style="background-color:#000"
+        >
+        </el-table-column>
+        <el-table-column label="商品名称" width="250px">
+          <template slot-scope="{ row }">
+            <div class="shopping-box">
+              <div class="img">
+                <img src="https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png" alt="" class="shopping-pic">
+              </div>
+              <span class="shopping-name">{{ row.name }}</span>
             </div>
-            <span class="shopping-name">{{ row.name }}</span>
-          </div>
-        </template>
-      </el-table-column>
-      <el-table-column label="商品编码" align="center" width="180">
-        <template slot-scope="{ row }">
-          <span>{{ row.code }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="商品分类" prop="classify" align="center" width="120">
-        <template slot-scope="{ row }">
-          <span>{{ row.classify }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="价格" align="center">
-        <template slot-scope="{ row }">
-          <div class="card-box">
-            <div class="card">
-              <div class="way">积分抵扣</div>
-              <div class="price">{{ row.price }}</div>
+          </template>
+        </el-table-column>
+        <el-table-column label="商品编码" align="center" width="180">
+          <template slot-scope="{ row }">
+            <span>{{ row.code }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="商品分类" prop="classify" align="center" width="120">
+          <template slot-scope="{ row }">
+            <span>{{ row.classify }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="价格" align="center">
+          <template slot-scope="{ row }">
+            <div class="card-box">
+              <div class="card">
+                <div class="way">积分抵扣</div>
+                <div class="price">{{ row.price }}</div>
+              </div>
+              <div class="card-way">
+                <div class="buy-way">现金购</div>
+                <div class="price">{{ row.money }}</div>
+              </div>
             </div>
-            <div class="card-way">
-              <div class="buy-way">现金购</div>
-              <div class="price">{{ row.money }}</div>
-            </div>
-          </div>
-        </template>
-      </el-table-column>
-      <el-table-column label="总销量" align="center" width="100px">
-        <template slot-scope="{ row }">
-          <span class="link-type">{{ row.num }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="实际销量" align="center" width="100px">
-        <template slot-scope="{ row }">
-          <span class="link-type">{{ row.number }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="商品上下架" align="center" width="200px">
-        <template slot-scope="{ row }">
-          <el-switch
-            v-model="row.flag"
-            class="flag"
-            active-text="上架"
-            inactive-text="下架"
-            inactive-color="#999"
-          >
-          </el-switch>
-        </template>
-      </el-table-column>
-      <el-table-column label="上下架时间" width="200px" align="center">
-        <template slot-scope="{ row }">
-          <span>{{ row.timestamp }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="排序" prop="id" sortable="custom" align="center" width="80px">
-        <template slot-scope="{ row }">
-          <span class="link-type">{{ row.id }}</span>
-        </template>
-      </el-table-column>
-    </el-table>
+          </template>
+        </el-table-column>
+        <el-table-column label="总销量" align="center" width="100px">
+          <template slot-scope="{ row }">
+            <span class="link-type">{{ row.num }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="实际销量" align="center" width="100px">
+          <template slot-scope="{ row }">
+            <span class="link-type">{{ row.number }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="商品上下架" align="center" width="200px">
+          <template slot-scope="{ row }">
+            <el-switch
+              v-model="row.flag"
+              class="flag"
+              active-text="上架"
+              inactive-text="下架"
+              inactive-color="#999"
+            >
+            </el-switch>
+          </template>
+        </el-table-column>
+        <el-table-column label="上下架时间" width="200px" align="center">
+          <template slot-scope="{ row }">
+            <span>{{ row.timestamp }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="排序" prop="id" sortable="custom" align="center" width="80px">
+          <template slot-scope="{ row }">
+            <span class="link-type">{{ row.id }}</span>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
     <pagination v-show="total>0" :page.sync="listQuery.page" :total="total" :limit.sync="listQuery.limit"/>
   </div>
 </template>
@@ -161,7 +163,7 @@ export default {
       list: [
         {
           code: 1,
-          name: '陕西红富士苹果 香甜可口 好吃补脑',
+          name: '陕西红富士苹果',
           classify: '鞋子',
           num: '2000000',
           number: '43',
@@ -244,13 +246,22 @@ export default {
   background: #fff;
   border-radius: 10px
 }
+.container{
+  height: calc(100% - 55px);
+  overflow-y: scroll;
+  padding: 20px 20px 0;
+}
 .title {
   margin-right: 12px;
 }
 .table{
   width: 100%;
   margin-top:30px;
-  border-radius:10px
+  border-radius:10px;
+}
+.el-table, .el-table__expanded-cell{
+  background: none;
+  width: 100%
 }
 .img{
   width: 50px;
