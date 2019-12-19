@@ -35,12 +35,11 @@ export default {
 .fixed-header+.app-main {
   margin: 70px 0 20px;
   box-shadow: 0px 3px 12px 1px rgba(0, 0, 0, .19);
-  border-radius: 10px
+  border-radius: 12px
 }
 </style>
 
 <style lang="scss">
-// fix css style bug in open el-dialog
 .el-popup-parent--hidden {
   .fixed-header {
     padding-right: 15px;

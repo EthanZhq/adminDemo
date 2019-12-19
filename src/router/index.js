@@ -79,15 +79,21 @@ export const constantRoutes = [
   {
     path: '/shopping',
     component: Layout,
-    redirect: '/shopping/shoppingList',
+    redirect: '/shopping/shopping-list',
     name: 'Shopping',
     meta: { title: '商品', icon: 'shopping-bag' },
     children: [
       {
-        path: 'shoppingList',
-        name: 'ShoppingList',
-        component: () => import('@/views/shopping/shoppingList/index'),
+        path: 'shopping-list',
+        name: 'Shopping-list',
+        component: () => import('@/views/shopping/shopping-list/index'),
         meta: { title: '商品列表' }
+      },
+      {
+        path: 'tags',
+        name: 'tags',
+        component: () => import('@/views/shopping/tags/index'),
+        meta: { title: '商品标签' }
       },
       {
         path: 'comment',
@@ -99,15 +105,27 @@ export const constantRoutes = [
   },
 
   {
-    path: '/form',
+    path: '/order',
     component: Layout,
     meta: { title: '订单', icon: 'form' },
     children: [
       {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: '订单' }
+        path: 'all-order',
+        name: 'all-order',
+        component: () => import('@/views/order/all-order/index'),
+        meta: { title: '全部订单' }
+      },
+      {
+        path: 'delivery-management',
+        name: 'delivery-management',
+        component: () => import('@/views/order/delivery-management/index'),
+        meta: { title: '发货管理' }
+      },
+      {
+        path: 'after-sales-order',
+        name: 'after-sales-order',
+        component: () => import('@/views/order/after-sales-order/index'),
+        meta: { title: '售后订单' }
       }
     ]
   },
