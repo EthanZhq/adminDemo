@@ -25,15 +25,17 @@ export default {
 <style scoped>
 .app-main {
   /*50 = navbar  */
-  min-height: calc(100vh);
+  height:calc(100vh - 90px);
+  overflow-y: scroll;
   width: 100%;
   position: relative;
-  overflow: hidden;
-  background: #f8f8f8;
-  padding-top: 20px;
+  background: #fff;
 }
+.app-main::-webkit-scrollbar {display:none}
 .fixed-header+.app-main {
-  padding-top: 70px;
+  margin: 70px 0 20px;
+  box-shadow: 0px 3px 12px 1px rgba(0, 0, 0, .19);
+  border-radius: 10px
 }
 </style>
 
