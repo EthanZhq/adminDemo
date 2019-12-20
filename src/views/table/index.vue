@@ -2,7 +2,7 @@
   <div class="container">
     <DecLeft :list="list" @on-add-component="addComponent"/>
     <DecView :components="components" @on-change-list="changeComponents"/>
-    <DecRight :list="list"/>
+    <DecRight :components="components"/>
   </div>
 </template>
 
@@ -20,39 +20,53 @@ export default {
     return {
       list:[
         {
-          name:"Top",
-          title:'店铺头部',
+          name:"Banner",
+          title:'轮播图片',
           pic:require('../../assets/decoration/pic.gif'),
           type:0,
-          options:{color:"deeppink"}
-        },
-        {
-          name:"Search",
-          title:'搜索模块',
-          pic:require('../../assets/decoration/pic.gif'),
-          type:0,
-          options:{color:"#e4e4e4",bgColor:'#fff',placeholder:'搜索店铺内商品',border:1,textAlign:'center'}
+          options:{interval:3000,imgList:[require('../../assets/decoration/banner.jpg'),require('../../assets/decoration/banner.jpg'),require('../../assets/decoration/banner.jpg'),require('../../assets/decoration/banner.jpg')]}
         },
         {
           name:"Nav",
-          title:'图片导航',
-          pic:require('../../assets/decoration/pic.gif'),
+          title:'店铺导航',
+          pic:require('../../assets/decoration/nav.png'),
           type:0,
-          options:{color:"pink"}
+          options:{navs:[{name:'断码清仓',pic:require('../../assets/decoration/pic.gif')},{name:'全球购',pic:require('../../assets/decoration/pic.gif')},{name:'幸运砸金蛋',pic:require('../../assets/decoration/pic.gif')},{name:'潮人穿搭',pic:require('../../assets/decoration/pic.gif')},{name:'每日签到',pic:require('../../assets/decoration/pic.gif')}]}
         },
         {
           name:"Title",
           title:'标题栏',
-          pic:require('../../assets/decoration/pic.gif'),
+          pic:require('../../assets/decoration/title.png'),
           type:0,
           options:{color:"pink"}
         },
         {
-          name:"Banner",
-          title:'轮播广告',
-          pic:require('../../assets/decoration/pic.gif'),
+          name:"Product",
+          title:'商品模块',
+          pic:require('../../assets/decoration/product.png'),
+          type:0,
+          options:{color:"#e4e4e4",bgColor:'#fff',placeholder:'搜索店铺内商品',border:1,textAlign:'center'}
+        },
+        {
+          name:"Discount",
+          title:'限时秒杀',
+          pic:require('../../assets/decoration/discount.png'),
           type:0,
           options:{color:"pink"}
+        },
+        {
+          name:"MagicCube",
+          title:'魔方',
+          pic:require('../../assets/decoration/magicCube.png'),
+          type:0,
+          options:{color:"pink"}
+        },
+        {
+          name:"Search",
+          title:'搜索模块',
+          pic:require('../../assets/decoration/search.png'),
+          type:0,
+          options:{color:"#e4e4e4",bgColor:'#E02E24',placeholder:'搜索店铺内商品',border:1,textAlign:'left'}
         },
         {
           name:"Coupon",
@@ -61,46 +75,69 @@ export default {
           type:1,
           options:{color:"deeppink"}
         },
+        
         {
-          name:"Discount",
-          title:'限时折扣',
-          pic:require('../../assets/decoration/pic.gif'),
-          type:1,
-          options:{color:"pink"}
-        },
-        {
-          name:"Nav",
+          name:"Freeshipping",
           title:'满包邮',
           pic:require('../../assets/decoration/pic.gif'),
           type:1,
           options:{color:"pink"}
         },
         {
-          name:"Title",
+          name:"Group",
           title:'拼团',
           pic:require('../../assets/decoration/pic.gif'),
           type:1,
           options:{color:"pink"}
         },
         {
-          name:"Banner",
+          name:"Thematic",
           title:'专题推荐',
           pic:require('../../assets/decoration/pic.gif'),
           type:1,
           options:{color:"pink"}
         }
       ],
-      components:[]
+      components:{
+        current:0,
+        list:[
+          {
+            name:"Search",
+            title:'搜索模块',
+            pic:require('../../assets/decoration/search.png'),
+            type:0,
+            options:{color:"#e4e4e4",bgColor:'#E02E24',placeholder:'搜索店铺内商品',border:1,textAlign:'left'}
+          },
+          {
+            name:"Banner",
+            title:'轮播图片',
+            pic:require('../../assets/decoration/pic.gif'),
+            type:0,
+            options:{interval:3000,imgList:[require('../../assets/decoration/banner.jpg'),require('../../assets/decoration/banner.jpg'),require('../../assets/decoration/banner.jpg'),require('../../assets/decoration/banner.jpg')]}
+          },
+          {
+            name:"Nav",
+            title:'店铺导航',
+            pic:require('../../assets/decoration/nav.png'),
+            type:0,
+            options:{navs:[{name:'断码清仓',pic:require('../../assets/decoration/pic.gif')},{name:'全球购',pic:require('../../assets/decoration/pic.gif')},{name:'幸运砸金蛋',pic:require('../../assets/decoration/pic.gif')},{name:'潮人穿搭',pic:require('../../assets/decoration/pic.gif')},{name:'每日签到',pic:require('../../assets/decoration/pic.gif')}]}
+          }
+        ]
+      }
     }
   },
   created() {
   },
   methods: {
     addComponent(e){
-      this.components.push(e)
+      this.components.list.push(e)
     },
     changeComponents(e){
-      this.components=e
+      if(typeof(e)=='number'||typeof(e)=='string'){
+        this.components.current=e
+      }else{
+        this.components.list=e
+      }
     }
   }
 }
