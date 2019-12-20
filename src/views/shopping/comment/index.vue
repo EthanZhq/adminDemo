@@ -16,9 +16,15 @@
               style="width: 200px;"
               class="filter-item search-inp"
             />
-            <el-select v-model="listQuery.type" placeholder="评价时间" clearable class="filter-item select-box" style="width: 160px">
-              <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
-            </el-select>
+            <div class="block">
+              <el-date-picker
+                v-model="orderTime"
+                align="right"
+                type="date"
+                placeholder="评论时间"
+                :picker-options="pickerOption">
+              </el-date-picker>
+            </div>
             <el-select v-model="listQuery.type" placeholder="商品评价等级" clearable class="filter-item select-box" style="width: 130px">
               <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
             </el-select>
@@ -123,6 +129,33 @@ export default {
       listLoading: false,
       downloadLoading: false,
       tableKey: 0,
+      pickerOption: {
+        disabledDate(time) {
+          return time.getTime() > Date.now()
+        },
+        shortcuts: [{
+          text: '今天',
+          onClick(picker) {
+            picker.$emit('pick', new Date())
+          }
+        },
+        {
+          text: '昨天',
+          onClick(picker) {
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24)
+            picker.$emit('pick', date)
+          }
+        },
+        {
+          text: '一周前',
+          onClick(picker) {
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+            picker.$emit('pick', date)
+          }
+        }]
+      },
       flag:[
         {
           key:0,

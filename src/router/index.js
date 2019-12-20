@@ -116,6 +116,13 @@ export const constantRoutes = [
         meta: { title: '全部订单' }
       },
       {
+        path: '/order/all-order/detail/:id(\\d+)',
+        name: 'detail',
+        component: () => import('@/views/order/all-order/detail/index'),
+        meta: { title: '订单详情' },
+        hidden: true
+      },
+      {
         path: 'delivery-management',
         name: 'delivery-management',
         component: () => import('@/views/order/delivery-management/index'),
@@ -178,6 +185,12 @@ export const constantRoutes = [
         name: 'StoreInfo',
         component: () => import('@/views/setUp/storeInfo/index'),
         meta: { title: '店铺信息' }
+      },
+      {
+        path: 'express-management',
+        name: 'express-management',
+        component: () => import('@/views/setUp/express-management/index'),
+        meta: { title: '快递管理' }
       },
       {
         path: 'generalSettings',

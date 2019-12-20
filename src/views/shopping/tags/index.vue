@@ -10,9 +10,15 @@
               style="width: 200px;"
               class="filter-item search-inp"
             />
-            <el-select v-model="listQuery.type" placeholder="创建时间" clearable class="filter-item select-box" style="width: 240px">
-              <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
-            </el-select>
+            <div class="block">
+              <el-date-picker
+                v-model="orderTime"
+                align="right"
+                type="date"
+                placeholder="创建时间"
+                :picker-options="pickerOption">
+              </el-date-picker>
+            </div>
           </div>
           <div class="btn">
             <el-button
@@ -48,19 +54,16 @@
           style="background-color:#000"
         >
         </el-table-column>
-        <el-table-column label="标签名称"  align="center" width="300">
-          <template slot-scope="{ row }">
-            <span>{{ row.id }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="商品个数" align="center"  width="400">
-          <template slot-scope="{ row }">
-            <span>{{ row.user }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="评论时间" align="center"  sortable="custom">
-          <template slot-scope="{ row }">
-            <span>{{ row.time }}</span>
+        <el-table-column
+          v-for="(item,idx) in tableHeader"
+          :key='idx'
+          :label="item.lable"
+          :width="item.width"
+          :align="item.align"
+          :property="item.property"
+        >
+          <template slot-scope="scope">
+            <span>{{ scope.row[scope.column.property]}}</span>
           </template>
         </el-table-column>
       </el-table>
@@ -85,20 +88,60 @@ export default {
       listLoading: false,
       downloadLoading: false,
       tableKey: 0,
+      pickerOption: {
+        disabledDate(time) {
+          return time.getTime() > Date.now()
+        },
+        shortcuts: [{
+          text: '今天',
+          onClick(picker) {
+            picker.$emit('pick', new Date())
+          }
+        },
+        {
+          text: '昨天',
+          onClick(picker) {
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24)
+            picker.$emit('pick', date)
+          }
+        },
+        {
+          text: '一周前',
+          onClick(picker) {
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+            picker.$emit('pick', date)
+          }
+        }]
+      },
+      orderTime: '',
+      tableHeader: [
+        {
+          lable: '标签名称',
+          width: '300',
+          align: 'center',
+          property: 'name'
+        },
+
+        {
+          lable: '数量',
+          width: '420',
+          align: 'center',
+          property: 'number'
+        },
+        {
+          lable: '评论时间',
+          width: '',
+          align: 'center',
+          property: 'time'
+        }
+      ],
       list: [
         {
-          id: 2019112809346666,
-          user: '骑着毛驴上高速',
-          time: '2019-12-12 12:00:00',
-          company: '韵达快递',
-          cost: '10.00',
+          name: '最新',
           number: '2',
-          orderStatus: '待付款',
-          deliveryStatus: '已发货',
-          status: '未支付',
-          price: '120.00 + 8000积分',
-          money: '120.00 + 8000积分',
-          express: '申通快递'
+          time: '2020-12-12 12:00:00'
         }
       ],
       calendarTypeOptions: [

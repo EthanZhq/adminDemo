@@ -22,9 +22,15 @@
             <el-select v-model="listQuery.type" placeholder="发货状态" clearable class="filter-item select-box" style="width: 160px">
               <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
             </el-select>
-            <el-select v-model="listQuery.type" placeholder="下单时间" clearable class="filter-item select-box" style="width: 240px">
-              <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
-            </el-select>
+            <div class="block">
+              <el-date-picker
+                v-model="orderTime"
+                align="right"
+                type="date"
+                placeholder="下单时间"
+                :picker-options="pickerOption">
+              </el-date-picker>
+            </div>
           </div>
           <div class="btn">
             <el-button
@@ -52,10 +58,9 @@
         <el-button class="filter-item" type="primary" icon="el-icon-search">搜索</el-button>
       </div>
       <el-table
-        :key="tableKey"
         ref="multipleTable"
         v-loading="listLoading"
-        :data="list"
+        :data="tableData"
         stripe
         border
         fit
@@ -69,59 +74,19 @@
           style="background-color:#000"
         >
         </el-table-column>
-        <el-table-column label="订单编号"  align="center" width="180">
-          <template slot-scope="{ row }">
-            <span>{{ row.id }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="用户" align="center">
-          <template slot-scope="{ row }">
-            <span>{{ row.user }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="下单时间" prop="classify" align="center" width="200">
-          <template slot-scope="{ row }">
-            <span>{{ row.time }}</span>
-          </template>
-        </el-table-column>
-         <el-table-column label="数量" prop="classify" align="center" width="100">
-          <template slot-scope="{ row }">
-            <span>{{ row.number }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="交易方式" align="center" width="120">
-          <template slot-scope="{ row }">
-            <span>{{ row.way }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="订单总金额" align="center" width="180">
-          <template slot-scope="{ row }">
-            <span class="link-type">{{ row.price }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="应付金额" align="center" width="180">
-          <template slot-scope="{ row }">
-            <span class="link-type">{{ row.money }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="订单状态" align="center" width="120">
-          <template slot-scope="{ row }">
-            <span class="link-type">{{ row.orderStatus }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="支付状态" width="120" align="center">
-          <template slot-scope="{ row }">
-            <span>{{ row.status }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="发货状态" prop="id" align="center" width="120">
-          <template slot-scope="{ row }">
-            <span class="link-type">{{ row.deliveryStatus }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="快递" prop="id" align="center" width="120">
-          <template slot-scope="{ row }">
-            <span class="link-type">{{ row.express }}</span>
+        <el-table-column
+          v-for="(item,idx) in tableHeader"
+          :key='idx'
+          :label="item.lable"
+          :width="item.width"
+          :align="item.align"
+          :property="item.property"
+        >
+
+          <template slot-scope="scope">
+            <router-link :to="'/order/all-order/detail/'+scope.row.id">
+              <span>{{ scope.row[scope.column.property]}}</span>
+            </router-link>
           </template>
         </el-table-column>
       </el-table>
@@ -145,8 +110,118 @@ export default {
       },
       listLoading: false,
       downloadLoading: false,
-      tableKey: 0,
-      list: [
+      pickerOption: {
+        disabledDate(time) {
+          return time.getTime() > Date.now();
+        },
+        shortcuts: [{
+          text: '今天',
+          onClick(picker) {
+            picker.$emit('pick', new Date());
+          }
+        },
+        {
+          text: '昨天',
+          onClick(picker) {
+            const date = new Date();
+            date.setTime(date.getTime() - 3600 * 1000 * 24);
+            picker.$emit('pick', date);
+          }
+        },
+        {
+          text: '一周前',
+          onClick(picker) {
+            const date = new Date();
+            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+            picker.$emit('pick', date);
+          }
+        }]
+      },
+      orderTime: '',
+      tableHeader:[
+        {
+          lable: '订单编号',
+          width: '180',
+          align: 'center',
+          property: 'id'
+        },
+
+        {
+          lable: '用户',
+          width: '',
+          align: 'center',
+          property: 'user'
+        },
+        {
+          lable: '下单时间',
+          width: '200',
+          align: 'center',
+          property: 'time'
+        },
+        {
+          lable: '数量',
+          width: '100',
+          align: 'center',
+          property: 'number'
+        },
+        {
+          lable: '交易方式',
+          width: '120',
+          align: 'center',
+          property: 'way'
+        },
+        {
+          lable: '订单总金额',
+          width: '180',
+          align: 'center',
+          property: 'price'
+        },
+        {
+          lable: '应付金额',
+          width: '180',
+          align: 'center',
+          property: 'money'
+        },
+        {
+          lable: '订单状态',
+          width: '120',
+          align: 'center',
+          property: 'orderStatus'
+        },
+        {
+          lable: '支付状态',
+          width: '120',
+          align: 'center',
+          property: 'status'
+        },
+        {
+          lable: '发货状态',
+          width: '120',
+          align: 'center',
+          property: 'deliveryStatus'
+        },
+        {
+          lable: '快递',
+          width: '120',
+          align: 'center',
+          property: 'express'
+        }
+      ],
+      tableData: [
+        {
+          id: '2019112809346666',
+          user: '骑着毛驴上高速',
+          time: '2019-12-12 12:00:00',
+          company: '韵达快递',
+          cost: '10.00',
+          number: '2',
+          orderStatus: '待付款',
+          deliveryStatus: '已发货',
+          status: '未支付',
+          price: '120.00 + 8000积分',
+          money: '120.00 + 8000积分',
+          express: '申通快递'
+        },
         {
           id: 2019112809346666,
           user: '骑着毛驴上高速',

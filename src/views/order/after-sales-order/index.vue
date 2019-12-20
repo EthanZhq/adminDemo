@@ -22,12 +22,24 @@
             <el-select v-model="listQuery.type" placeholder="处理状态" clearable class="filter-item select-box" style="width: 130px">
               <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
             </el-select>
-            <el-select v-model="listQuery.type" placeholder="下单时间" clearable class="filter-item select-box" style="width: 240px">
-              <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
-            </el-select>
-            <el-select v-model="listQuery.type" placeholder="申请退款时间" clearable class="filter-item select-box" style="width: 240px">
-              <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
-            </el-select>
+            <div class="block">
+              <el-date-picker
+                v-model="orderTime"
+                align="right"
+                type="date"
+                placeholder="下单时间"
+                :picker-options="pickerOption">
+              </el-date-picker>
+            </div>
+            <div class="block">
+              <el-date-picker
+                v-model="time"
+                align="right"
+                type="date"
+                placeholder="申请退款时间"
+                :picker-options="pickerOption">
+              </el-date-picker>
+            </div>
           </div>
           <div class="btn">
             <el-button
@@ -51,10 +63,9 @@
         <el-button class="filter-item" type="primary" icon="el-icon-search">搜索</el-button>
       </div>
       <el-table
-        :key="tableKey"
         ref="multipleTable"
         v-loading="listLoading"
-        :data="list"
+        :data="tableData"
         stripe
         border
         fit
@@ -68,59 +79,16 @@
           style="background-color:#000"
         >
         </el-table-column>
-        <el-table-column label="订单编号"  align="center" width="180">
-          <template slot-scope="{ row }">
-            <span>{{ row.id }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="用户" align="center">
-          <template slot-scope="{ row }">
-            <span>{{ row.user }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="下单时间" prop="classify" align="center" width="200">
-          <template slot-scope="{ row }">
-            <span>{{ row.time }}</span>
-          </template>
-        </el-table-column>
-         <el-table-column label="数量" prop="classify" align="center" width="80">
-          <template slot-scope="{ row }">
-            <span>{{ row.number }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="收货人" align="center" width="100">
-          <template slot-scope="{ row }">
-            <span>{{ row.name }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="联系电话" align="center" width="160">
-          <template slot-scope="{ row }">
-            <span class="link-type">{{ row.tel }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="快递公司" align="center" width="120">
-          <template slot-scope="{ row }">
-            <span class="link-type">{{ row.company }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="物流费用" align="center" width="80">
-          <template slot-scope="{ row }">
-            <span class="link-type">{{ row.cost }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="发货状态" width="120" align="center">
-          <template slot-scope="{ row }">
-            <span>{{ row.status }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="下单时间" align="center" width="180">
-          <template slot-scope="{ row }">
-            <span class="link-type">{{ row.timestamp }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="订单总价" align="center" width="180">
-          <template slot-scope="{ row }">
-            <span class="link-type">{{ row.price }}</span>
+        <el-table-column
+          v-for="(item,idx) in tableHeader"
+          :key='idx'
+          :label="item.lable"
+          :width="item.width"
+          :align="item.align"
+          :property="item.property"
+        >
+          <template slot-scope="scope">
+            <span>{{ scope.row[scope.column.property]}}</span>
           </template>
         </el-table-column>
       </el-table>
@@ -135,7 +103,6 @@ export default {
   components: { Pagination },
   data() {
     return {
-      total: 60,
       listQuery: {
         search: '',
         type: '',
@@ -144,8 +111,99 @@ export default {
       },
       listLoading: false,
       downloadLoading: false,
-      tableKey: 0,
-      list: [
+      total: 60,
+      pickerOption: {
+        disabledDate(time) {
+          return time.getTime() > Date.now();
+        },
+        shortcuts: [{
+          text: '今天',
+          onClick(picker) {
+            picker.$emit('pick', new Date());
+          }
+        },
+        {
+          text: '昨天',
+          onClick(picker) {
+            const date = new Date();
+            date.setTime(date.getTime() - 3600 * 1000 * 24);
+            picker.$emit('pick', date);
+          }
+        },
+        {
+          text: '一周前',
+          onClick(picker) {
+            const date = new Date();
+            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+            picker.$emit('pick', date);
+          }
+        }]
+      },
+      orderTime: '',
+      time: '',
+      tableHeader:[
+        {
+          lable: '订单编号',
+          width: '180',
+          align: 'center',
+          property: 'id'
+        },
+        {
+          lable: '退款编号',
+          width: '180',
+          align: 'center',
+          property: 'id'
+        },
+        {
+          lable: '用户',
+          width: '180',
+          align: 'center',
+          property: 'user'
+        },
+        {
+          lable: '下单时间',
+          width: '180',
+          align: 'center',
+          property: 'timestamp'
+        },
+        {
+          lable: '联系电话',
+          width: '160',
+          align: 'center',
+          property: 'tel'
+        },
+        {
+          lable: '原订单状态',
+          width: '100',
+          align: 'center',
+          property: ''
+        },
+        {
+          lable: '订单总价',
+          width: '180',
+          align: 'center',
+          property: 'price'
+        },
+        {
+          lable: '申请退款时间',
+          width: '180',
+          align: 'center',
+          property: 'timestamp'
+        },
+        {
+          lable: '订单状态',
+          width: '180',
+          align: 'center',
+          property: 'status'
+        },
+        {
+          lable: '处理状态',
+          width: '',
+          align: 'center',
+          property: ''
+        }
+      ],
+      tableData: [
         {
           id: 2019112809346666,
           user: '骑着毛驴上高速',
@@ -167,6 +225,8 @@ export default {
         { key: 'EU', display_name: 'Eurozone' }
       ]
     }
+  },
+  mounted() {
   },
   methods: {
 
@@ -200,6 +260,9 @@ export default {
         margin-top: 16px
       }
       .select-box{
+        margin-right: 16px
+      }
+      .block{
         margin-right: 16px
       }
     }
