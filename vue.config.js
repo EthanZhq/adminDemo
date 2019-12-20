@@ -29,18 +29,18 @@ module.exports = {
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
-  css: {
-    loaderOptions: {
-      less: {
-        modifyVars: {
-          'primary-color': '#304156',
-          'link-color': '#304156',
-          'border-radius-base': '2px'
-        },
-        javascriptEnabled: true
-      }
-    }
-  },
+  // css: {
+  //   loaderOptions: {
+  //     less: {
+  //       modifyVars: {
+  //         'primary-color': '#304156',
+  //         'link-color': '#304156',
+  //         'border-radius-base': '2px'
+  //       },
+  //       javascriptEnabled: true
+  //     }
+  //   }
+  // },
   devServer: {
     port: port,
     open: true,
