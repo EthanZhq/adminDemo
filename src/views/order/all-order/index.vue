@@ -58,7 +58,6 @@
         <el-button class="filter-item" type="primary" icon="el-icon-search">搜索</el-button>
       </div>
       <el-table
-        :key="tableKey"
         ref="multipleTable"
         v-loading="listLoading"
         :data="tableData"
@@ -83,8 +82,11 @@
           :align="item.align"
           :property="item.property"
         >
+
           <template slot-scope="scope">
-            <span>{{ scope.row[scope.column.property]}}</span>
+            <router-link :to="'/order/all-order/detail/'+scope.row.id">
+              <span>{{ scope.row[scope.column.property]}}</span>
+            </router-link>
           </template>
         </el-table-column>
       </el-table>
@@ -108,7 +110,6 @@ export default {
       },
       listLoading: false,
       downloadLoading: false,
-      tableKey: 0,
       pickerOption: {
         disabledDate(time) {
           return time.getTime() > Date.now();
@@ -208,7 +209,7 @@ export default {
       ],
       tableData: [
         {
-          id: 2019112809346666,
+          id: '2019112809346666',
           user: '骑着毛驴上高速',
           time: '2019-12-12 12:00:00',
           company: '韵达快递',
