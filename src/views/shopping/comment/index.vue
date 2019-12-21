@@ -59,7 +59,7 @@
           style="background-color:#000;"
         >
         </el-table-column>
-        <el-table-column label="用户" fixed align="center" width="180">
+        <el-table-column label="用户" align="center" width="180">
           <template slot-scope="{ row }">
             <span>{{ row.name }}</span>
           </template>
