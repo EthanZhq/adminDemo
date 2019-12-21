@@ -81,19 +81,21 @@
         </el-table-column>
         <el-table-column
           v-for="(item,idx) in tableHeader"
-          :key='idx'
+          :key="idx"
           :label="item.lable"
           :width="item.width"
           :align="item.align"
           :property="item.property"
         >
           <template slot-scope="scope">
-            <span>{{ scope.row[scope.column.property]}}</span>
+            <router-link :to="'/after-sales-order/details/' + scope.row.id">
+              <span>{{ scope.row[scope.column.property] }}</span>
+            </router-link>
           </template>
         </el-table-column>
       </el-table>
     </div>
-    <pagination v-show="total>0" :page.sync="listQuery.page" :total="total" :limit.sync="listQuery.limit"/>
+    <pagination v-show="total>0" :page.sync="listQuery.page" :total="total" :limit.sync="listQuery.limit" />
   </div>
 </template>
 
@@ -114,34 +116,34 @@ export default {
       total: 60,
       pickerOption: {
         disabledDate(time) {
-          return time.getTime() > Date.now();
+          return time.getTime() > Date.now()
         },
         shortcuts: [{
           text: '今天',
           onClick(picker) {
-            picker.$emit('pick', new Date());
+            picker.$emit('pick', new Date())
           }
         },
         {
           text: '昨天',
           onClick(picker) {
-            const date = new Date();
-            date.setTime(date.getTime() - 3600 * 1000 * 24);
-            picker.$emit('pick', date);
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24)
+            picker.$emit('pick', date)
           }
         },
         {
           text: '一周前',
           onClick(picker) {
-            const date = new Date();
-            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-            picker.$emit('pick', date);
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+            picker.$emit('pick', date)
           }
         }]
       },
       orderTime: '',
       time: '',
-      tableHeader:[
+      tableHeader: [
         {
           lable: '订单编号',
           width: '180',

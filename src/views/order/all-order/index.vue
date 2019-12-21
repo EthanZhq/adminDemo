@@ -84,7 +84,7 @@
         >
 
           <template slot-scope="scope">
-            <router-link :to="'/order/all-order/detail/'+scope.row.id">
+            <router-link :to="'/all-order/detail/' + scope.row.id">
               <span>{{ scope.row[scope.column.property]}}</span>
             </router-link>
           </template>

@@ -90,6 +90,12 @@ export const constantRoutes = [
         meta: { title: '商品列表' }
       },
       {
+        path: 'group',
+        name: 'group',
+        component: () => import('@/views/shopping/group/index'),
+        meta: { title: '商品分组' }
+      },
+      {
         path: 'tags',
         name: 'tags',
         component: () => import('@/views/shopping/tags/index'),
@@ -116,7 +122,7 @@ export const constantRoutes = [
         meta: { title: '全部订单' }
       },
       {
-        path: '/order/all-order/detail/:id(\\d+)',
+        path: '/all-order/detail/:id(\\d+)',
         name: 'detail',
         component: () => import('@/views/order/all-order/detail/index'),
         meta: { title: '订单详情' },
@@ -133,6 +139,13 @@ export const constantRoutes = [
         name: 'after-sales-order',
         component: () => import('@/views/order/after-sales-order/index'),
         meta: { title: '售后订单' }
+      },
+      {
+        path: '/after-sales-order/details/:id(\\d+)',
+        name: 'details',
+        component: () => import('@/views/order/after-sales-order/details/index'),
+        meta: { title: '订单详情' },
+        hidden: true
       }
     ]
   },
