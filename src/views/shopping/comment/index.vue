@@ -16,7 +16,7 @@
               style="width: 200px;"
               class="filter-item search-inp"
             />
-            <div class="block">
+            <div class="block" style="margin-right:16px">
               <el-date-picker
                 v-model="orderTime"
                 align="right"
@@ -206,6 +206,7 @@ export default {
   justify-content: space-between;
   height: calc(100% - 55px);
   width: 100%;
+  padding: 0 16px;
   .container{
     flex: 1;
     overflow-y: scroll;

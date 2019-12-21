@@ -71,7 +71,7 @@
           style="background-color:#000"
         >
         </el-table-column>
-        <el-table-column label="商品名称" width="250px">
+        <el-table-column label="商品名称" fixed width="250px">
           <template slot-scope="{ row }">
             <div class="shopping-box">
               <div class="img">
