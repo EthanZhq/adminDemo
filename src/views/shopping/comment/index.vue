@@ -2,7 +2,7 @@
   <div class="wrap">
     <div class="app-container container">
       <div class="filter-container title">
-        <div>
+        <div style="width:100%;">
           <div style="display:flex">
             <el-input
               v-model="listQuery.search"
@@ -34,13 +34,9 @@
           </div>
           <div class="btn">
             <el-button
-                class="filter-item"
-                type="primary"
-              >查看</el-button>
-              <el-button
-                class="filter-item"
-                type="primary"
-              >删除</el-button>
+              class="filter-item"
+              type="primary"
+            >批量删除</el-button>
           </div>
         </div>
         <el-button class="filter-item" type="primary" icon="el-icon-search">搜索</el-button>
@@ -60,15 +56,15 @@
           type="selection"
           align="center"
           width="50"
-          style="background-color:#000"
+          style="background-color:#000;"
         >
         </el-table-column>
-        <el-table-column label="用户" align="center" width="180">
+        <el-table-column label="用户" fixed align="center" width="180">
           <template slot-scope="{ row }">
             <span>{{ row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="评价内容" align="center">
+        <el-table-column label="评价内容" align="center" width="500">
           <template slot-scope="{ row }">
             <span>{{ row.container }}</span>
           </template>
@@ -78,33 +74,44 @@
             <span>{{ row.shopping }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="规格" align="center" width="180px">
+        <el-table-column label="规格" align="center" width="180">
           <template slot-scope="{ row }">
             <span class="link-type">{{ row.specification }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="评价等级" align="center" width="100px">
+        <el-table-column label="评价等级" align="center" width="100">
           <template slot-scope="{ row }">
             <span class="link-type">{{ row.grade }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="是否显示" align="center" width="200px">
+        <el-table-column label="是否显示" align="center" width="200">
           <template slot-scope="{ row }">
             <el-switch
               v-model="row.flag"
+              active-color="#2f66ff"
               inactive-color="#999"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="评论时间" width="180px" align="center">
+        <el-table-column label="评论时间" width="180" align="center">
           <template slot-scope="{ row }">
             <span>{{ row.timestamp }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="排序" prop="code" sortable="custom" align="center" width="80px">
+        <el-table-column label="排序" prop="code" sortable="custom" align="center" width="80">
           <template slot-scope="{ row }">
             <span class="link-type">{{ row.code }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          fixed="right"
+          align="center"
+          label="操作"
+          width="200">
+          <template slot-scope="scope">
+            <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
+            <el-button type="text" size="small">编辑</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -119,6 +126,7 @@ export default {
   components: { Pagination },
   data() {
     return {
+      orderTime:'',
       total: 60,
       listQuery: {
         search: '',
@@ -197,13 +205,15 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   height: calc(100% - 55px);
+  width: 100%;
   .container{
     flex: 1;
     overflow-y: scroll;
     padding: 16px;
     background: #f1f4f6;
     border-radius: 10px;
-    margin: 0 16px;
+    // margin: 0 16px;
+    width: 100%;
     .title{
       padding: 16px;
       background: #fff;
@@ -211,6 +221,7 @@ export default {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      width: 100%;
       .search-inp {
         margin-right: 12px;
       }
@@ -222,13 +233,12 @@ export default {
       }
     }
     .table{
-      width: 100%;
       margin-top:12px;
       border-radius:10px;
     }
     .el-table, .el-table__expanded-cell{
       background: none;
-      width: 100%
+      width: 100%;
     }
   }
   .container::-webkit-scrollbar {

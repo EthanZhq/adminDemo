@@ -122,6 +122,7 @@
               class="flag"
               active-text="上架"
               inactive-text="下架"
+              active-color="#2f66ff"
               inactive-color="#999"
             >
             </el-switch>

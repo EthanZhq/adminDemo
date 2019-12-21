@@ -1,8 +1,7 @@
 <template>
   <div class="navbar">
     <div class="bar">
-      <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
-      <div class="breadcrumb-container">天玑云微商城</div>
+      <div style="padding-left:20px">天玑云客微商城</div>
     </div>
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
@@ -27,12 +26,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Hamburger from '@/components/Hamburger'
 
 export default {
-  components: {
-    Hamburger
-  },
   computed: {
     ...mapGetters([
       'sidebar',
@@ -40,9 +35,6 @@ export default {
     ])
   },
   methods: {
-    toggleSideBar() {
-      this.$store.dispatch('app/toggleSideBar')
-    },
     async logout() {
       await this.$store.dispatch('user/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)

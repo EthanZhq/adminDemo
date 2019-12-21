@@ -1,9 +1,9 @@
 <template>
   <div :class="classObj" class="app-wrapper">
-    <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
+    <!-- <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" /> -->
     <sidebar class="sidebar-container" />
-    <div class="main-container">
-      <div class="" style="padding:0 20px;height:calc(100vh - 70px)">
+    <div class="main-container" style="width:calc(100% - 145px);">
+      <div class="" style="height:calc(100vh - 70px);width:100%">
         <div :class="{'fixed-header':fixedHeader}">
           <navbar />
         </div>
@@ -62,6 +62,7 @@ export default {
     height: 100%;
     width: 100%;
     display: flex;
+    justify-content: space-between;
     &.mobile.openSidebar{
       position: fixed;
       top: 0;
@@ -75,22 +76,5 @@ export default {
     height: 100%;
     position: absolute;
     z-index: 999;
-  }
-
-  .fixed-header {
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 9;
-    width: calc(100% - #{$sideBarWidth});
-    transition: width 0.28s;
-  }
-
-  .hideSidebar .fixed-header {
-    width: calc(100% - 54px)
-  }
-
-  .mobile .fixed-header {
-    width: 100%;
   }
 </style>

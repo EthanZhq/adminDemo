@@ -27,13 +27,11 @@ export default {
   /*50 = navbar  */
   height:calc(100vh - 90px);
   overflow-y: scroll;
-  width: 100%;
-  position: relative;
   background: #fff;
 }
 .app-main::-webkit-scrollbar {display:none}
 .fixed-header+.app-main {
-  margin: 70px 0 20px;
+  margin: 20px 20px 0;
   box-shadow: 0px 3px 12px 1px rgba(0, 0, 0, .19);
   border-radius: 12px
 }
@@ -46,7 +44,6 @@ export default {
   }
 }
 .breadcrumb-container{
-  width: 100%;
   background: #fff;
 }
 </style>
