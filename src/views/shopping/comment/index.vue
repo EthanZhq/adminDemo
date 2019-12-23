@@ -110,8 +110,11 @@
           label="操作"
           width="200">
           <template slot-scope="scope">
-            <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-            <el-button type="text" size="small">编辑</el-button>
+            <router-link :to="'/comment/detail/' + scope.row.id">
+              <el-button type="primary" size="small">查看</el-button>
+            </router-link>
+
+            <el-button type="danger" size="small">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -126,7 +129,7 @@ export default {
   components: { Pagination },
   data() {
     return {
-      orderTime:'',
+      orderTime: '',
       total: 60,
       listQuery: {
         search: '',
@@ -164,14 +167,14 @@ export default {
           }
         }]
       },
-      flag:[
+      flag: [
         {
-          key:0,
-          isShow:'是'
+          key: 0,
+          isShow: '是'
         },
         {
-          key:1,
-          isShow:'否'
+          key: 1,
+          isShow: '否'
         }
       ],
       list: [

@@ -37,7 +37,7 @@
                   <span>{{ row.name }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="图片" align="center" width="100px">
+              <el-table-column label="图片" align="center" width="80">
                 <template>
                   <img src="https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png" alt="" class="shopping-pic">
                 </template>
@@ -156,6 +156,7 @@
               <el-button
                   class="filter-item"
                   type="primary"
+                  @click="demolitionOrder"
                 >拆单</el-button>
                 <el-button
                   class="filter-item"
@@ -247,6 +248,9 @@ export default {
   methods: {
     handleClick(tab, event) {
       console.log(tab, event)
+    },
+    demolitionOrder() {
+      this.$router.push('/all-order/demolition-order')
     }
   }
 }

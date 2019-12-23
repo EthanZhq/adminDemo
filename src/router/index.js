@@ -103,9 +103,16 @@ export const constantRoutes = [
       },
       {
         path: 'comment',
-        name: 'Comment',
+        name: 'comment',
         component: () => import('@/views/shopping/comment/index'),
         meta: { title: '商品评论' }
+      },
+      {
+        path: '/comment/detail/:id(\\d+)',
+        name: 'detail',
+        component: () => import('@/views/shopping/comment/detail/index'),
+        meta: { title: '详情' },
+        hidden: true
       }
     ]
   },
@@ -126,6 +133,13 @@ export const constantRoutes = [
         name: 'detail',
         component: () => import('@/views/order/all-order/detail/index'),
         meta: { title: '订单详情' },
+        hidden: true
+      },
+      {
+        path: '/all-order/demolition-order',
+        name: 'detail',
+        component: () => import('@/views/order/all-order/demolition-order/index'),
+        meta: { title: '拆单' },
         hidden: true
       },
       {
