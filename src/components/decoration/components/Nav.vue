@@ -2,7 +2,7 @@
   <div class="wrap">
     <div v-for="(item,index) in options.navs" :key="index">
       <img :src="item.pic" alt="">
-      <div>{{item.name}}</div>
+      <div :style="{color:item.color}">{{item.name}}</div>
     </div>
   </div>
 </template>
@@ -23,7 +23,7 @@ export default {
 	width: 100%;
   display: flex;
   background: #fff;
-  padding: 15px 5px;
+  padding: 15px;
   margin-top: 10px;
   justify-content: space-between;
   >div{
@@ -32,7 +32,8 @@ export default {
     flex-direction: column;
     font-size: 13px;
     >img{
-      width: 80%;
+      width: 60px;
+      height: 60px;
       margin: 0px auto 5px;
     }
   }

@@ -1,26 +1,38 @@
 <template>
   <div class="plane">
     <div>设置</div>
-    <Search :component="component"/>
+    <component :is="component.name" :component="component" @on-change-options="changeOptions"/>
   </div>
 </template>
 
 <script>
 import Search from '@/components/decoration/right-settings/search'
+import Banner from '@/components/decoration/right-settings/banner'
+import Nav from '@/components/decoration/right-settings/nav'
 export default {
   components:{
-    Search
+    Search,
+    Banner,
+    Nav
   },
   data() {
     return {
       component:{}
     }
   },
-  props:['components'],
+  props:{
+    components:{
+      type:Object,
+      default:{}
+    }
+  },
   created() {
     this.component=this.components.list[this.components.current]
   },
   methods: {
+    changeOptions(e){
+      this.$emit('on-change-list',e)
+    }
   },
   watch:{
     components:{
