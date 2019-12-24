@@ -10,7 +10,7 @@
         <span>字体颜色</span>
         <div class="color">
           <span>{{item.color}}</span>
-          <colorPicker v-model="item.color" :style="{zIndex:100-index}" />
+          <colorPicker v-model="item.color" />
         </div>
       </div>
       <div>
@@ -40,7 +40,11 @@
 </template>
 
 <script>
+import colorPicker from '../../../plugin/colorPicker.vue'
 export default {
+  components:{
+    colorPicker
+  },
   props:{
     imgList:{
       type:Array,

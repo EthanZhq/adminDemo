@@ -21,14 +21,14 @@
         <span>背景颜色</span>
         <div class="color">
           <span>{{options.bgColor}}</span>
-          <colorPicker v-model="options.bgColor" style="zIndex:999;" />
+          <colorPicker v-model="options.bgColor" />
         </div>
       </div>
       <div>
         <span>内容颜色</span>
         <div class="color">
           <span>{{options.color}}</span>
-          <colorPicker v-model="options.color" style="zIndex:99;" />
+          <colorPicker v-model="options.color" />
         </div>
       </div>
       <div>
@@ -47,8 +47,10 @@
 
 <script>
 import Search from '../components/Search'
+import colorPicker from '../../../plugin/colorPicker.vue'
 export default {
   components:{
+    colorPicker,
     Search
   },
   props:{

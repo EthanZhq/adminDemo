@@ -81,6 +81,7 @@ export default {
   color: #333;
   display: flex;
   flex-direction: column;
+  margin: 0 100px;
   >div:nth-child(1){
     margin-bottom: 15px;
   }

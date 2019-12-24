@@ -32,14 +32,14 @@ export default {
           title:'轮播图片',
           pic:require('../../assets/decoration/pic.gif'),
           type:0,
-          options:{interval:3000,imgList:[{pic:require('../../assets/decoration/banner.jpg')}]}
+          options:{interval:3,imgList:[{pic:require('../../assets/decoration/banner.jpg')}]}
         },
         {
           name:"Nav",
           title:'店铺导航',
           pic:require('../../assets/decoration/nav.png'),
           type:0,
-          options:{navs:[{name:'断码清仓',pic:require('../../assets/decoration/pic.gif')},{name:'全球购',pic:require('../../assets/decoration/pic.gif')},{name:'幸运砸金蛋',pic:require('../../assets/decoration/pic.gif')},{name:'潮人穿搭',pic:require('../../assets/decoration/pic.gif')},{name:'每日签到',pic:require('../../assets/decoration/pic.gif')}]}
+          options:{navs:[{name:'断码清仓',pic:require('../../assets/decoration/pic.gif'),color:'#555'},{name:'全球购',pic:require('../../assets/decoration/pic.gif'),color:'#555'},{name:'幸运砸金蛋',pic:require('../../assets/decoration/pic.gif'),color:'#555'},{name:'潮人穿搭',pic:require('../../assets/decoration/pic.gif'),color:'#555'}]}
         },
         {
           name:"Title",

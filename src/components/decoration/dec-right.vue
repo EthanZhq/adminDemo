@@ -46,7 +46,6 @@ export default {
 </script>
 <style scoped lang="scss">
 .plane{
-  margin-left: 35px;
   >div:nth-child(1){
     margin-bottom: 15px;
   }

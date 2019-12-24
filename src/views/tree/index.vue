@@ -1,78 +1,106 @@
 <template>
-  <div class="app-container">
-    <el-input v-model="filterText" placeholder="Filter keyword" style="margin-bottom:30px;" />
-
-    <el-tree
-      ref="tree2"
-      :data="data2"
-      :props="defaultProps"
-      :filter-node-method="filterNode"
-      class="filter-tree"
-      default-expand-all
-    />
-
+  <div class="container">
+    <ThemeSettings :list="list" @on-change-theme="changeTheme"/>
+    <ThemeView :theme="theme"/>
   </div>
 </template>
 
 <script>
+import ThemeSettings from '@/components/theme/theme-settings'
+import ThemeView from '@/components/theme/theme-view'
 export default {
-
+  components:{
+    ThemeSettings,
+    ThemeView
+  },
   data() {
     return {
-      filterText: '',
-      data2: [{
-        id: 1,
-        label: 'Level one 1',
-        children: [{
-          id: 4,
-          label: 'Level two 1-1',
-          children: [{
-            id: 9,
-            label: 'Level three 1-1-1'
-          }, {
-            id: 10,
-            label: 'Level three 1-1-2'
-          }]
-        }]
-      }, {
-        id: 2,
-        label: 'Level one 2',
-        children: [{
-          id: 5,
-          label: 'Level two 2-1'
-        }, {
-          id: 6,
-          label: 'Level two 2-2'
-        }]
-      }, {
-        id: 3,
-        label: 'Level one 3',
-        children: [{
-          id: 7,
-          label: 'Level two 3-1'
-        }, {
-          id: 8,
-          label: 'Level two 3-2'
-        }]
-      }],
-      defaultProps: {
-        children: 'children',
-        label: 'label'
-      }
+      theme:{},
+      list:[
+        {
+          id:1,
+          primary:'#F5001F',
+          auxiliary:'#FF7D00'
+        },
+        {
+          id:2,
+          primary:'#D81E06',
+          auxiliary:'#FF835A'
+        },
+        {
+          id:3,
+          primary:'#FF4444',
+          auxiliary:'#616161'
+        },
+        {
+          id:4,
+          primary:'#EEB336',
+          auxiliary:'#1D262E'
+        },
+        {
+          id:5,
+          primary:'#D82B80',
+          auxiliary:'#F9AEB0'
+        },
+        {
+          id:6,
+          primary:'#EC567C',
+          auxiliary:'#454552'
+        },
+        {
+          id:7,
+          primary:'#A042A0',
+          auxiliary:'#777777'
+        },
+        {
+          id:8,
+          primary:'#46CCB2',
+          auxiliary:'#999999'
+        },
+        {
+          id:9,
+          primary:'#09BB07',
+          auxiliary:'#383838'
+        },
+        {
+          id:10,
+          primary:'#0289FF',
+          auxiliary:'#999999'
+        },
+        {
+          id:11,
+          primary:'#0A248E',
+          auxiliary:'#6A82E7'
+        },
+        {
+          id:12,
+          primary:'#B8741A',
+          auxiliary:'#81D3F8'
+        },
+        {
+          id:13,
+          primary:'#0000BF',
+          auxiliary:'#EC808D'
+        }
+      ]
     }
   },
-  watch: {
-    filterText(val) {
-      this.$refs.tree2.filter(val)
-    }
+  created(){
+    this.theme=this.list[0]
   },
-
   methods: {
-    filterNode(value, data) {
-      if (!value) return true
-      return data.label.indexOf(value) !== -1
+    changeTheme(e){
+      this.theme=this.list[e]
     }
   }
 }
 </script>
+<style scoped lang="scss">
+.container{
+  display: flex;
+  padding: 20px 30px;
+  color: #333;
+  font-size: 15px;
+}
+</style>
 
