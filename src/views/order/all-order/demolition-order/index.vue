@@ -2,21 +2,23 @@
   <div class="wrap">
     <div class="app-container container">
       <div class="order-info">
-        <div class="order-title">基本信息</div>
-        <div class="info">
-          <span>订单编号：2019112809340010</span>
-          <span>会员：2019112809340010</span>
-          <span>联系方式：13688889999</span>
-          <span>支付方式：积分抵扣</span>
-          <span>应付金额：3000元+3000积分</span>
-          <span>下单时间：2019-12-17 14:03:53</span>
-          <span>订单状态：待收货</span>
-          <span>快递公司：暂无</span>
-          <span>快递单号：暂无</span>
+        <div class="order-title">
+          <div class="title-tap">
+            <div>
+            原订单 <span class="number">订单号：201907158505346668</span>
+            </div>
+            <div>
+            <el-button
+              class="filter-item"
+              type="primary"
+            >新建评论</el-button>
+            <el-button
+              class="filter-item"
+              type="primary"
+            >新建</el-button>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="order-info">
-        <div class="order-title">商品信息 <span class="number">商品数量：20</span></div>
         <div class="shopping-info">
           <div style="padding-left:24px">
              <el-table
@@ -95,130 +97,105 @@
         </div>
       </div>
       <div class="order-info">
-        <div class="order-title">收货信息</div>
-        <div class="receiving-info">
-          <span>收货人：大梨</span>
-          <span>联系电话：13688889999</span>
-          <span>收货地址：江苏省南京市江宁区绿地之窗A2-3</span>
-          <span>备注：韵达快递，谢谢</span>
-        </div>
-      </div>
-      <div class="order-info">
-        <div class="order-title">费用信息</div>
-        <div class="info">
-          <span>商品总价：3000元+3000积分</span>
-          <span>商品现金：3000</span>
-          <span>商品折扣：暂无</span>
-          <span>优惠券：积分抵扣</span>
-          <span>所需积分：3000</span>
-          <span>运费：10元</span>
-          <span>订单金额：3000元+3000积分</span>
-        </div>
-      </div>
-      <div class="order-info">
-        <div class="order-title">收货信息</div>
-          <div style="padding-left:24px">
-            <el-table
-              ref="multipleTable"
-              :data="tableData"
-              fit
-              border
-              class="table"
-              :header-cell-style="{background:'#f5f5f5'}"
-              >
-              <el-table-column label="时间" align="center">
-                <template slot-scope="{ row }">
-                  <span>{{ row.name }}</span>
-                </template>
-              </el-table-column>
-              <el-table-column label="状态" align="center">
-                <template slot-scope="{ row }">
-                  <span>{{ row.name }}</span>
-                </template>
-              </el-table-column>
-            </el-table>
-          </div>
-      </div>
-      <div class="order-info">
-        <div class="order-title">操作信息</div>
-        <div class="info">
-          <div>
-            <div class="operation">
-              <span>操作备注：</span>
-              <el-input
-                placeholder="请输入操作备注不超过20字"
-                style="width: 400px;"
-                class="filter-item search-inp"
-              />
-            </div>
-            <div class="operation" style="padding-top:16px">
-              <span>可执行操作：</span>
-              <el-button
-                  class="filter-item"
-                  type="primary"
-                  @click="demolitionOrder"
-                >拆单</el-button>
-                <el-button
-                  class="filter-item"
-                  type="primary"
-                >发货</el-button>
-                <el-button
-                  class="filter-item"
-                  type="primary"
-                >取消订单</el-button>
+        <div class="order-title">
+           <div class="title-tap">
+              <div>
+                新订单 <span class="number">订单号：201907158505346668</span>
+              </div>
+            <div>
+            <el-button
+              class="filter-item"
+              type="primary"
+            >删除</el-button>
             </div>
           </div>
-
         </div>
-      </div>
-      <div class="order-info">
-        <div class="order-title">操作记录</div>
+        <div class="shopping-info">
           <div style="padding-left:24px">
-            <el-table
+             <el-table
               ref="multipleTable"
-              :data="tableData"
+              :data="list"
               border
               fit
               class="table"
               :header-cell-style="{background:'#f5f5f5'}"
             >
-              <el-table-column label="操作者" align="center" width="100">
+              <el-table-column label="商品编号" align="center" width="150">
+                <template slot-scope="{ row }">
+                  <span>{{ row.code }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column label="商品" align="center" width="160">
                 <template slot-scope="{ row }">
                   <span>{{ row.name }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="操作时间" align="center" width="180">
-                <template slot-scope="{ row }">
-                  <span>{{ row.name }}</span>
+              <el-table-column label="图片" align="center" width="80px">
+                <template>
+                  <img src="https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png" alt="" class="shopping-pic">
                 </template>
               </el-table-column>
-              <el-table-column label="订单状态" align="center" width="160">
+              <el-table-column label="属性规格" align="center" width="120">
                 <template slot-scope="{ row }">
-                  <span>{{ row.name }}</span>
+                  <span>{{ row.code }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="付款状态" align="center" width="160">
+              <el-table-column label="数量" prop="classify" align="center" width="80">
                 <template slot-scope="{ row }">
-                  <span>{{ row.name }}</span>
+                  <span>{{ row.classify }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="发货状态" align="center" width="160">
+              <el-table-column label="商品价格" align="center" width="390">
                 <template slot-scope="{ row }">
-                  <span>{{ row.name }}</span>
+                  <div class="card-box">
+                    <div class="card">
+                      <div class="way">积分抵扣</div>
+                      <div class="price">{{ row.price }}</div>
+                    </div>
+                    <div class="card-way">
+                      <div class="buy-way">现金购</div>
+                      <div class="price">{{ row.money }}</div>
+                    </div>
+                  </div>
                 </template>
               </el-table-column>
-              <el-table-column label="操作" align="center" width="120">
+              <el-table-column label="折扣优惠" align="center" width="120">
                 <template slot-scope="{ row }">
-                  <span>{{ row.name }}</span>
+                  <span class="link-type">{{ row.num }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="备注" align="center" width="">
+              <el-table-column label="折扣优惠类型" align="center" width="110">
                 <template slot-scope="{ row }">
-                  <span>{{ row.name }}</span>
+                  <span class="link-type">{{ row.number }}</span>
                 </template>
               </el-table-column>
+              <el-table-column label="商品最终价格" align="center" width="390">
+                <template slot-scope="{ row }">
+                  <div class="card-box">
+                    <div class="card">
+                      <div class="way">积分抵扣</div>
+                      <div class="price">{{ row.price }}</div>
+                    </div>
+                    <div class="card-way">
+                      <div class="buy-way">现金购</div>
+                      <div class="price">{{ row.money }}</div>
+                    </div>
+                  </div>
+                </template>
+                </el-table-column>
+                <el-table-column
+                  fixed="right"
+                  align="center"
+                  label="操作"
+                  width="200">
+                  <template slot-scope="scope">
+                    <el-button @click="handleClick(scope.row)" type="primary" size="small">查看</el-button>
+                    <el-button type="danger" size="small">删除</el-button>
+                  </template>
+                </el-table-column>
             </el-table>
           </div>
+        </div>
       </div>
     </div>
   </div>
@@ -229,6 +206,7 @@ export default {
   data() {
     return {
       activeName: 'first',
+      radio: '1',
       list: [
         {
           code: 1,
@@ -249,9 +227,6 @@ export default {
     handleClick(tab, event) {
       console.log(tab, event)
     },
-    demolitionOrder() {
-      this.$router.push('/all-order/demolition-order')
-    }
   }
 }
 </script>
@@ -278,10 +253,15 @@ export default {
       .order-title{
         padding-bottom: 16px;
         color: #000;
-        .number{
-          color: #999;
-          padding-left: 20px;
-          font-size:14px
+        .title-tap{
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          .number{
+            color: #999;
+            padding-left: 20px;
+            font-size:14px
+          }
         }
       }
       .info{
@@ -355,18 +335,18 @@ export default {
           }
         }
       }
-      .receiving-info{
+      .button{
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        background: #fff;
-        padding-left: 24px;
-        span{
-          display: block;
-          width: 32%;
-          padding-bottom: 20px
-        }
+        justify-content: center;
+        padding-top: 20px
+      }
+      .infomation{
+        background: #f5f5f5;
+        margin-top: 20px;
+        padding: 12px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
       }
       .table{
         border-radius: 10px

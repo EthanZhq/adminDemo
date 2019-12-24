@@ -110,8 +110,12 @@
           label="操作"
           width="200">
           <template slot-scope="scope">
-            <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-            <el-button type="text" size="small">编辑</el-button>
+            <router-link :to="'/comment/detail/' + scope.row.id">
+              <el-button type="primary" size="small">查看</el-button>
+            </router-link>
+            <router-link :to="'/comment/creat-comment/' + scope.row.id">
+              <el-button type="primary" size="small">创建评论</el-button>
+            </router-link>
           </template>
         </el-table-column>
       </el-table>
@@ -126,7 +130,7 @@ export default {
   components: { Pagination },
   data() {
     return {
-      orderTime:'',
+      orderTime: '',
       total: 60,
       listQuery: {
         search: '',
@@ -164,18 +168,19 @@ export default {
           }
         }]
       },
-      flag:[
+      flag: [
         {
-          key:0,
-          isShow:'是'
+          key: 0,
+          isShow: '是'
         },
         {
-          key:1,
-          isShow:'否'
+          key: 1,
+          isShow: '否'
         }
       ],
       list: [
         {
+          id: '0',
           code: 1,
           name: '骑着毛驴上高速',
           container: '哎，一言难尽',
@@ -199,21 +204,20 @@ export default {
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .wrap{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: calc(100% - 55px);
   width: 100%;
-  padding: 0 16px;
+  padding: 16px;
   .container{
     flex: 1;
     overflow-y: scroll;
-    padding: 16px;
     background: #f1f4f6;
     border-radius: 10px;
-    // margin: 0 16px;
+    padding: 16px;
     width: 100%;
     .title{
       padding: 16px;
@@ -237,29 +241,32 @@ export default {
       margin-top:12px;
       border-radius:10px;
     }
-    .el-table, .el-table__expanded-cell{
-      background: none;
-      width: 100%;
-    }
   }
   .container::-webkit-scrollbar {
     display:none
   }
-  .pagination-container{
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    margin: 0
-  }
+
 }
+</style>
+<style>
 .el-switch__label *{
   font-size: 12px
 }
 .flag .el-switch__label {
-    position: absolute;
-    display: none;
-    color: #fff;
+  position: absolute;
+  display: none;
+  color: #fff;
+}
+.pagination-container{
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0
+}
+.el-table, .el-table__expanded-cell{
+  background: none;
+  width: 100%;
 }
 </style>
