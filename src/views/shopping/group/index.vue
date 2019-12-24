@@ -10,100 +10,36 @@
           <el-button
             class="filter-item"
             type="primary"
+            @click="dialogVisible = true"
           >新增一级分组</el-button>
         </div>
       </div>
-      <div class="block">
-        <el-tree
-          :data="data"
-          show-checkbox
-          node-key="id"
-          default-expand-all
-          :expand-on-click-node="false">
-          <span class="custom-tree-node" slot-scope="{ node, data }">
-          <span>{{ node.label }}</span>
-            <span>
-              <el-button
-                type="text"
-                size="mini"
-                @click="() => append(data)">
-                新增二级分组
-              </el-button>
-              <el-button
-                type="text"
-                size="mini"
-                @click="() => remove(node, data)">
-                删除
-              </el-button>
-            </span>
-          </span>
-        </el-tree>
-      </div>
     </div>
+    <el-dialog
+      title="提示"
+      :visible.sync="dialogVisible"
+      width="30%"
+      center>
+      <span>需要注意的是内容是默认不居中的</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-let id = 1000;
 
 export default {
   data() {
-    const data = [{
-      id: 1,
-      label: '一级 1',
-      children: [{
-        id: 4,
-        label: '二级 1-1',
-        children: [{
-          id: 9,
-          label: '三级 1-1-1'
-        }, {
-          id: 10,
-          label: '三级 1-1-2'
-        }]
-      }]
-    }, {
-      id: 2,
-      label: '一级 2',
-      children: [{
-        id: 5,
-        label: '二级 2-1'
-      }, {
-        id: 6,
-        label: '二级 2-2'
-      }]
-    }];
     return {
-      data: JSON.parse(JSON.stringify(data))
+      dialogVisible: false
     }
   },
   methods: {
-      append(data) {
-        const newChild = { id: id++, label: 'testtest', children: [] };
-        if (!data.children) {
-          this.$set(data, 'children', []);
-        }
-        data.children.push(newChild);
-      },
 
-      remove(node, data) {
-        const parent = node.parent;
-        const children = parent.data.children || parent.data;
-        const index = children.findIndex(d => d.id === data.id);
-        children.splice(index, 1);
-      },
-
-      renderContent(h, { node, data, store }) {
-        return (
-          <span class="custom-tree-node">
-            <span>{node.label}</span>
-            <span>
-              <el-button size="mini" type="text" on-click={ () => this.append(data) }>Append</el-button>
-              <el-button size="mini" type="text" on-click={ () => this.remove(node, data) }>Delete</el-button>
-            </span>
-          </span>);
-      }
-    }
+  }
 }
 </script>
 <style lang="scss" scoped>

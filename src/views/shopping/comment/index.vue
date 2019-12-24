@@ -28,8 +28,8 @@
             <el-select v-model="listQuery.type" placeholder="商品评价等级" clearable class="filter-item select-box" style="width: 130px">
               <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
             </el-select>
-            <el-select v-model="listQuery.type" placeholder="是否显示" clearable class="filter-item select-box" style="width: 110px">
-              <el-option v-for="item in flag" :key="item.key" :label="item.isShow" :value="item.key" />
+            <el-select v-model="listQuery.flag" placeholder="是否显示" clearable class="filter-item select-box" style="width: 110px">
+              <el-option v-for="item in flag" :key="item" :label="item.isShow" :value="item" />
             </el-select>
           </div>
           <div class="btn">
@@ -64,7 +64,7 @@
             <span>{{ row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="评价内容" align="center" width="500">
+        <el-table-column label="评价内容" :show-overflow-tooltip = 'true' align="center" width="500">
           <template slot-scope="{ row }">
             <span>{{ row.container }}</span>
           </template>
@@ -120,7 +120,7 @@
         </el-table-column>
       </el-table>
     </div>
-    <pagination v-show="total>0" :page.sync="listQuery.page" :total="total" :limit.sync="listQuery.limit"/>
+    <pagination v-show="total>0" hide-on-single-page :page.sync="listQuery.page" :total="total" :limit.sync="listQuery.limit"/>
   </div>
 </template>
 
@@ -131,11 +131,12 @@ export default {
   data() {
     return {
       orderTime: '',
-      total: 60,
+      total: 10,
       listQuery: {
         search: '',
         type: '',
-        page: 10,
+        flag: '',
+        page: 6,
         limit: 10
       },
       listLoading: false,
@@ -211,7 +212,7 @@ export default {
   justify-content: space-between;
   height: calc(100% - 55px);
   width: 100%;
-  padding: 16px;
+  padding: 16px 16px 0;
   .container{
     flex: 1;
     overflow-y: scroll;

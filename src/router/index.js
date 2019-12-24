@@ -227,6 +227,13 @@ export const constantRoutes = [
         meta: { title: '快递管理' }
       },
       {
+        path: '/express-management/add',
+        name: 'add',
+        component: () => import('@/views/setUp/express-management/add/index'),
+        meta: { title: '添加快递公司' },
+        hidden: true
+      },
+      {
         path: 'generalSettings',
         name: 'GeneralSettings',
         component: () => import('@/views/setUp/generalSettings/index'),

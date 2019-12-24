@@ -5,14 +5,14 @@
         <div>
           <div style="display:flex">
             <el-input
-              v-model="listQuery.search"
+              v-model="listQuery.name"
               placeholder="标签名称"
               style="width: 200px;"
               class="filter-item search-inp"
             />
             <div class="block">
               <el-date-picker
-                v-model="orderTime"
+                v-model="listQuery.time"
                 align="right"
                 type="date"
                 placeholder="创建时间"
@@ -25,10 +25,6 @@
               class="filter-item"
               type="primary"
             >添加</el-button>
-            <el-button
-              class="filter-item"
-              type="primary"
-            >修改</el-button>
             <el-button
               class="filter-item"
               type="primary"
@@ -66,6 +62,18 @@
             <span>{{ scope.row[scope.column.property]}}</span>
           </template>
         </el-table-column>
+        <el-table-column
+          fixed="right"
+          align="center"
+          label="操作"
+          width="200">
+          <template>
+            <el-button type="primary" size="small">修改</el-button>
+          </template>
+          <template>
+            <el-button type="primary" size="small">删除</el-button>
+          </template>
+        </el-table-column>
       </el-table>
     </div>
     <pagination v-show="total>0" :page.sync="listQuery.page" :total="total" :limit.sync="listQuery.limit"/>
@@ -80,8 +88,8 @@ export default {
     return {
       total: 60,
       listQuery: {
-        search: '',
-        type: '',
+        name: '',
+        time: '',
         page: 10,
         limit: 10
       },
@@ -115,7 +123,6 @@ export default {
           }
         }]
       },
-      orderTime: '',
       tableHeader: [
         {
           lable: '标签名称',
