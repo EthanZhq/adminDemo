@@ -250,7 +250,7 @@ export default {
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .wrap{
   display: flex;
   flex-direction: column;
@@ -262,7 +262,7 @@ export default {
     padding: 16px;
     background: #f1f4f6;
     border-radius: 10px;
-    margin: 0 16px;
+    margin: 0 16px 16px;
     .title{
       padding: 16px;
       background: #fff;
@@ -285,23 +285,15 @@ export default {
       margin-top:12px;
       border-radius:10px;
     }
-    .el-table, .el-table__expanded-cell{
-      background: none;
-      width: 100%
-    }
   }
   .container::-webkit-scrollbar {
     display:none
   }
-  .pagination-container{
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    margin: 0
-  }
+
 }
+
+</style>
+<style>
 .el-switch__label *{
   font-size: 12px
 }
@@ -309,5 +301,17 @@ export default {
   position: absolute;
   display: none;
   color: #fff;
+}
+.pagination-container{
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0
+}
+.el-table, .el-table__expanded-cell{
+  background: none;
+  width: 100%
 }
 </style>

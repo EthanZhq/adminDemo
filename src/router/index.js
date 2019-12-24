@@ -113,6 +113,13 @@ export const constantRoutes = [
         component: () => import('@/views/shopping/comment/detail/index'),
         meta: { title: '详情' },
         hidden: true
+      },
+      {
+        path: '/comment/creat-comment/:id(\\d+)',
+        name: 'creat-comment',
+        component: () => import('@/views/shopping/comment/creat-comment/index'),
+        meta: { title: '创建评论' },
+        hidden: true
       }
     ]
   },

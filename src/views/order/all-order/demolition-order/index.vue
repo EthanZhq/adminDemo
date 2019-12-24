@@ -230,7 +230,7 @@ export default {
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .wrap{
   display: flex;
   flex-direction: column;
@@ -242,7 +242,7 @@ export default {
     padding: 16px;
     background: #f1f4f6;
     border-radius: 10px;
-    margin: 0 16px;
+    margin: 0 16px 16px;
     font-size: 15px;
     .order-info{
       background: #fff;
@@ -356,10 +356,5 @@ export default {
   .container::-webkit-scrollbar {
     display:none
   }
-}
-</style>
-<style lang="scss" scoped>
-.container{
-  margin: 0 16px 16px;
 }
 </style>
