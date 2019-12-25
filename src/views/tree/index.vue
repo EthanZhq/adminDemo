@@ -81,6 +81,11 @@ export default {
           id:13,
           primary:'#0000BF',
           auxiliary:'#EC808D'
+        },
+        {
+          id:14,
+          primary:'#F8F8F8',
+          auxiliary:'#F8F8F8'
         }
       ]
     }
@@ -97,8 +102,9 @@ export default {
 </script>
 <style scoped lang="scss">
 .container{
+  position: relative;
   display: flex;
-  padding: 20px 30px;
+  padding: 15px 30px;
   color: #333;
   font-size: 15px;
 }

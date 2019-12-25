@@ -22,3 +22,4 @@ export default {
   border-color: #2f66ff
 }
 </style>
+ 

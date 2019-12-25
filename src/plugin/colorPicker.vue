@@ -7,6 +7,9 @@
       v-bind:class="{ disabled: disabled }"
       v-if="!isOpen"
     ></div>
+    <div class="customize" v-if="isOpen" @click="openStatus = !disabled" :style="`background-color: ${showColor}`">
+      <i class="el-icon-setting"></i>
+    </div>
     <!-- 用以激活HTML5颜色面板 -->
     <input type="color"
       ref="html5Color"
@@ -77,7 +80,7 @@ export default {
     // 默认颜色
     defaultColor: {
       type: String,
-      default: '#000000'
+      default: '#000'
     },
     // 禁用状态
     disabled: {
@@ -114,9 +117,6 @@ export default {
       bColor: ['#c21401', '#ff1e02', '#ffc12a', '#ffff3a', '#90cf5b', '#00af57', '#00afee', '#0071be', '#00215f', '#72349d'],
       html5Color: this.value
     }
-  },
-  created(){
-    this.openStatus=this.isOpen
   },
   computed: {
     // 显示面板颜色
@@ -201,7 +201,7 @@ export default {
     // 点击页面上其他地方，关闭弹窗
     this.$nextTick(()=>{
       document.addEventListener('click', (e)=> {
-        if (e.target.className != 'box') {
+        if (e.target.className != 'open') {
           this.openStatus = false;
         }
       })
@@ -215,7 +215,7 @@ export default {
   position: relative; text-align: left; font-size: 14px; display: inline-block;
   ul,li,ol{ list-style: none; margin: 0; padding: 0; }
   input{ display: none; }
-  .colorBtn{ width: 15px; height: 15px; }
+  .colorBtn{ width: 15px; height: 15px; border: 1px solid #ddd; }
   .colorBtn.disabled{ cursor: no-drop; }
   .box{
     position: absolute; width: 212px; background: #fff; border: 1px solid #ddd; visibility: hidden; border-radius: 2px; margin-top: 2px; padding: 10px; padding-bottom: 5px; box-shadow: 0 0 5px rgba(0,0,0,.15); opacity: 0; transition: all .3s ease;
@@ -236,6 +236,27 @@ export default {
       width: 15px; display: inline-block; margin: 0 2px;
       li{ display: block; width: 15px; height: 15px; transition: all .3s ease; margin: 0; }
       li:hover{ box-shadow: 0 0 5px rgba(0,0,0,.4); transform: scale(1.3); }
+    }
+  }
+  div.customize{
+    background: #F8F8F8;
+    border: 1px dashed #e4e4ee;
+    width: 44px;
+    height: 43px;
+    border-radius: 4px;
+    font-size: 24px;
+    line-height: 43px;
+    color: #8A8A8F;
+    text-align: center;
+    >i{
+      display: none;
+    }
+  }
+  div.customize:hover{
+    border-color: #8A8A8F;
+    background: #D9D9D9;
+    >i{
+      display: inline-block;
     }
   }
 }

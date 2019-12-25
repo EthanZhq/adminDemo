@@ -1,6 +1,7 @@
 <template>
-  <div class="wrap" :style="{background:options.bgColor}">
-    <span :style="{color:options.color,fontWeight:options.style==0?'normal':'bold',fontSize:options.size}">{{options.title}}</span>
+  <div class="wrap" :style="{background:options.bgColor,textAlign:options.type=='2'?'left':'center'}">
+    <span :style="{color:options.color,fontWeight:options.fontWeight=='0'?'normal':'bold',fontSize:options.fontSize+'px',borderColor:options.lineColor}" :class="{'type':options.type=='2'}">{{options.title}}</span>
+    <i class="el-icon-arrow-right" :style="{color:options.arrowColor}"></i>
   </div>
 </template>
 
@@ -18,7 +19,12 @@ export default {
 <style scoped lang="scss">
 .wrap{
 	width: 100%;
-  padding: 10px 0;
-  text-align: center;
+  padding: 12px 20px;
+  margin-bottom: 10px;
+  >span.type{
+    text-align: left;
+    border-left: 3px solid;
+    padding-left: 8px;
+  }
 }
 </style>

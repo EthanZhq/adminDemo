@@ -49,14 +49,18 @@ export default {
   methods: {
     addComponent(e){
       this.components.list.unshift(e)
+      this.components.current=0
+      console.log('增加组件列表'+this.components)
     },
     changeComponents(e){
       if(typeof(e)=='number'||typeof(e)=='string'){
         this.components.current=e
       }else if(e instanceof Array){
         this.components.list=e
+        console.log('修改组件列表'+this.components.list)
       }else if(typeof(e)=='object'){
         this.components.list[this.components.current].options=e
+        console.log('修改组件列表'+this.components.list)
       }
     }
   }

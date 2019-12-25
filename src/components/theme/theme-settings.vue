@@ -2,19 +2,16 @@
   <div class="theme">
     <div>主题颜色配置</div>
     <div>
-      <div v-for="(item,index) in list" :key="index" @click="changeTheme(index)" :class="current==index?'active':''">
-        <div :style="{backgroundColor:item.primary}"></div>
-        <div :style="{backgroundColor:item.auxiliary}"></div>
+      <div v-for="(item,index) in list" :key="index" @click="changeTheme(index)" :class="{'active':current==index,'customize':index==list.length-1}">
+        <div :style="{backgroundColor:item.primary}" v-if="index<list.length-1"></div>
+        <div :style="{backgroundColor:item.auxiliary}" v-if="index<list.length-1"></div>
+        <colorPicker v-model="item.primary" :isOpen="true" v-if="index==list.length-1"/>
+        <colorPicker v-model="item.auxiliary" :isOpen="true" v-if="index==list.length-1"/>
       </div>
-      <div class="customize">
-        <div @click="setCustomize(0)">
-          <colorPicker v-model="customize.primary" :isOpen="true" @click.stop v-if="colorBox1"/>
-        </div>
-        <div @click="setCustomize(1)">
-          <colorPicker v-model="customize.auxiliary" :isOpen="true" @click.stop v-if="colorBox2"/>
-        </div>
-      </div>
-      <span>建议：自定义主题配色不要设置白色</span>
+      <span>建议：自定义主题不要设置白色哦~</span>
+    </div>
+    <div>
+      <el-button type="primary" plain @click="saveTheme">保存</el-button>
     </div>
   </div>
 </template>
@@ -27,13 +24,7 @@ export default {
   },
   data() {
     return {
-      current:-1,
-      customize:{
-        primary:'',
-        auxiliary:''
-      },
-      colorBox1:false,
-      colorBox2:false
+      current:0
     }
   },
   props:{
@@ -47,12 +38,17 @@ export default {
       this.current=i
       this.$emit('on-change-theme',i)
     },
-    setCustomize(e){
-      if(e==0){
-        this.colorBox1=true
-      }else{
-        this.colorBox2=true
-      }
+    saveTheme(){
+      console.log(this.list[this.current])
+    }
+  },
+  watch:{
+    list:{
+      handler(newValue){
+        this.current=this.list.length-1
+        this.$emit('on-change-theme',this.current)
+      },
+      deep:true
     }
   }
 }
@@ -61,22 +57,21 @@ export default {
 .theme{
   >div:nth-child(2){
     width: 300px;
-    height: 600px;
+    height: 590px;
     border: 1px solid #e4e4ee;
-    border-radius: 4px;
-    margin-top: 30px;
-    padding: 35px 10%;
+    border-radius: 5px;
+    margin-top: 25px;
+    padding: 33px 10%;
     display: flex;
     flex-wrap: wrap;
     >div{
       width: 40%;
       display: flex;
-      margin-bottom: 25px;
+      margin-bottom: 30px;
       transition: all 0.5s ease 0s;
       >div{
-        width: 50%;
-        height: 0px;
-        padding-top: 42%;
+        width: 45px;
+        height: 43px;
         border-radius: 4px;
         border: 1px solid #e1e0e6;
         box-sizing: border-box;
@@ -89,35 +84,24 @@ export default {
       margin-left: 20%;
     }
     >div:hover,>div.active{
-      transform: scale(1.1);
+      transform: scale(1.15);
     }
-    >div.customize{
-      >div{
-        background: #F8F8F8;
-        border-style: dashed;
-      }
+    >div.customize>div{
+      border: none;
     }
     >div.customize:hover{
       transform: scale(1);
-      >div{
-        border-color: #8A8A8F;
-        position: relative;
-      }
-      >div:hover::before{
-        content: '+';
-        font-size: 38px;
-        color: #8A8A8F;
-        position: absolute;
-        left: 10px;
-        top: 0;
-      }
-      >div:hover{
-        background: #D9D9D9;
-      }
     }
     >span{
       font-size: 12px;
       color: #9797a1;
+    }
+  }
+  >div:last-child{
+    text-align: center;
+    margin-top: 20px;
+    >button{
+      padding: 8px 20px;
     }
   }
 }

@@ -46,7 +46,7 @@ export default {
           title:'标题栏',
           pic:require('../../assets/decoration/title.png'),
           type:0,
-          options:{type:1,title:'热销推荐',bgColor:'#fff',color:"#666",size:32,style:0,lineColor:'#333',arrowColor:'#666'}
+          options:{type:'2',title:'热销推荐',bgColor:'#fff',color:"#666",fontSize:16,fontWeight:'0',lineColor:'#333',arrowColor:'#666'}
         },
         {
           name:"Product",

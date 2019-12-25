@@ -23,9 +23,9 @@ export default {
 	width: 100%;
   display: flex;
   background: #fff;
-  padding: 15px;
-  margin-top: 10px;
-  justify-content: space-between;
+  padding: 12px;
+  margin-bottom: 10px;
+  justify-content: space-around;
   >div{
     display: flex;
     text-align: center;
