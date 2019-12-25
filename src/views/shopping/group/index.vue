@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <template>
   <div class="wrap">
     <div class="app-container container">
@@ -94,3 +95,5 @@ export default {
   padding-right: 8px;
 }
 </style>
+=======
+>>>>>>> af49079805e9478773deefea4b0a7bbcc9375dc7

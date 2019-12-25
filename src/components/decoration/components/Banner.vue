@@ -1,11 +1,11 @@
 <template>
   <div class="wrap">
-    <el-carousel @change="changeCurrent" indicator-position="none" :interval="options.interval" height="194px">
+    <el-carousel @change="changeCurrent" indicator-position="none" :interval="options.interval*1000" height="194px">
       <el-carousel-item v-for="(item,index) in options.imgList" :key="index">
-        <img :src="item" alt="" style="width:100%">
+        <img :src='item.pic' alt="" style="width:100%">
       </el-carousel-item>
     </el-carousel>
-    <div class="indicator" :style="{width:options.imgList.length*20+'px',marginLeft:-options.imgList.length*20/2+'px'}">
+    <div class="indicator" v-if="options.imgList.length>1" :style="{width:options.imgList.length*20+'px',marginLeft:-options.imgList.length*20/2+'px'}">
       <div v-for="(item,index) in options.imgList" :key="index" :class="current==index?'active':''"></div>
     </div>
   </div>

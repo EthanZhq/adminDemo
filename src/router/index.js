@@ -66,13 +66,13 @@ export const constantRoutes = [
         path: 'table',
         name: '表格',
         component: () => import('@/views/table/index'),
-        meta: { title: '表格' }
+        meta: { title: '首页装修' }
       },
       {
         path: 'tree',
         name: 'Tree',
         component: () => import('@/views/tree/index'),
-        meta: { title: '树菜单', roles: ['editor'] }
+        meta: { title: '风格配色', roles: ['editor'] }
       }
     ]
   },
@@ -120,14 +120,14 @@ export const constantRoutes = [
         component: () => import('@/views/shopping/comment/detail/index'),
         meta: { title: '详情' },
         hidden: true
-      },
-      {
-        path: '/comment/creat-comment/:id(\\d+)',
-        name: 'creat-comment',
-        component: () => import('@/views/shopping/comment/creat-comment/index'),
-        meta: { title: '创建评论' },
-        hidden: true
       }
+      // {
+      //   path: '/comment/creat-comment/:id(\\d+)',
+      //   name: 'creat-comment',
+      //   component: () => import('@/views/shopping/comment/creat-comment/index'),
+      //   meta: { title: '创建评论' },
+      //   hidden: true
+      // }
     ]
   },
 

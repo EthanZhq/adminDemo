@@ -1,18 +1,18 @@
 <template>
   <div class="wrap" :style="{background:options.bgColor}" :class="options.textAlign">
-    <input type="text" :placeholder="options.placeholder" :style="{borderColor:options.color,borderRadius:options.border==0?'none':'50px',textAlign:options.textAlign}">
-    <button :style="{borderColor:options.color,borderRadius:options.border==0?'none':'50px'}">取消</button>
+    <input type="text" :placeholder="options.placeholder" :style="{borderColor:options.color,borderRadius:options.border=='0'?'0px':'50px',textAlign:options.textAlign}">
+    <button :style="{borderColor:options.color,borderRadius:options.border=='0'?'0px':'50px'}">取消</button>
   </div>
 </template>
 
 <script>
 export default {
-  data(){
-    return {
-      title:"我是搜索栏"
+  props:{
+    options:{
+      type:Object,
+      default:{}
     }
-  },
-  props:['options']
+  }
 }
 </script>
 

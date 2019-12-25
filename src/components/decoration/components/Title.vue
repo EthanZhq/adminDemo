@@ -1,25 +1,24 @@
 <template>
-  <div class="wrap" :style="{background:options.color}">
-    <h1 ref="title">{{title}}</h1> 
+  <div class="wrap" :style="{background:options.bgColor}">
+    <span :style="{color:options.color,fontWeight:options.style==0?'normal':'bold',fontSize:options.size}">{{options.title}}</span>
   </div>
 </template>
 
 <script>
 export default {
-  data(){
-    return {
-      title:"我是标题栏"
+  props:{
+    options:{
+      type:Object,
+      default:{}
     }
-  },
-  props:['options']
+  }
 }
 </script>
 
 <style scoped lang="scss">
 .wrap{
 	width: 100%;
-}
-h1{
-  color: #ccc;
+  padding: 10px 0;
+  text-align: center;
 }
 </style>
