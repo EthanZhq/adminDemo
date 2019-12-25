@@ -10,14 +10,14 @@
               style="width: 200px;"
               class="filter-item search-inp"
             />
-            <el-select v-model="listQuery.type" placeholder="请选择交易方式" clearable class="filter-item select-box" style="width: 160px">
-              <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
+            <el-select v-model="listQuery.way" placeholder="请选择交易方式" clearable class="filter-item select-box" style="width: 160px">
+              <el-option v-for="item in TradingArray" :key="item" :label="item.display_name" :value="item" />
             </el-select>
-            <el-select v-model="listQuery.type" placeholder="快递公司" clearable class="filter-item select-box" style="width: 130px">
-              <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
+            <el-select v-model="listQuery.company" placeholder="快递公司" clearable class="filter-item select-box" style="width: 130px">
+              <el-option v-for="item in companyArray" :key="item" :label="item.display_name" :value="item" />
             </el-select>
-            <el-select v-model="listQuery.type" placeholder="发货状态" clearable class="filter-item select-box" style="width: 160px">
-              <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
+            <el-select v-model="listQuery.status" placeholder="发货状态" clearable class="filter-item select-box" style="width: 160px">
+              <el-option v-for="item in deliveryStatusArray" :key="item" :label="item.display_name" :value="item" />
             </el-select>
              <div class="block">
               <el-date-picker
@@ -42,19 +42,11 @@
             <el-button
               class="filter-item"
               type="primary"
-            >取消订单</el-button>
-            <el-button
-              class="filter-item"
-              type="primary"
-            >查看</el-button>
+            >批量取消订单</el-button>
             <el-button
               class="filter-item"
               type="primary"
             >拆单</el-button>
-            <el-button
-              class="filter-item"
-              type="primary"
-            >发货</el-button>
           </div>
         </div>
         <el-button class="filter-item" type="primary" icon="el-icon-search">搜索</el-button>
@@ -89,6 +81,19 @@
             <span>{{ scope.row[scope.column.property]}}</span>
           </template>
         </el-table-column>
+        <el-table-column
+          fixed="right"
+          align="center"
+          label="操作"
+          width="180">
+          <template>
+              <el-button type="primary" size="small">查看</el-button>
+              <el-button
+                type="primary"
+                size="small"
+              >发货</el-button>
+          </template>
+        </el-table-column>
       </el-table>
     </div>
     <pagination v-show="total>0" :page.sync="listQuery.page" :total="total" :limit.sync="listQuery.limit"/>
@@ -104,10 +109,15 @@ export default {
       total: 60,
       listQuery: {
         search: '',
-        type: '',
+        status: '',
+        way: '',
+        company: '',
         page: 10,
         limit: 10
       },
+      TradingArray: ['0元购', '积分抵扣', '现金购', '全部'],
+      companyArray: ['全部', 'EMS', '顺丰快递', '申通快递'],
+      deliveryStatusArray: ['待发货', '已发货', '全部'],
       listLoading: false,
       downloadLoading: false,
       tableKey: 0,
@@ -149,7 +159,7 @@ export default {
         },
         {
           lable: '用户',
-          width: '',
+          width: '160',
           align: 'center',
           property: 'user'
         },

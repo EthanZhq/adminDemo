@@ -31,22 +31,17 @@
               <el-button
                 class="filter-item"
                 type="primary"
-              >新建评论</el-button>
-              <el-button
-                class="filter-item"
-                type="primary"
+                @click="goAdd"
               >新建</el-button>
               <el-button
                 class="filter-item"
                 type="primary"
-                icon="el-icon-edit"
               >修改</el-button>
               <el-button
                 v-waves
                 :loading="downloadLoading"
                 class="filter-item"
                 type="primary"
-                icon="el-icon-download"
                 @click="handleDownload"
               >导出</el-button>
           </div>
@@ -91,7 +86,7 @@
             <span>{{ row.classify }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="价格" align="center">
+        <el-table-column label="价格" width="400" align="center">
           <template slot-scope="{ row }">
             <div class="card-box">
               <div class="card">
@@ -136,6 +131,17 @@
         <el-table-column label="排序" prop="id" sortable="custom" align="center" width="80px">
           <template slot-scope="{ row }">
             <span class="link-type">{{ row.id }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          fixed="right"
+          align="center"
+          label="操作"
+          width="240">
+          <template>
+            <el-button type="primary" size="small">评论</el-button>
+            <el-button type="primary" size="small">查看</el-button>
+            <el-button type="primary" size="small">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -275,6 +281,9 @@ export default {
     }
   },
   methods: {
+    goAdd(){
+      this.$router.push({path:'/shopping-list/add'})
+    },
     handleDownload() {
       this.downloadLoading = true
       import('@/vendor/Export2Excel').then(excel => {

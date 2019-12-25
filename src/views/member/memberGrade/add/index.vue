@@ -2,44 +2,29 @@
   <div class="wrap">
     <div class="app-container container">
        <div class="add">
-          <h3>关于我们</h3>
+          <h3>会员等级</h3>
           <div class="express-box">
-            <span class="express-title">店铺Logo：</span>
+            <span class="express-title">等级名称</span>
+            <el-input
+              placeholder="设置会员等级名称，不超过10字"
+              style="width: 270px;"
+              class="filter-item"
+            />
+          </div>
+          <div class="express-box">
+            <span class="express-title">累计消耗额度</span>
+            <el-input
+              placeholder="会员累计所需消耗的额度，单位：元"
+              style="width: 270px;"
+              class="filter-item"
+            />
           </div>
           <div class="express-box dec">
-            <span class="express-title">店铺简介：</span>
-            <el-input type="textarea" placeholder="请输入店铺简介，不超过100字" :autosize="{ minRows: 10, maxRows: 12}" class="area"></el-input>
-          </div>
-          <div class="express-box">
-            <span class="express-title">官网</span>
+            <span class="express-title">等级描述</span>
             <el-input
-              placeholder="请输入官网地址"
-              style="width: 200px;"
-              class="filter-item"
-            />
-          </div>
-          <div class="express-box">
-            <span class="express-title">微信公众号</span>
-            <el-input
-              placeholder="请输入微信公众号"
-              style="width: 200px;"
-              class="filter-item"
-            />
-          </div>
-          <div class="express-box">
-            <span class="express-title">联系点好</span>
-            <el-input
-              placeholder="请输入联系电话"
-              style="width: 200px;"
-              class="filter-item"
-            />
-          </div>
-          <div class="express-box">
-            <span class="express-title">联系地址</span>
-            <el-input
-              placeholder="请输入联系地址"
-              style="width: 200px;"
-              class="filter-item"
+              v-model="describe"
+              placeholder="会员等级描述，不超过20字"
+              style="width:360px"
             />
           </div>
           <div class="btn-box">
@@ -61,7 +46,7 @@
 export default {
   data() {
     return {
-
+      describe: ''
     }
   },
   methods: {
@@ -82,8 +67,10 @@ export default {
     background: #f1f4f6;
     border-radius: 10px;
     margin: 0 16px 16px;
+    height: 100%;
     .add{
       background: #fff;
+      height: 100%;
       padding: 0 32px;
       h3{
         padding: 32px 0 0;
@@ -102,13 +89,10 @@ export default {
       }
       .dec{
         display: flex;
-        align-items: flex-start;
-        .area{
-          width: 50%;
-        }
+        align-items: flex-start
       }
       .btn-box{
-        padding: 60px 0;
+        padding-top: 60px;
         display: flex;
         align-items: center;
         justify-content: center;

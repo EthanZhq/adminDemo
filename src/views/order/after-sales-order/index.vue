@@ -10,54 +10,38 @@
               style="width: 200px;"
               class="filter-item search-inp"
             />
-            <el-select v-model="listQuery.type" placeholder="原订单状态" clearable class="filter-item select-box" style="width: 130px">
-              <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
+            <el-select v-model="listQuery.status" placeholder="原订单状态" clearable class="filter-item select-box" style="width: 130px">
+              <el-option v-for="item in orderStatusArray" :key="item" :label="item.display_name" :value="item" />
             </el-select>
             <el-select v-model="listQuery.type" placeholder="申请类型" clearable class="filter-item select-box" style="width: 130px">
-              <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
+              <el-option v-for="item in typeArray" :key="item" :label="item.display_name" :value="item" />
             </el-select>
-            <el-select v-model="listQuery.type" placeholder="退换状态" clearable class="filter-item select-box" style="width: 130px">
-              <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
+            <el-select v-model="listQuery.exchange" placeholder="退换状态" clearable class="filter-item select-box" style="width: 130px">
+              <el-option v-for="item in exchangeStatusArray" :key="item" :label="item.display_name" :value="item" />
             </el-select>
-            <el-select v-model="listQuery.type" placeholder="处理状态" clearable class="filter-item select-box" style="width: 130px">
-              <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
+            <el-select v-model="listQuery.process" placeholder="处理状态" clearable class="filter-item select-box" style="width: 130px">
+              <el-option v-for="item in processStatusArray" :key="item" :label="item.display_name" :value="item" />
             </el-select>
-            <div class="block">
-              <el-date-picker
-                v-model="orderTime"
-                align="right"
-                type="date"
-                placeholder="下单时间"
-                :picker-options="pickerOption">
-              </el-date-picker>
-            </div>
+          </div>
+          <div class="date">
             <div class="block">
               <el-date-picker
                 v-model="time"
-                align="right"
+                align="left"
                 type="date"
                 placeholder="申请退款时间"
                 :picker-options="pickerOption">
               </el-date-picker>
             </div>
-          </div>
-          <div class="btn">
-            <el-button
-              class="filter-item"
-              type="primary"
-            >查看</el-button>
-            <el-button
-              class="filter-item"
-              type="primary"
-            >通过</el-button>
-            <el-button
-              class="filter-item"
-              type="primary"
-            >不通过</el-button>
-            <el-button
-              class="filter-item"
-              type="primary"
-            >退款</el-button>
+            <div class="block">
+              <el-date-picker
+                v-model="orderTime"
+                align="left"
+                type="date"
+                placeholder="下单时间"
+                :picker-options="pickerOption">
+              </el-date-picker>
+            </div>
           </div>
         </div>
         <el-button class="filter-item" type="primary" icon="el-icon-search">搜索</el-button>
@@ -93,6 +77,17 @@
             </router-link>
           </template>
         </el-table-column>
+        <el-table-column
+          fixed="right"
+          align="center"
+          label="操作"
+          width="120">
+          <template slot-scope="scope">
+            <router-link :to="'/after-sales-order/details/' + scope.row.id">
+              <el-button type="primary" size="small">查看</el-button>
+            </router-link>
+          </template>
+        </el-table-column>
       </el-table>
     </div>
     <pagination v-show="total>0" :page.sync="listQuery.page" :total="total" :limit.sync="listQuery.limit" />
@@ -108,9 +103,16 @@ export default {
       listQuery: {
         search: '',
         type: '',
+        status: '',
+        exchange: '',
+        process: '',
         page: 10,
         limit: 10
       },
+      orderStatusArray: ['待发货', '待收货', '待评价', '已完成','全部'],
+      typeArray: ['仅退款', '退货退款', '换货', '全部'],
+      exchangeStatusArray: ['待付款', '待发货', '待收货', '待评价', '已完成','交易关闭', '全部'],
+      processStatusArray: ['待通过', '已通过', '未通过', '全部'],
       listLoading: false,
       downloadLoading: false,
       total: 60,
@@ -219,12 +221,6 @@ export default {
           price: '120.00 + 8000积分',
           timestamp: '2019-12-12 12:00:00'
         }
-      ],
-      calendarTypeOptions: [
-        { key: 'CN', display_name: 'China' },
-        { key: 'US', display_name: 'USA' },
-        { key: 'JP', display_name: 'Japan' },
-        { key: 'EU', display_name: 'Eurozone' }
       ]
     }
   },
@@ -258,7 +254,8 @@ export default {
       .search-inp {
         margin-right: 12px;
       }
-      .btn{
+      .date{
+        display: flex;
         margin-top: 16px
       }
       .select-box{

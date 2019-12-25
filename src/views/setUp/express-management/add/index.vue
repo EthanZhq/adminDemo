@@ -2,45 +2,33 @@
   <div class="wrap">
     <div class="app-container container">
        <div class="add">
-          <h3>关于我们</h3>
+          <h3>添加快递公司</h3>
           <div class="express-box">
-            <span class="express-title">店铺Logo：</span>
+            <span class="express-title">快递公司名称</span>
+            <el-input
+              placeholder="订单编号/用户/联系电话"
+              style="width: 200px;"
+              class="filter-item"
+            />
+          </div>
+          <div class="express-box">
+            <span class="express-title">快递公司编码</span>
+            <el-input
+              placeholder="订单编号/用户/联系电话"
+              style="width: 200px;"
+              class="filter-item"
+              disabled
+            />
           </div>
           <div class="express-box dec">
-            <span class="express-title">店铺简介：</span>
-            <el-input type="textarea" placeholder="请输入店铺简介，不超过100字" :autosize="{ minRows: 10, maxRows: 12}" class="area"></el-input>
+            <span class="express-title">简短描述</span>
+            <el-input type="textarea" :autosize="{ minRows: 6, maxRows: 10}"></el-input>
           </div>
           <div class="express-box">
-            <span class="express-title">官网</span>
-            <el-input
-              placeholder="请输入官网地址"
-              style="width: 200px;"
-              class="filter-item"
-            />
+            <span class="express-title">物流图片图标</span>
           </div>
           <div class="express-box">
-            <span class="express-title">微信公众号</span>
-            <el-input
-              placeholder="请输入微信公众号"
-              style="width: 200px;"
-              class="filter-item"
-            />
-          </div>
-          <div class="express-box">
-            <span class="express-title">联系点好</span>
-            <el-input
-              placeholder="请输入联系电话"
-              style="width: 200px;"
-              class="filter-item"
-            />
-          </div>
-          <div class="express-box">
-            <span class="express-title">联系地址</span>
-            <el-input
-              placeholder="请输入联系地址"
-              style="width: 200px;"
-              class="filter-item"
-            />
+            <span class="express-title">模板图片</span>
           </div>
           <div class="btn-box">
             <el-button
@@ -82,8 +70,10 @@ export default {
     background: #f1f4f6;
     border-radius: 10px;
     margin: 0 16px 16px;
+    height: 100%;
     .add{
       background: #fff;
+      height: 100%;
       padding: 0 32px;
       h3{
         padding: 32px 0 0;
@@ -102,13 +92,10 @@ export default {
       }
       .dec{
         display: flex;
-        align-items: flex-start;
-        .area{
-          width: 50%;
-        }
+        align-items: flex-start
       }
       .btn-box{
-        padding: 60px 0;
+        padding-top: 60px;
         display: flex;
         align-items: center;
         justify-content: center;

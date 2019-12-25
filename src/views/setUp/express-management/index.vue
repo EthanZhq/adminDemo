@@ -25,6 +25,7 @@
             <el-button
                 class="filter-item"
                 type="primary"
+                @click="goAdd"
             >添加快递公司</el-button>
           </div>
         </div>
@@ -122,7 +123,9 @@ export default {
     }
   },
   methods: {
-
+    goAdd() {
+      this.$router.push({path:'/express-management/add'})
+    }
   }
 }
 </script>
