@@ -42,7 +42,6 @@
         <el-button class="filter-item" type="primary" icon="el-icon-search">搜索</el-button>
       </div>
       <el-table
-        :key="tableKey"
         ref="multipleTable"
         v-loading="listLoading"
         :data="list"
@@ -141,7 +140,6 @@ export default {
       },
       listLoading: false,
       downloadLoading: false,
-      tableKey: 0,
       pickerOption: {
         disabledDate(time) {
           return time.getTime() > Date.now()

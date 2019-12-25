@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: '商城后台管理系统',
+  title: '天玑云客微商城',
 
   /**
    * @type {boolean} true | false

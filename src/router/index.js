@@ -85,9 +85,16 @@ export const constantRoutes = [
     children: [
       {
         path: 'shopping-list',
-        name: 'Shopping-list',
+        name: 'shopping-list',
         component: () => import('@/views/shopping/shopping-list/index'),
         meta: { title: '商品列表' }
+      },
+      {
+        path: '/shopping-list/add',
+        name: 'add',
+        component: () => import('@/views/shopping/shopping-list/add/index'),
+        meta: { title: '添加' },
+        hidden: true
       },
       {
         path: 'group',
@@ -180,15 +187,35 @@ export const constantRoutes = [
     children: [
       {
         path: 'memberList',
-        name: 'MemberList',
+        name: 'memberList',
         component: () => import('@/views/member/memberList/index'),
         meta: { title: '会员列表' }
+      },
+      {
+        path: '/memberList/detail',
+        name: 'detail',
+        component: () => import('@/views/member/memberList/detail/index'),
+        meta: { title: '会员详情' },
+        hidden: true
       },
       {
         path: 'memberGrade',
         name: 'MemberGrade',
         component: () => import('@/views/member/memberGrade/index'),
         meta: { title: '等级配置' }
+      },
+      {
+        path: '/memberGrade/add',
+        name: 'add',
+        component: () => import('@/views/member/memberGrade/add/index'),
+        meta: { title: '会员等级' },
+        hidden: true
+      },
+      {
+        path: 'memberIntegral',
+        name: 'memberIntegral',
+        component: () => import('@/views/member/memberIntegral/index'),
+        meta: { title: '积分配置' }
       }
     ]
   },

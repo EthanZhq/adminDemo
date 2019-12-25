@@ -27,14 +27,8 @@ import { mockXHR } from '../mock'
 if (process.env.NODE_ENV === 'production') {
   mockXHR()
 }
-// import ant from 'ant-design-vue'
-// import 'ant-design-vue/dist/antd.less'
 
-// Vue.use(ant)
-// set ElementUI lang to EN
 Vue.use(ElementUI, { locale })
-// 如果想要中文版 element-ui，按如下方式声明
-// Vue.use(ElementUI)
 
 Vue.config.productionTip = false
 
