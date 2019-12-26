@@ -167,7 +167,7 @@ export default {
           classify: '鞋子',
           num: '2000000',
           number: '43',
-          price: '120.00 + 8000积分',
+          price: '',
           money: '10000积分',
           timestamp: '2019-12-12 18:00:00',
           flag: 0

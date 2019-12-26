@@ -15,6 +15,7 @@
             <el-button
               class="filter-item"
               type="primary"
+              @click="dialogVisible = true"
             >新建标签</el-button>
             <el-button
               class="filter-item"
@@ -22,7 +23,7 @@
             >批量删除</el-button>
           </div>
         </div>
-        <el-button class="filter-item" type="primary" icon="el-icon-search">搜索</el-button>
+        <el-button class="filter-item" type="primary" @click="handleSearch">查询</el-button>
       </div>
       <el-table
         :key="tableKey"
@@ -62,12 +63,31 @@
             <el-button type="primary" size="small">修改</el-button>
           </template>
           <template>
-            <el-button type="primary" size="small">删除</el-button>
+            <el-button type="primary" size="small" @click="handleDelete">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
     </div>
     <pagination v-show="total>0" :page.sync="listQuery.page" :total="total" :limit.sync="listQuery.limit"/>
+    <el-dialog
+      :visible.sync="dialogVisible"
+      width="30%"
+      top="16%"
+    >
+      <div>
+        <span>标签名称</span>
+        <el-input
+          v-model="listQuery.name"
+          placeholder="不超过10个字"
+          style="width: 200px;"
+          class="filter-item tags-inp"
+        />
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -85,6 +105,7 @@ export default {
       },
       listLoading: false,
       downloadLoading: false,
+      dialogVisible: false,
       tableKey: 0,
       tableHeader: [
         {
@@ -123,7 +144,27 @@ export default {
     }
   },
   methods: {
-
+    handleSearch() {
+      if(this.listQuery.name == '') {
+        this.$message.error('请输入标签名称');
+      }
+    },
+    handleDelete() {
+      this.$confirm('确定删除此条标签?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+        .then(async() => {
+          await deleteRole(row.key)
+          this.rolesList.splice($index, 1)
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          })
+        })
+        .catch(err => { console.error(err) })
+    }
   }
 }
 </script>
@@ -169,6 +210,9 @@ export default {
   }
   .container::-webkit-scrollbar {
     display:none
+  }
+  .tags-inp{
+    margin-left: 12px
   }
   .pagination-container{
     height: 50px;
