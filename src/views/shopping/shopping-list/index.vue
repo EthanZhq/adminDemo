@@ -6,7 +6,7 @@
           <div style="display:flex">
             <el-input
               v-model="listQuery.search"
-              placeholder="搜索"
+              placeholder="商品名称/商品编码"
               style="width: 200px;"
               class="filter-item search-inp"
             />
@@ -33,10 +33,6 @@
                 type="primary"
                 @click="goAdd"
               >新建</el-button>
-              <el-button
-                class="filter-item"
-                type="primary"
-              >修改</el-button>
               <el-button
                 v-waves
                 :loading="downloadLoading"
@@ -66,14 +62,9 @@
           style="background-color:#000"
         >
         </el-table-column>
-        <el-table-column label="商品名称" fixed width="250px">
+        <el-table-column label="商品名称" align="center" fixed width="250px">
           <template slot-scope="{ row }">
-            <div class="shopping-box">
-              <div class="img">
-                <img src="https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png" alt="" class="shopping-pic">
-              </div>
-              <span class="shopping-name">{{ row.name }}</span>
-            </div>
+            <span>{{ row.name }}</span>
           </template>
         </el-table-column>
         <el-table-column label="商品编码" align="center" width="160">
@@ -153,6 +144,7 @@
 <script>
 import waves from '@/directive/waves'
 import Pagination from '@/components/Pagination'
+import { getList} from '@/api/shopping'
 export default {
   components: { Pagination },
   directives: { waves },
@@ -280,7 +272,14 @@ export default {
       ]
     }
   },
+  mounted() {
+    this.getList()
+  },
   methods: {
+    async getList() {
+      const res = await getList()
+      console.log('res',res)
+    },
     goAdd(){
       this.$router.push({path:'/shopping-list/add'})
     },
@@ -334,22 +333,6 @@ export default {
       width: 100%;
       margin-top:12px;
       border-radius:10px;
-      .shopping-box{
-        display: flex;
-        .img{
-          width: 30px;
-          height: 30px;
-          border-radius: 8px;
-          margin-right: 16px;
-          .shopping-pic{
-            width: 100%;
-            height: 100%;
-          }
-        }
-        .shopping-name{
-          width: 80%;
-        }
-      }
       .card-box{
         display: flex;
         align-items: center;
@@ -375,7 +358,7 @@ export default {
           }
         }
         .card-way{
-          width: 150px;
+          width: 160px;
           padding: 0;
           display: flex;
           align-items: center;

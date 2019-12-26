@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import draggable from 'vuedraggable'
+// import draggable from 'vuedraggable'
 import colorPicker from '../../../plugin/colorPicker.vue'
 export default {
   components:{

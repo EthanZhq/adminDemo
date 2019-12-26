@@ -41,6 +41,7 @@
             <el-upload
               action="https://jsonplaceholder.typicode.com/posts/"
               list-type="picture-card"
+              draggable
               :on-preview="handlePictureCardPreview"
               :on-remove="handleRemove">
               <i class="el-icon-plus"></i>

@@ -10,21 +10,12 @@
               style="width: 200px;"
               class="filter-item search-inp"
             />
-            <div class="block">
-              <el-date-picker
-                v-model="listQuery.time"
-                align="right"
-                type="date"
-                placeholder="创建时间"
-                :picker-options="pickerOption">
-              </el-date-picker>
-            </div>
           </div>
           <div class="btn">
             <el-button
               class="filter-item"
               type="primary"
-            >添加</el-button>
+            >新建标签</el-button>
             <el-button
               class="filter-item"
               type="primary"
@@ -89,40 +80,12 @@ export default {
       total: 60,
       listQuery: {
         name: '',
-        time: '',
         page: 10,
         limit: 10
       },
       listLoading: false,
       downloadLoading: false,
       tableKey: 0,
-      pickerOption: {
-        disabledDate(time) {
-          return time.getTime() > Date.now()
-        },
-        shortcuts: [{
-          text: '今天',
-          onClick(picker) {
-            picker.$emit('pick', new Date())
-          }
-        },
-        {
-          text: '昨天',
-          onClick(picker) {
-            const date = new Date()
-            date.setTime(date.getTime() - 3600 * 1000 * 24)
-            picker.$emit('pick', date)
-          }
-        },
-        {
-          text: '一周前',
-          onClick(picker) {
-            const date = new Date()
-            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
-            picker.$emit('pick', date)
-          }
-        }]
-      },
       tableHeader: [
         {
           lable: '标签名称',
