@@ -6,11 +6,6 @@
 
 <script>
 export default {
-  data(){
-    return {
-      title:"我是商品"
-    }
-  },
   props:['options']
 }
 </script>
@@ -18,8 +13,5 @@ export default {
 <style scoped lang="scss">
 .wrap{
 	width: 100%;
-}
-h1{
-  color: #ccc;
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="container">
     <DecLeft @on-add-component="addComponent"/>
     <DecView :components="components" @on-change-list="changeComponents"/>
-    <DecRight :components="components" @on-change-list="changeComponents"/>
+    <DecRight :currentComponent="components.list[components.current]" @on-change-list="changeComponents"/>
   </div>
 </template>
 
@@ -50,17 +50,17 @@ export default {
     addComponent(e){
       this.components.list.unshift(e)
       this.components.current=0
-      console.log('增加组件列表'+this.components)
+      console.log('添加'+this.components.list)
     },
     changeComponents(e){
       if(typeof(e)=='number'||typeof(e)=='string'){
         this.components.current=e
       }else if(e instanceof Array){
         this.components.list=e
-        console.log('修改组件列表'+this.components.list)
+        console.log('修改'+this.components.list)
       }else if(typeof(e)=='object'){
         this.components.list[this.components.current].options=e
-        console.log('修改组件列表'+this.components.list)
+        console.log('修改'+this.components.list)
       }
     }
   }

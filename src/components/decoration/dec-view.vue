@@ -14,17 +14,13 @@
 </template>
 
 <script>
-// import draggable from 'vuedraggable'
+import draggable from 'vuedraggable'
 import Top from './components/Top'
 import Banner from './components/Banner'
 import Nav from './components/Nav'
 import Search from './components/Search'
 import Title from './components/Title'
-import Coupon from './components/Coupon'
-import Discount from './components/Discount'
-import Freeshipping from './components/Freeshipping'
-import Group from './components/Group'
-import Thematic from './components/Thematic'
+import MagicCube from './components/MagicCube'
 export default {
   components: {
     draggable,
@@ -33,11 +29,7 @@ export default {
     Nav,
     Search,
     Title,
-    Thematic,
-    Group,
-    Coupon,
-    Discount,
-    Freeshipping
+    MagicCube
   },
   props:{
     components:{
