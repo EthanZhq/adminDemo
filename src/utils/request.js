@@ -21,6 +21,8 @@ service.interceptors.request.use(
       // ['X-Token'] is a custom headers key
       config.headers['X-Token'] = getToken()
     }
+    console.log(process.env.VUE_APP_BASE_API)
+    console.log(config)
     return config
   },
   error => {

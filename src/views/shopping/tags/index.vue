@@ -93,6 +93,7 @@
 
 <script>
 import Pagination from '@/components/Pagination'
+import { getList } from '@/api/shopping'
 export default {
   components: { Pagination },
   data() {
@@ -143,7 +144,14 @@ export default {
       ]
     }
   },
+  mounted() {
+    this.getList()
+  },
   methods: {
+    async getList() {
+      const res = await getList()
+      console.log('商品列表')
+    },
     handleSearch() {
       if(this.listQuery.name == '') {
         this.$message.error('请输入标签名称');

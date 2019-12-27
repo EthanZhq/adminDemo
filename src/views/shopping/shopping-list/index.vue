@@ -6,7 +6,7 @@
           <div style="display:flex">
             <el-input
               v-model="listQuery.search"
-              placeholder="商品名称/商品编码"
+              placeholder="搜索"
               style="width: 200px;"
               class="filter-item search-inp"
             />
@@ -33,6 +33,10 @@
                 type="primary"
                 @click="goAdd"
               >新建</el-button>
+              <el-button
+                class="filter-item"
+                type="primary"
+              >修改</el-button>
               <el-button
                 v-waves
                 :loading="downloadLoading"
@@ -62,9 +66,14 @@
           style="background-color:#000"
         >
         </el-table-column>
-        <el-table-column label="商品名称" align="center" fixed width="250px">
+        <el-table-column label="商品名称" fixed width="250px">
           <template slot-scope="{ row }">
-            <span>{{ row.name }}</span>
+            <div class="shopping-box">
+              <div class="img">
+                <img src="https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png" alt="" class="shopping-pic">
+              </div>
+              <span class="shopping-name">{{ row.name }}</span>
+            </div>
           </template>
         </el-table-column>
         <el-table-column label="商品编码" align="center" width="160">
@@ -144,7 +153,7 @@
 <script>
 import waves from '@/directive/waves'
 import Pagination from '@/components/Pagination'
-import { getList} from '@/api/shopping'
+import { getList } from '@/api/shopping'
 export default {
   components: { Pagination },
   directives: { waves },
@@ -167,7 +176,7 @@ export default {
           classify: '鞋子',
           num: '2000000',
           number: '43',
-          price: '',
+          price: '120.00 + 8000积分',
           money: '10000积分',
           timestamp: '2019-12-12 18:00:00',
           flag: 0
@@ -278,7 +287,7 @@ export default {
   methods: {
     async getList() {
       const res = await getList()
-      console.log('res',res)
+      console.log('商品列表')
     },
     goAdd(){
       this.$router.push({path:'/shopping-list/add'})
@@ -333,6 +342,22 @@ export default {
       width: 100%;
       margin-top:12px;
       border-radius:10px;
+      .shopping-box{
+        display: flex;
+        .img{
+          width: 30px;
+          height: 30px;
+          border-radius: 8px;
+          margin-right: 16px;
+          .shopping-pic{
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .shopping-name{
+          width: 80%;
+        }
+      }
       .card-box{
         display: flex;
         align-items: center;
@@ -358,7 +383,7 @@ export default {
           }
         }
         .card-way{
-          width: 160px;
+          width: 150px;
           padding: 0;
           display: flex;
           align-items: center;
