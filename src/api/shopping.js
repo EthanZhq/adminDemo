@@ -1,10 +1,10 @@
 import request from '@/utils/request'
 
-export function getList(data) {
+export function getList(query) {
   return request({
     url: '/admin/goods',
     method: 'GET',
-    data
+    params: query
   })
 }
 export function addCommentDetail(data) {

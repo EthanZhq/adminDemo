@@ -10,74 +10,85 @@
               style="width: 200px;"
               class="filter-item search-inp"
             />
+            <!-- <div class="block" style="margin-right:16px">
+              <el-date-picker
+                v-model="listQuery.ctime"
+                align="right"
+                type="date"
+                placeholder="创建时间"
+                :picker-options="pickerOption">
+              </el-date-picker>
+            </div> -->
           </div>
           <div class="btn">
             <el-button
               class="filter-item"
               type="primary"
-              @click="dialogVisible = true"
+              @click="handleAdd"
             >新建标签</el-button>
             <el-button
               class="filter-item"
               type="primary"
+              @click="handleDel"
             >批量删除</el-button>
           </div>
         </div>
         <el-button class="filter-item" type="primary" @click="handleSearch">查询</el-button>
       </div>
       <el-table
-        :key="tableKey"
         ref="multipleTable"
         v-loading="listLoading"
-        :data="list"
+        element-loading-spinner="el-icon-loading"
+        :data="tableData"
         stripe
         fit
         highlight-current-row
         class="table"
+        @selection-change="handleSelectionChange"
       >
         <el-table-column
           type="selection"
           align="center"
           width="50"
           style="background-color:#000"
-        >
-        </el-table-column>
+        />
         <el-table-column
           v-for="(item,idx) in tableHeader"
-          :key='idx'
+          :key="idx"
           :label="item.lable"
           :width="item.width"
           :align="item.align"
           :property="item.property"
         >
           <template slot-scope="scope">
-            <span>{{ scope.row[scope.column.property]}}</span>
+            <span>{{ scope.row[scope.column.property] }}</span>
           </template>
         </el-table-column>
         <el-table-column
           fixed="right"
           align="center"
           label="操作"
-          width="200">
-          <template>
-            <el-button type="primary" size="small">修改</el-button>
-          </template>
-          <template>
-            <el-button type="primary" size="small" @click="handleDelete">删除</el-button>
+          width="200"
+        >
+          <template slot-scope="scope">
+            <el-button type="primary" size="small" @click="handleEdit(scope)">修改</el-button>
+            <el-button type="danger" size="small" @click="handleDelete(scope)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
     </div>
-    <pagination v-show="total>0" :page.sync="listQuery.page" :total="total" :limit.sync="listQuery.limit"/>
+    <pagination v-show="total>0" :page.sync="listQuery.page" :total="total" :limit.sync="listQuery.limit" @pagination="getList" />
     <el-dialog
       :visible.sync="dialogVisible"
+      :title="dialogType==='edit'?'修改':'添加'"
       width="30%"
       top="16%"
     >
       <div>
         <span>标签名称</span>
         <el-input
-          v-model="listQuery.name"
+          v-model="temp.tagName"
+          maxlength="10"
           placeholder="不超过10个字"
           style="width: 200px;"
           class="filter-item tags-inp"
@@ -85,7 +96,7 @@
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+        <el-button type="primary" @click="confirmTags()">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -93,21 +104,59 @@
 
 <script>
 import Pagination from '@/components/Pagination'
-import { getList } from '@/api/shopping'
+import { getList, creatTags, deleteTags, editTags } from '@/api/tags'
+const defaultRole = {
+  tagName: ''
+}
 export default {
   components: { Pagination },
   data() {
     return {
-      total: 60,
+      total: 0,
       listQuery: {
+        ctime: '',
         name: '',
-        page: 10,
+        page: 1,
         limit: 10
       },
+      id: '',
+      edit: {
+        name: ''
+      },
+      temp: Object.assign({}, defaultRole),
+      tempId: [],
+      dialogType: 'new',
       listLoading: false,
-      downloadLoading: false,
       dialogVisible: false,
-      tableKey: 0,
+      tableData: [],
+      tableDataAmount: [],
+      pickerOption: {
+        disabledDate(time) {
+          return time.getTime() > Date.now()
+        },
+        shortcuts: [{
+          text: '今天',
+          onClick(picker) {
+            picker.$emit('pick', new Date())
+          }
+        },
+        {
+          text: '昨天',
+          onClick(picker) {
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24)
+            picker.$emit('pick', date)
+          }
+        },
+        {
+          text: '一周前',
+          onClick(picker) {
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+            picker.$emit('pick', date)
+          }
+        }]
+      },
       tableHeader: [
         {
           lable: '标签名称',
@@ -117,30 +166,17 @@ export default {
         },
 
         {
-          lable: '数量',
+          lable: '标签绑定商品数',
           width: '420',
           align: 'center',
-          property: 'number'
+          property: 'gnum'
         },
         {
-          lable: '评论时间',
+          lable: '创建时间',
           width: '',
           align: 'center',
-          property: 'time'
+          property: 'ctime'
         }
-      ],
-      list: [
-        {
-          name: '最新',
-          number: '2',
-          time: '2020-12-12 12:00:00'
-        }
-      ],
-      calendarTypeOptions: [
-        { key: 'CN', display_name: 'China' },
-        { key: 'US', display_name: 'USA' },
-        { key: 'JP', display_name: 'Japan' },
-        { key: 'EU', display_name: 'Eurozone' }
       ]
     }
   },
@@ -148,35 +184,98 @@ export default {
     this.getList()
   },
   methods: {
-    async getList() {
-      const res = await getList()
-      console.log('商品列表')
+    getList() {
+      this.listLoading = true
+      getList(this.listQuery).then(response => {
+        this.tableData = response.data
+        this.total = response.count
+        setTimeout(() => {
+          this.listLoading = false
+        }, 1000)
+      })
     },
     handleSearch() {
-      if(this.listQuery.name == '') {
-        this.$message.error('请输入标签名称');
+      if (this.listQuery.name === '' && this.listQuery.ctime === '') {
+        this.$message.error('请输入标签名称')
+      } else {
+        this.listQuery.page = 1
+        this.getList()
       }
     },
-    handleDelete() {
+    handleAdd() {
+      this.dialogType = 'new'
+      this.dialogVisible = true
+      this.temp = Object.assign({}, defaultRole)
+    },
+    handleEdit(scope) {
+      this.dialogType = 'edit'
+      this.dialogVisible = true
+      this.temp.tagName = scope.row.name
+      this.id = scope.row.id
+    },
+    confirmTags() {
+      const isEdit = this.dialogType === 'edit'
+      this.edit.name = this.temp.tagName
+      if (isEdit) {
+        editTags(this.id, this.edit).then(response => {
+          this.getList()
+          this.dialogVisible = false
+        })
+      } else {
+        this.dialogVisible = false
+        creatTags(this.temp).then(response => {
+          this.getList()
+          this.dialogVisible = false
+        })
+      }
+    },
+    handleDel() {
+      const idArray = this.tableDataAmount
+      if (idArray) {
+        idArray.forEach(k => {
+          this.tempId.push(k.id)
+        })
+        this.$confirm('确定删除此组标签?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+          .then(async() => {
+            await deleteTags(this.tempId)
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            })
+            this.getList()
+          })
+          .catch(err => { console.error(err) })
+      }
+    },
+    handleSelectionChange(data) {
+      this.tableDataAmount = data
+    },
+    handleDelete({ $index, row }) {
+      this.tempId.push(row.id)
       this.$confirm('确定删除此条标签?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       })
         .then(async() => {
-          await deleteRole(row.key)
-          this.rolesList.splice($index, 1)
+          await deleteTags(this.tempId)
+          this.tableData.splice($index, 1)
           this.$message({
             type: 'success',
             message: '删除成功!'
           })
+          this.getList()
         })
         .catch(err => { console.error(err) })
     }
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .wrap{
   display: flex;
   flex-direction: column;
@@ -211,10 +310,6 @@ export default {
       margin-top:12px;
       border-radius:10px;
     }
-    .el-table, .el-table__expanded-cell{
-      background: none;
-      width: 100%
-    }
   }
   .container::-webkit-scrollbar {
     display:none
@@ -222,21 +317,17 @@ export default {
   .tags-inp{
     margin-left: 12px
   }
-  .pagination-container{
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    margin: 0
-  }
+
 }
-.el-switch__label *{
-  font-size: 12px
-}
-.flag .el-switch__label {
-  position: absolute;
-  display: none;
-  color: #fff;
+
+</style>
+<style>
+.pagination-container{
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0
 }
 </style>

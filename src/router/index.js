@@ -115,16 +115,16 @@ export const constantRoutes = [
         meta: { title: '商品评论' }
       },
       {
-        path: '/comment/detail/:id(\\d+)',
+        path: '/comment/detail/',
         name: 'detail',
         component: () => import('@/views/shopping/comment/detail/index'),
         meta: { title: '详情' },
         hidden: true
       },
       {
-        path: '/comment/creat-comment/:id(\\d+)',
-        name: 'creat-comment',
-        component: () => import('@/views/shopping/comment/creat-comment/index'),
+        path: '/comment/creat/',
+        name: 'creat',
+        component: () => import('@/views/shopping/comment/creat/index'),
         meta: { title: '创建评论' },
         hidden: true
       }

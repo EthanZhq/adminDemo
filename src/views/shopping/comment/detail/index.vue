@@ -4,36 +4,36 @@
       <div class="order-info">
         <div class="info-title">
           <div class="info-picture">
-            <img src="https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png" alt="">
+            <img :src="temp.avatarUrl" alt="">
           </div>
           <div class="main">
             <div class="data">
               <span class="name">用户</span>
-              <span>青丘先生</span>
+              <span>{{ temp.nname }}</span>
             </div>
             <div class="data">
               <span class="name">评论时间</span>
-              <span>2020-12-12 11:59:59</span>
+              <span>{{ temp.ctime }}</span>
             </div>
             <div class="data">
               <span class="name">商品名称</span>
-              <span class="shopping-name">银色星芒刺绣网纱底裤</span>
+              <span class="shopping-name">{{ temp.gname }}</span>
             </div>
             <div class="data">
               <span class="name">购买时间</span>
-              <span>2020-12-12 11:59:59</span>
+              <span>{{ temp.atime }}</span>
             </div>
             <div class="data">
               <span class="name">属性</span>
-              <span>裤子</span>
+              <span>{{ temp.specChildName }}</span>
             </div>
             <div class="data">
               <span class="name">是否显示</span>
-              <span>显示</span>
+              <span>{{temp.isShow}}</span>
             </div>
             <div class="data">
               <span class="name">订单编号</span>
-              <span>201908702145555554</span>
+              <span>{{ temp.code }}</span>
             </div>
           </div>
           <el-button
@@ -45,22 +45,25 @@
           <div class="rate">
             <span>商品评价</span>
             <el-rate
-              v-model="value"
+              v-model="temp.prank"
               :colors="['#2f66ff', '#2f66ff', '#2f66ff']"
+              :texts="['非常差', '差', '一般', '好', '非常好']"
               show-text
               disabled>
             </el-rate>
           </div>
           <div class="mid">
-            <div class="comment-content">商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒。商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒商品很棒。</div>
-            <div class="comment-pic">
-              <img src="https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png " alt="">
+            <div class="comment-content">{{ temp.content }}</div>
+            <div class="picture">
+                <div class="comment-pic">
+                  <img :src="temp.avatarUrl" alt="">
+                </div>
             </div>
           </div>
           <div class="rate">
             <span>物流评价</span>
             <el-rate
-              v-model="value"
+              v-model="temp.drank"
               :colors="['#ff866e', '#ff866e', '#ff866e']"
               disabled>
             </el-rate>
@@ -68,7 +71,7 @@
           <div class="rate">
             <span>服务评价</span>
             <el-rate
-              v-model="value"
+              v-model="temp.srank"
               :colors="['#ffd43f', '#ffd43f', '#ffd43f']"
               disabled>
             </el-rate>
@@ -80,14 +83,50 @@
 </template>
 
 <script>
+import { detail } from '@/api/comment'
 export default {
   data() {
     return {
-      value: 4
+      cId: '',
+      temp: {
+        atime: '',
+        code: '',
+        content: '',
+        ctime: '',
+        drank: '',
+        gname: '',
+        isShow: '',
+        nname: '',
+        prank: '',
+        specChildName: '',
+        srank: ''
+      }
     }
   },
+  mounted() {
+    this.cId = this.$route.query.id
+    this.getDeatil()
+  },
   methods: {
-
+    getDeatil() {
+      detail(this.cId).then(response => {
+        this.temp = response.data[0]
+        if(this.temp.isShow == 1){
+          this.temp.isShow = '显示'
+        } else {
+          this.temp.isShow = '不显示'
+        }
+        if(this.temp.prank){
+          this.temp.prank = Math.round(this.temp.prank / 2)
+        }
+        if (this.temp.drank) {
+          this.temp.drank = Math.round(this.temp.drank / 2)
+        }
+        if (this.temp.srank) {
+          this.temp.srank = Math.round(this.temp.srank / 2)
+        }
+      })
+    }
   }
 }
 </script>
@@ -134,18 +173,17 @@ export default {
             width: 50%;
             display: flex;
             align-items: center;
-
             .name{
               display: flex;
               width: 90px;
               line-height: 36px;
             }
-            .shopping-name{
-              overflow: hidden;
-              text-overflow:ellipsis;
-              white-space: nowrap;
-              width: 80%
-            }
+            // .shopping-name{
+            //   overflow: hidden;
+            //   text-overflow:ellipsis;
+            //   white-space: nowrap;
+            //   width: 72%
+            // }
           }
         }
       }
@@ -161,18 +199,22 @@ export default {
           display: flex;
           align-items: center;
           margin-bottom: 16px;
+          padding-left:36px;
           span{
             margin-right: 20px;
           }
         }
-        .comment-pic{
-          width: 100px;
-          height: 100px;
-          border-radius: 6px;
-          img{
-            width: 100%;
-            height: 100%;
+        .picture{
+          padding-left:36px;
+          .comment-pic{
+            width: 100px;
+            height: 100px;
             border-radius: 6px;
+            img{
+              width: 100%;
+              height: 100%;
+              border-radius: 6px;
+            }
           }
         }
         .comment-content{

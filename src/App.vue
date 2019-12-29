@@ -13,5 +13,8 @@ export default {
 #app{
   background: #f8f8f8
 }
+.el-loading-spinner i{
+  font-size: 36px
+}
 </style>
 

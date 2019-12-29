@@ -52,7 +52,8 @@
         :key="tableKey"
         ref="multipleTable"
         v-loading="listLoading"
-        :data="list"
+        element-loading-spinner="el-icon-loading"
+        :data="tableData"
         stripe
         border
         fit
@@ -72,48 +73,47 @@
               <div class="img">
                 <img src="https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png" alt="" class="shopping-pic">
               </div>
-              <span class="shopping-name">{{ row.name }}</span>
+              <span class="shopping-name">{{ row.gname }}</span>
             </div>
           </template>
         </el-table-column>
         <el-table-column label="商品编码" align="center" width="160">
           <template slot-scope="{ row }">
-            <span>{{ row.code }}</span>
+            <span>{{ row.gcode }}</span>
           </template>
         </el-table-column>
         <el-table-column label="商品分类" prop="classify" align="center" width="120">
           <template slot-scope="{ row }">
-            <span>{{ row.classify }}</span>
+            <span>{{ row.typeName }}</span>
           </template>
         </el-table-column>
         <el-table-column label="价格" width="400" align="center">
           <template slot-scope="{ row }">
-            <div class="card-box">
-              <div class="card">
-                <div class="way">积分抵扣</div>
-                <div class="price">{{ row.price }}</div>
-              </div>
-              <div class="card-way">
-                <div class="buy-way">现金购</div>
-                <div class="price">{{ row.money }}</div>
+            <div class="card-box" v-if="row.priceList != ''">
+              <div class="card"
+                v-for="(item,index) in row.priceList"
+                :key="index"
+              >
+                <div class="way">{{item.type}}</div>
+                <div class="price">{{ item.price }}</div>
               </div>
             </div>
           </template>
         </el-table-column>
         <el-table-column label="总销量" align="center" width="100px">
           <template slot-scope="{ row }">
-            <span class="link-type">{{ row.num }}</span>
+            <span class="link-type">{{ row.scount }}</span>
           </template>
         </el-table-column>
         <el-table-column label="实际销量" align="center" width="100px">
           <template slot-scope="{ row }">
-            <span class="link-type">{{ row.number }}</span>
+            <span class="link-type">{{ row.salesNum }}</span>
           </template>
         </el-table-column>
         <el-table-column label="商品上下架" align="center" width="200px">
           <template slot-scope="{ row }">
             <el-switch
-              v-model="row.flag"
+              v-model="row.gstatus"
               class="flag"
               active-text="上架"
               inactive-text="下架"
@@ -125,12 +125,12 @@
         </el-table-column>
         <el-table-column label="上下架时间" width="180px" align="center">
           <template slot-scope="{ row }">
-            <span>{{ row.timestamp }}</span>
+            <span>{{ row.ptime }}</span>
           </template>
         </el-table-column>
         <el-table-column label="排序" prop="id" sortable="custom" align="center" width="80px">
           <template slot-scope="{ row }">
-            <span class="link-type">{{ row.id }}</span>
+            <span class="link-type">{{ row.sort }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -146,7 +146,7 @@
         </el-table-column>
       </el-table>
     </div>
-    <pagination v-show="total>0" :page.sync="listQuery.page" :total="total" :limit.sync="listQuery.limit"/>
+    <pagination v-show="total>0" :page.sync="listQuery.page" :total="total" :limit.sync="listQuery.limit" @pagination="getList" />
   </div>
 </template>
 
@@ -159,120 +159,17 @@ export default {
   directives: { waves },
   data() {
     return {
-      total: 60,
+      total: 0,
       listQuery: {
         search: '',
         type: '',
-        page: 10,
+        page: 1,
         limit: 10
       },
       listLoading: false,
       downloadLoading: false,
       tableKey: 0,
-      list: [
-        {
-          code: 1,
-          name: '陕西红富士苹果',
-          classify: '鞋子',
-          num: '2000000',
-          number: '43',
-          price: '120.00 + 8000积分',
-          money: '10000积分',
-          timestamp: '2019-12-12 18:00:00',
-          flag: 0
-        },
-        {
-          code: 1,
-          name: '运动鞋',
-          classify: '鞋子',
-          num: '200000',
-          number: '43',
-          price: '120.00 + 8000积分',
-          money: '999',
-          timestamp: '2019-12-12 20:00:00',
-          flag: 1
-        },
-        {
-          code: 1,
-          name: '运动鞋',
-          classify: '鞋子',
-          num: '200',
-          number: '43',
-          price: '360.00 + 8000积分',
-          money: '521',
-          timestamp: '2019-12-12 20:00:00'
-        },
-        {
-          code: 1,
-          name: '运动鞋',
-          classify: '鞋子',
-          num: '200',
-          number: '43',
-          price: '250.00 + 8000积分',
-          money: '1000',
-          timestamp: '2019-12-12  20:00:00'
-        },
-        {
-          code: 1,
-          name: '运动鞋',
-          classify: '鞋子',
-          num: '200',
-          number: '43',
-          price: '1200.00 + 8000积分',
-          money: '100',
-          timestamp: '2019-12-12 20:00:00'
-        },
-        {
-          code: 1,
-          name: '运动鞋',
-          classify: '鞋子',
-          num: '200',
-          number: '43',
-          price: '250.00 + 8000积分',
-          money: '1000',
-          timestamp: '2019-12-12  20:00:00'
-        },
-        {
-          code: 1,
-          name: '运动鞋',
-          classify: '鞋子',
-          num: '200',
-          number: '43',
-          price: '250.00 + 8000积分',
-          money: '1000',
-          timestamp: '2019-12-12  20:00:00'
-        },
-        {
-          code: 1,
-          name: '运动鞋',
-          classify: '鞋子',
-          num: '200',
-          number: '43',
-          price: '250.00 + 8000积分',
-          money: '1000',
-          timestamp: '2019-12-12  20:00:00'
-        },
-        {
-          code: 1,
-          name: '运动鞋',
-          classify: '鞋子',
-          num: '200',
-          number: '43',
-          price: '250.00 + 8000积分',
-          money: '1000',
-          timestamp: '2019-12-12  20:00:00'
-        },
-        {
-          code: 1,
-          name: '运动鞋',
-          classify: '鞋子',
-          num: '200',
-          number: '43',
-          price: '250.00 + 8000积分',
-          money: '1000',
-          timestamp: '2019-12-12  20:00:00'
-        }
-      ],
+      tableData: [],
       calendarTypeOptions: [
         { key: 'CN', display_name: 'China' },
         { key: 'US', display_name: 'USA' },
@@ -285,12 +182,19 @@ export default {
     this.getList()
   },
   methods: {
-    async getList() {
-      const res = await getList()
-      console.log('商品列表')
+    getList() {
+      this.listLoading = true
+      getList(this.listQuery).then(response => {
+        this.tableData = response.data
+        console.log('商品列表', response)
+        this.total = response.count
+        setTimeout(() => {
+          this.listLoading = false
+        }, 1000)
+      })
     },
-    goAdd(){
-      this.$router.push({path:'/shopping-list/add'})
+    goAdd() {
+      this.$router.push({ path: '/shopping-list/add' })
     },
     handleDownload() {
       this.downloadLoading = true
@@ -364,7 +268,7 @@ export default {
         justify-content: space-between;
         flex-wrap: wrap;
         .card{
-          width: 210px;
+
           padding: 0;
           display: flex;
           align-items: center;
@@ -372,7 +276,7 @@ export default {
           border-radius: 6px;
           font-size: 14px;
           .way{
-            background: #7cf2cf;
+            background: #4df5d1;
             color:#fff;
             padding: 4px 6px;
             border-top-left-radius: 6px;
@@ -390,7 +294,7 @@ export default {
           border: 1px solid #EBEEF5;
           border-radius: 6px;
           .buy-way{
-            background: #f9d45c;
+            background: #fdd160;
             color:#fff;
             padding: 4px 6px;
             border-top-left-radius: 6px;

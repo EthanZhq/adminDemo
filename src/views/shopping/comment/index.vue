@@ -5,51 +5,54 @@
         <div style="width:100%;">
           <div style="display:flex">
             <el-input
-              v-model="listQuery.search"
+              v-model="listQuery.NName"
               placeholder="用户"
               style="width: 200px;"
               class="filter-item search-inp"
             />
             <el-input
-              v-model="listQuery.search"
+              v-model="listQuery.GName"
               placeholder="商品名称"
               style="width: 200px;"
               class="filter-item search-inp"
             />
             <div class="block" style="margin-right:16px">
               <el-date-picker
-                v-model="orderTime"
+                v-model="listQuery.CTime"
                 align="right"
                 type="date"
                 placeholder="评论时间"
                 :picker-options="pickerOption">
               </el-date-picker>
             </div>
-            <el-select v-model="listQuery.type" placeholder="商品评价等级" clearable class="filter-item select-box" style="width: 130px">
+            <el-select v-model="listQuery.PRank" placeholder="商品评价等级" clearable class="filter-item select-box" style="width: 130px">
               <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
             </el-select>
-            <el-select v-model="listQuery.flag" placeholder="是否显示" clearable class="filter-item select-box" style="width: 110px">
-              <el-option v-for="item in flag" :key="item" :label="item.isShow" :value="item" />
+            <el-select v-model="listQuery.isShow" placeholder="是否显示" clearable class="filter-item select-box" style="width: 110px">
+              <el-option v-for="k in isShow" :key="k.key" :label="k.flag" :value="k.key" />
             </el-select>
           </div>
           <div class="btn">
             <el-button
               class="filter-item"
               type="primary"
+              @click="handleDel"
             >批量删除</el-button>
           </div>
         </div>
-        <el-button class="filter-item" type="primary" icon="el-icon-search">搜索</el-button>
+        <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleSearch">查询</el-button>
       </div>
       <el-table
         ref="multipleTable"
         v-loading="listLoading"
-        :data="list"
+        :data="tableData"
+        element-loading-spinner="el-icon-loading"
         stripe
         border
         fit
         highlight-current-row
         class="table"
+        @selection-change="handleSelectionChange"
       >
         <el-table-column
           type="selection"
@@ -58,24 +61,24 @@
           style="background-color:#000;"
         >
         </el-table-column>
+        <el-table-column label="商品名称" align="center" width="180">
+          <template slot-scope="{ row }">
+            <span>{{ row.gname }}</span>
+          </template>
+        </el-table-column>
         <el-table-column label="用户" align="center" width="180">
           <template slot-scope="{ row }">
-            <span>{{ row.name }}</span>
+            <span>{{ row.nname }}</span>
           </template>
         </el-table-column>
         <el-table-column label="评价内容" :show-overflow-tooltip = 'true' align="center" width="500">
           <template slot-scope="{ row }">
-            <span>{{ row.container }}</span>
+            <span>{{ row.content }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="商品" align="center"  width="120">
+        <el-table-column label="商品规格" align="center"  width="240">
           <template slot-scope="{ row }">
-            <span>{{ row.shopping }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="规格" align="center" width="180">
-          <template slot-scope="{ row }">
-            <span class="link-type">{{ row.specification }}</span>
+            <span>{{ row.specChildName }}</span>
           </template>
         </el-table-column>
         <el-table-column label="评价等级" align="center" width="100">
@@ -86,21 +89,24 @@
         <el-table-column label="是否显示" align="center" width="200">
           <template slot-scope="{ row }">
             <el-switch
-              v-model="row.flag"
+              v-model="row.isShow"
+              disabled
               active-color="#2f66ff"
               inactive-color="#999"
+              :active-value="1"
+              :inactive-value="0"
             >
             </el-switch>
           </template>
         </el-table-column>
         <el-table-column label="评论时间" width="180" align="center">
           <template slot-scope="{ row }">
-            <span>{{ row.timestamp }}</span>
+            <span>{{ row.ctime }}</span>
           </template>
         </el-table-column>
         <el-table-column label="排序" prop="code" sortable="custom" align="center" width="80">
           <template slot-scope="{ row }">
-            <span class="link-type">{{ row.code }}</span>
+            <span class="link-type">{{ row.sort }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -109,37 +115,37 @@
           label="操作"
           width="200">
           <template slot-scope="scope">
-            <router-link :to="'/comment/detail/' + scope.row.id">
-              <el-button type="primary" size="small">查看</el-button>
-            </router-link>
-            <router-link :to="'/comment/creat-comment/' + scope.row.id">
-              <el-button type="primary" size="small">创建评论</el-button>
-            </router-link>
+              <el-button type="primary" size="small" @click="goDetail(scope)">查看</el-button>
+              <el-button type="primary" size="small" @click="creat(scope)">创建评论</el-button>
           </template>
         </el-table-column>
       </el-table>
     </div>
-    <pagination v-show="total>0" hide-on-single-page :page.sync="listQuery.page" :total="total" :limit.sync="listQuery.limit"/>
+    <pagination v-show="total>0" hide-on-single-page :page.sync="listQuery.page" :total="total" :limit.sync="listQuery.limit" @pagination="getList"/>
   </div>
 </template>
 
 <script>
 import Pagination from '@/components/Pagination'
+import { getList, deleteComments } from '@/api/comment'
 export default {
   components: { Pagination },
   data() {
     return {
-      orderTime: '',
-      total: 10,
+      total: 0,
       listQuery: {
-        search: '',
-        type: '',
-        flag: '',
-        page: 6,
+        NName: '',
+        GName: '',
+        CTime: '',
+        PRank: '',
+        isShow: '',
+        page: 1,
         limit: 10
       },
       listLoading: false,
       downloadLoading: false,
+      tableDataAmount: [],
+      tempId: [],
       pickerOption: {
         disabledDate(time) {
           return time.getTime() > Date.now()
@@ -167,29 +173,17 @@ export default {
           }
         }]
       },
-      flag: [
-        {
-          key: 0,
-          isShow: '是'
-        },
+      isShow: [
         {
           key: 1,
-          isShow: '否'
-        }
-      ],
-      list: [
+          flag: '是'
+        },
         {
-          id: '0',
-          code: 1,
-          name: '骑着毛驴上高速',
-          container: '哎，一言难尽',
-          shopping: '敌敌畏',
-          specification: '600ml,1瓶',
-          grade: '好评',
-          timestamp: '2019-12-12 18:00:00',
-          flag: 0
+          key: 0,
+          flag: '否'
         }
       ],
+      tableData: [],
       calendarTypeOptions: [
         { key: 'CN', display_name: 'China' },
         { key: 'US', display_name: 'USA' },
@@ -198,8 +192,71 @@ export default {
       ]
     }
   },
+  mounted() {
+    this.getList()
+  },
   methods: {
-
+    getList() {
+      this.listLoading = true
+      getList(this.listQuery).then(response => {
+        this.tableData = response.data
+        this.total = response.count
+        setTimeout(() => {
+          this.listLoading = false
+        }, 1000)
+      })
+    },
+    handleSearch() {
+      if (this.listQuery.NName === '' && this.listQuery.GName === '' && this.listQuery.CTime === '' && this.listQuery.type === '' && this.listQuery.flag === '') {
+        this.$message.error('请输入查询内容')
+      } else {
+        this.listQuery.page = 1
+        this.getList()
+      }
+    },
+    handleSelectionChange(data) {
+      this.tableDataAmount = data
+    },
+    handleDel() {
+      const idArray = this.tableDataAmount
+      if (idArray !== '') {
+        idArray.forEach(k => {
+          this.tempId.push(k.cid)
+        })
+        this.$confirm('确定删除此组标签?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+          .then(async() => {
+            await deleteComments(this.tempId)
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            })
+            this.getList()
+          })
+          .catch(err => { console.error(err) })
+      } else {
+        this.$message.error('请选择需要删除的评论')
+      }
+    },
+    creat(scope) {
+      this.$router.push({
+        path:'/comment/creat/',
+        query: {
+          id: scope.row.cid
+        }
+      })
+    },
+    goDetail(scope) {
+      this.$router.push({
+        path: '/comment/detail/',
+        query: {
+          id: scope.row.cid
+        }
+      })
+    }
   }
 }
 </script>
