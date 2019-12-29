@@ -45,8 +45,9 @@ export default {
           name:"Title",
           title:'标题栏',
           pic:require('../../assets/decoration/title.png'),
+          view:[{pic:require('../../assets/decoration/defalut.png')},{pic:require('../../assets/decoration/defalut.png')}],
           type:0,
-          options:{type:'2',title:'热销推荐',bgColor:'#fff',color:"#666",fontSize:16,fontWeight:'0',lineColor:'#333',arrowColor:'#666'}
+          options:{type:1,title:'热销推荐',bgColor:'#fff',color:"#666",fontSize:16,fontWeight:'0',lineColor:'#333',arrowColor:'#666'}
         },
         {
           name:"Product",
@@ -65,9 +66,10 @@ export default {
         {
           name:"MagicCube",
           title:'魔方',
+          view:[{pic:require('../../assets/decoration/defalut.png')},{pic:require('../../assets/decoration/defalut.png')},{pic:require('../../assets/decoration/defalut.png')},{pic:require('../../assets/decoration/defalut.png')}],
           pic:require('../../assets/decoration/magicCube.png'),
           type:0,
-          options:{color:"pink"}
+          options:{type:0,space:10,picList:[{pic:require('../../assets/decoration/defalut.png')},{pic:require('../../assets/decoration/defalut.png')},{pic:require('../../assets/decoration/defalut.png')}]}
         },
         {
           name:"Search",
@@ -119,16 +121,17 @@ export default {
 .container{
   width: 215px;
   height: 700px;
-  margin: 0 35px;
+  margin: 0 45px;
   border: 1px solid #e4e4ee;
+  border-radius: 5px;
   .base,.market{
     display: flex;
     flex-wrap: wrap;
     >div:nth-child(2n){
-      margin-left: 4%;
+      margin-left: 10%;
     }
     >div{
-      width: 48%;
+      width: 45%;
       background: #ffffff;
       margin-bottom: 20px;
       text-align: center;

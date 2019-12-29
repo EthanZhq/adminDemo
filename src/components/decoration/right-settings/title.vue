@@ -36,21 +36,21 @@
         <colorPicker v-model="options.bgColor" />
       </div>
     </div>
-    <div v-if="options.type=='2'">
+    <div v-if="options.type==1">
       <span>箭头颜色</span>
       <div class="color">
         <span>{{options.arrowColor}}</span>
         <colorPicker v-model="options.arrowColor" />
       </div>
     </div>
-    <div v-if="options.type=='2'">
+    <div v-if="options.type==1">
       <span>线条颜色</span>
       <div class="color">
         <span>{{options.lineColor}}</span>
         <colorPicker v-model="options.lineColor" />
       </div>
     </div>
-    <div v-if="options.type=='2'">
+    <div v-if="options.type==1">
       <span>链接</span>
       <el-button @click="showLink()">选择链接</el-button>
     </div>

@@ -1,8 +1,8 @@
 <template>
   <div class="pic">
     <draggable element="div" v-model="list">
-      <div v-for="(item,index) in list" :key="index" class="imgList">
-        <div>{{isNav?'导航':'图片'}}{{index+1}}<i v-if="index>0" class="el-icon-delete" @click="delImg(index)"></i></div>
+      <div v-for="(item,index) in list" :key="index" class="imgList" v-show="index==0&&length">
+        <div>{{isNav?'导航':'图片'}}{{index+1}}<i v-if="index>0&&!isMagic" class="el-icon-delete" @click="delImg(index)"></i></div>
         <div v-if="isNav">
           <span>导航名称</span>
           <el-input type="text" show-word-limit=true placeholder="不超过4个字" v-model="item.name" maxlength="10"></el-input>
@@ -40,7 +40,7 @@
         </div>
       </div>
     </draggable>
-    <div class="add">
+    <div class="add" v-if="!isMagic">
       <el-button @click="addImg">添加{{isNav?'导航':'图片'}}</el-button><span>最多{{isNav?'5个':'十张'}}，上下拖动可排序</span>
     </div>
   </div>
@@ -60,6 +60,14 @@ export default {
       default:[]
     },
     isNav:{
+      type:Boolean,
+      default:false
+    },
+    isMagic:{
+      type:Boolean,
+      default:false
+    },
+    length:{
       type:Boolean,
       default:false
     }
@@ -171,10 +179,14 @@ button{
     }
   }
 }
+.imgList:last-child{
+  border: none;
+}
 .add{
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-top: 1px solid #D7D7D7;
   >span{
     color: #999;
     font-size: 13px;
