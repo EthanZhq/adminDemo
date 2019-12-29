@@ -90,7 +90,6 @@
           <template slot-scope="{ row }">
             <el-switch
               v-model="row.isShow"
-              disabled
               active-color="#2f66ff"
               inactive-color="#999"
               :active-value="1"

@@ -79,8 +79,8 @@
       </div>
       <div class="higher-level" v-if="radio == 1">
         <span class="modal-title">上级分组</span>
-        <el-select v-model="listQuery.pid" placeholder="请选择上级分组" clearable class="filter-item select-box" style="width: 150px">
-          <el-option v-for="k in higherLevel" :key="k.id" :label="k.name" :value="k.id" />
+        <el-select v-model="listQuery.pid" placeholder="请选择上级分组" clearable class="filter-item" style="width: 150px">
+          <el-option v-for="k in groupList" :key="k.id" :label="k.name" :value="k.id" />
         </el-select>
       </div>
       <div class="modal-group">
@@ -123,8 +123,7 @@ export default {
         imagId: '',
         level: '',
         pid: ''
-      },
-      higherLevel: [],
+      }
     }
   },
   mounted() {
@@ -151,7 +150,6 @@ export default {
     },
     handleAddGroup() {
       this.listQuery = {}
-      this.higherLevel = this.groupList,
       this.dialogVisible = true,
       this.radio = '1'
     },
