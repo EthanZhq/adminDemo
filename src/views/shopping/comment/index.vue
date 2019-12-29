@@ -26,7 +26,7 @@
               </el-date-picker>
             </div>
             <el-select v-model="listQuery.PRank" placeholder="商品评价等级" clearable class="filter-item select-box" style="width: 130px">
-              <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
+              <el-option v-for="item in PRank" :key="item.key" :label="item.rank" :value="item.key" />
             </el-select>
             <el-select v-model="listQuery.isShow" placeholder="是否显示" clearable class="filter-item select-box" style="width: 110px">
               <el-option v-for="k in isShow" :key="k.key" :label="k.flag" :value="k.key" />
@@ -116,7 +116,7 @@
           width="200">
           <template slot-scope="scope">
               <el-button type="primary" size="small" @click="goDetail(scope)">查看</el-button>
-              <el-button type="primary" size="small" @click="creat(scope)">创建评论</el-button>
+              <el-button type="primary" size="small" @click="creat(scope)">置顶</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -174,21 +174,16 @@ export default {
         }]
       },
       isShow: [
-        {
-          key: 1,
-          flag: '是'
-        },
-        {
-          key: 0,
-          flag: '否'
-        }
+        { key: 1, flag: '是' },
+        { key: 0, flag: '否' }
       ],
       tableData: [],
-      calendarTypeOptions: [
-        { key: 'CN', display_name: 'China' },
-        { key: 'US', display_name: 'USA' },
-        { key: 'JP', display_name: 'Japan' },
-        { key: 'EU', display_name: 'Eurozone' }
+      PRank: [
+        { key: '1', rank: '非常差' },
+        { key: '2', rank: '差' },
+        { key: '3', rank: '一般' },
+        { key: '4', rank: '好' },
+        { key: '5', rank: '非常好' }
       ]
     }
   },
