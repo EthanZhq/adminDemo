@@ -122,9 +122,9 @@ export const constantRoutes = [
         hidden: true
       },
       {
-        path: '/comment/creat/',
+        path: '/shopping-list/creat/',
         name: 'creat',
-        component: () => import('@/views/shopping/comment/creat/index'),
+        component: () => import('@/views/shopping/shopping-list/creat/index'),
         meta: { title: '创建评论' },
         hidden: true
       }

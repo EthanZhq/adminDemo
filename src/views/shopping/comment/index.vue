@@ -22,8 +22,9 @@
                 align="right"
                 type="date"
                 placeholder="评论时间"
-                :picker-options="pickerOption">
-              </el-date-picker>
+                value-format="yyyy-MM-dd"
+                :picker-options="pickerOption"
+              />
             </div>
             <el-select v-model="listQuery.PRank" placeholder="商品评价等级" clearable class="filter-item select-box" style="width: 130px">
               <el-option v-for="item in PRank" :key="item.key" :label="item.rank" :value="item.key" />
@@ -90,12 +91,10 @@
           <template slot-scope="{ row }">
             <el-switch
               v-model="row.isShow"
-              active-color="#2f66ff"
-              inactive-color="#999"
               :active-value="1"
               :inactive-value="0"
-            >
-            </el-switch>
+              @change="switchChange(row)"
+            />
           </template>
         </el-table-column>
         <el-table-column label="评论时间" width="180" align="center">
@@ -112,21 +111,22 @@
           fixed="right"
           align="center"
           label="操作"
-          width="200">
+          width="200"
+        >
           <template slot-scope="scope">
               <el-button type="primary" size="small" @click="goDetail(scope)">查看</el-button>
-              <el-button type="primary" size="small" @click="creat(scope)">置顶</el-button>
+              <el-button type="primary" size="small">置顶</el-button>
           </template>
         </el-table-column>
       </el-table>
     </div>
-    <pagination v-show="total>0" hide-on-single-page :page.sync="listQuery.page" :total="total" :limit.sync="listQuery.limit" @pagination="getList"/>
+    <pagination v-show="total>0" hide-on-single-page :page.sync="listQuery.page" :total="total" :limit.sync="listQuery.limit" @pagination="getList" />
   </div>
 </template>
 
 <script>
 import Pagination from '@/components/Pagination'
-import { getList, deleteComments } from '@/api/comment'
+import { getList, deleteComments, editFlag } from '@/api/comment'
 export default {
   components: { Pagination },
   data() {
@@ -213,7 +213,7 @@ export default {
     },
     handleDel() {
       const idArray = this.tableDataAmount
-      if (idArray !== '') {
+      if (idArray != '') {
         idArray.forEach(k => {
           this.tempId.push(k.cid)
         })
@@ -235,12 +235,10 @@ export default {
         this.$message.error('请选择需要删除的评论')
       }
     },
-    creat(scope) {
-      this.$router.push({
-        path:'/comment/creat/',
-        query: {
-          id: scope.row.cid
-        }
+    switchChange(row) {
+      console.log(row)
+      editFlag(row.cid).then(response => {
+        this.getList()
       })
     },
     goDetail(scope) {

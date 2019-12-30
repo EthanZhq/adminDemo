@@ -5,28 +5,20 @@
         <div>
           <div style="display:flex">
             <el-input
-              v-model="listQuery.search"
+              v-model="listQuery.GName"
               placeholder="搜索"
               style="width: 200px;"
               class="filter-item search-inp"
             />
-            <el-select v-model="listQuery.type" placeholder="商品三级分类" clearable class="filter-item select-box" style="width: 160px">
-              <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
-            </el-select>
-            <el-select v-model="listQuery.type" placeholder="上架状态" clearable class="filter-item select-box" style="width: 130px">
-              <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
-            </el-select>
-            <el-select v-model="listQuery.type" placeholder="商品二级分类" clearable class="filter-item select-box" style="width: 160px">
-              <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
-            </el-select>
-            <el-select v-model="listQuery.type" placeholder="选择商品标签" clearable class="filter-item select-box" style="width: 160px">
-              <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
+            <el-select v-model="listQuery.isOnSale" placeholder="上架状态" clearable class="filter-item select-box" style="width: 130px">
+              <el-option v-for="item in isOnSale" :key="item.key" :label="item.state" :value="item.key" />
             </el-select>
           </div>
           <div class="btn">
             <el-button
                 class="filter-item"
                 type="primary"
+                @click="handleDelete"
               >批量删除</el-button>
               <el-button
                 class="filter-item"
@@ -46,7 +38,7 @@
               >导出</el-button>
           </div>
         </div>
-        <el-button class="filter-item" type="primary" icon="el-icon-search">搜索</el-button>
+        <el-button class="filter-item" type="primary" @click="handleFilter">查询</el-button>
       </div>
       <el-table
         :key="tableKey"
@@ -59,6 +51,7 @@
         fit
         highlight-current-row
         class="table"
+        @selection-change="handleSelectionChange"
       >
         <el-table-column
           type="selection"
@@ -87,7 +80,7 @@
             <span>{{ row.typeName }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="价格" width="400" align="center">
+        <el-table-column label="价格" width="560" align="center">
           <template slot-scope="{ row }">
             <div class="card-box" v-if="row.priceList != ''">
               <div class="card"
@@ -117,8 +110,9 @@
               class="flag"
               active-text="上架"
               inactive-text="下架"
-              active-color="#2f66ff"
-              inactive-color="#999"
+              :active-value="1"
+              :inactive-value="0"
+              @change="switchChange(row)"
             >
             </el-switch>
           </template>
@@ -138,10 +132,10 @@
           align="center"
           label="操作"
           width="240">
-          <template>
-            <el-button type="primary" size="small">评论</el-button>
+          <template slot-scope="scope">
+            <el-button type="primary" size="small" @click="creat(scope)">评论</el-button>
             <el-button type="primary" size="small">查看</el-button>
-            <el-button type="primary" size="small">删除</el-button>
+            <el-button type="primary" size="small" @click="handleDel(scope)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -153,7 +147,7 @@
 <script>
 import waves from '@/directive/waves'
 import Pagination from '@/components/Pagination'
-import { getList } from '@/api/shopping'
+import { getList, batchDelete, searchList, upDown } from '@/api/shopping'
 export default {
   components: { Pagination },
   directives: { waves },
@@ -161,8 +155,8 @@ export default {
     return {
       total: 0,
       listQuery: {
-        search: '',
-        type: '',
+        GName: '',
+        isOnSale: '',
         page: 1,
         limit: 10
       },
@@ -170,11 +164,11 @@ export default {
       downloadLoading: false,
       tableKey: 0,
       tableData: [],
-      calendarTypeOptions: [
-        { key: 'CN', display_name: 'China' },
-        { key: 'US', display_name: 'USA' },
-        { key: 'JP', display_name: 'Japan' },
-        { key: 'EU', display_name: 'Eurozone' }
+      tableDataAmount: [],
+      gIds: [],
+      isOnSale: [
+        { key: '1', state: '上架' },
+        { key: '0', state: '下架' }
       ]
     }
   },
@@ -186,15 +180,97 @@ export default {
       this.listLoading = true
       getList(this.listQuery).then(response => {
         this.tableData = response.data
-        console.log('商品列表', response)
+        this.tableData.forEach(item => {
+          item.priceList.forEach(j => {
+            if(j.type === 0) {
+              j.type = '0元购'
+            } else if (j.type === 1) {
+              j.type = '积分抵扣'
+            } else {
+              j.type = '现金购'
+            }
+          })
+        })
         this.total = response.count
         setTimeout(() => {
           this.listLoading = false
         }, 1000)
       })
     },
+    handleFilter() {
+      if (this.listQuery.GName === '' && this.listQuery.isOnSale === '') {
+        this.$message.error('请输入查询内容')
+      } else {
+        this.listQuery.page = 1
+        this.getList()
+      }
+    },
+    handleSelectionChange(data) {
+      this.tableDataAmount = data
+    },
+    handleDelete() {
+      const idArray = this.tableDataAmount
+      if (idArray != '') {
+        idArray.forEach(k => {
+          this.gIds.push(k.gid)
+        })
+        this.$confirm('确定删除此组标签?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+          .then(async() => {
+            await batchDelete(this.gIds)
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            })
+            this.getList()
+          })
+          .catch(err => { console.error(err) })
+      } else {
+        this.$message.error('请选择需要删除的商品')
+      }
+    },
+    handleDel({ $index, row }) {
+      this.gIds.push(row.gid)
+      this.$confirm('确定删除此条标签?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+        .then(async() => {
+          await batchDelete(this.gIds)
+          this.tableData.splice($index, 1)
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          })
+          this.getList()
+        })
+        .catch(err => { console.error(err) })
+    },
+    switchChange(row) {
+      console.log(row)
+      const data = {
+        gId: row.gid,
+        status: row.gstatus
+      }
+      upDown(data).then(response => {
+        this.getList()
+      })
+    },
     goAdd() {
       this.$router.push({ path: '/shopping-list/add' })
+    },
+    creat(scope) {
+      this.$router.push({
+        path:'/shopping-list/creat/',
+        query: {
+          id: scope.row.gid,
+          container: scope.row.gname
+        }
+      })
     },
     handleDownload() {
       this.downloadLoading = true
@@ -265,44 +341,22 @@ export default {
       .card-box{
         display: flex;
         align-items: center;
-        justify-content: space-between;
         flex-wrap: wrap;
         .card{
-
-          padding: 0;
+          padding: 2px 12px;
           display: flex;
           align-items: center;
-          border: 1px solid #EBEEF5;
-          border-radius: 6px;
+          border: 1px solid #e0242e;
+          border-radius: 20px;
           font-size: 14px;
-          .way{
-            background: #4df5d1;
-            color:#fff;
-            padding: 4px 6px;
-            border-top-left-radius: 6px;
-            border-bottom-left-radius: 6px;
-          }
+          margin-right: 16px;
+          color: #e0242e;
           .price{
-            padding: 4px 6px;
+            padding-left: 4px
           }
         }
-        .card-way{
-          width: 150px;
-          padding: 0;
-          display: flex;
-          align-items: center;
-          border: 1px solid #EBEEF5;
-          border-radius: 6px;
-          .buy-way{
-            background: #fdd160;
-            color:#fff;
-            padding: 4px 6px;
-            border-top-left-radius: 6px;
-            border-bottom-left-radius: 6px;
-          }
-          .price{
-            padding: 4px 6px;
-          }
+        .card:last-child{
+          margin: 0
         }
       }
     }

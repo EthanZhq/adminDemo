@@ -3,24 +3,23 @@
     <div class="app-container container">
       <div class="order-info">
         <div class="content">
-          <div class="shopping">是客户反馈和反抗螺丝钉到了放进塑料袋放进；历史交锋就是；级分类历史交锋老师l</div>
+          <div class="shopping">{{ container }}</div>
           <div class="comment-shopping">
             <span>规格</span>
-            <el-select v-model="listQuery.type" placeholder="商品三级分类" clearable class="filter-item select-box" style="width: 200px">
-              <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
+            <el-select v-model="temp.itemId" placeholder="商品三级分类" clearable class="filter-item select-box" style="width: 200px">
+              <el-option v-for="item in role" :key="item.itemId" :label="item.specChildNames" :value="item.itemId" />
             </el-select>
           </div>
           <div class="comment-shopping">
             <span>商品评价</span>
             <el-rate
-              v-model="value"
+              v-model="temp.grank"
               :colors="['#2f66ff', '#2f66ff', '#2f66ff']"
-              disabled>
-            </el-rate>
+            />
           </div>
           <div class="comment-shopping area">
             <span>商品内容</span>
-            <el-input type="textarea" :autosize="{ minRows: 6, maxRows: 10}"></el-input>
+            <el-input v-model="temp.content" type="textarea" :autosize="{ minRows: 6, maxRows: 10}"/>
           </div>
           <div class="comment-shopping">
             <span>上传图片</span>
@@ -29,7 +28,7 @@
               list-type="picture-card"
               :on-preview="handlePictureCardPreview"
               :on-remove="handleRemove">
-              <i class="el-icon-plus"></i>
+              <i class="el-icon-plus"/>
             </el-upload>
             <el-dialog :visible.sync="dialogVisible">
               <img width="100%" :src="dialogImageUrl" alt="">
@@ -37,12 +36,27 @@
           </div>
           <div class="comment-shopping">
             <span>名称</span>
-            <el-input v-model="input" placeholder="请输入内容" style="width:200px"></el-input>
+            <el-input v-model="input" placeholder="请输入内容" style="width:200px"/>
+          </div>
+          <div class="comment-shopping">
+            <span>物流评价</span>
+            <el-rate
+              v-model="temp.drank"
+              :colors="['#2f66ff', '#2f66ff', '#2f66ff']"
+            />
+          </div>
+          <div class="comment-shopping">
+            <span>商品评价</span>
+            <el-rate
+              v-model="temp.srank"
+              :colors="['#2f66ff', '#2f66ff', '#2f66ff']"
+            />
           </div>
           <div class="creat-btn">
             <el-button
               class="filter-item"
               type="primary"
+              @click="creat"
             >创建</el-button>
             <el-button
               class="filter-item"
@@ -55,25 +69,52 @@
 </template>
 
 <script>
+import { creatComment, getRole } from '@/api/shopping'
 export default {
   data() {
     return {
       input: '',
-      value: 4,
+      container: '',
       listQuery: {
         type: ''
       },
+      temp: {
+        content: '',
+        drank: '',
+        gid: '',
+        grank: '',
+        isAnony: '',
+        isShow: '',
+        itemId: '',
+        name: '',
+        pids: '',
+        sort: '',
+        srank: ''
+      },
       dialogImageUrl: '',
       dialogVisible: false,
-      calendarTypeOptions: [
-        { key: 'CN', display_name: 'China' },
-        { key: 'US', display_name: 'USA' },
-        { key: 'JP', display_name: 'Japan' },
-        { key: 'EU', display_name: 'Eurozone' }
-      ]
+      role: []
     }
   },
+  mounted() {
+    this.container = this.$route.query.container
+    this.temp.gid = this.$route.query.id
+    this.getRole()
+  },
   methods: {
+    async getRole() {
+      getRole(this.temp.gid).then(response => {
+        this.role = response.data.goodsSpecValue
+      })
+    },
+    creat() {
+      creatComment(this.temp).then(response => {
+        this.$message({
+          type: 'success',
+          message: '创建成功!'
+        })
+      })
+    },
     handleRemove(file, fileList) {
       console.log(file, fileList)
     },
@@ -99,10 +140,8 @@ export default {
     margin: 0 16px 16px;
     font-size: 15px;
     .order-info{
-      height: 100%;
       .content{
         background: #fff;
-        height: 100%;
         border-radius: 10px;
         border: 1px solid #e5e5e5;
         color: #999;

@@ -19,10 +19,17 @@ export function deleteGroup(id) {
     method: 'DELETE'
   })
 }
-export function editGroup(id) {
+export function detail(id) {
   return request({
     url: `/admin/goods/groups/${id}`,
     method: 'GET'
+  })
+}
+export function editGroup(id, data) {
+  return request({
+    url: `/admin/goods/groups/${id}`,
+    method: 'PUT',
+    data
   })
 }
 

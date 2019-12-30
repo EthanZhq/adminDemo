@@ -10,15 +10,16 @@
               style="width: 200px;"
               class="filter-item search-inp"
             />
-            <!-- <div class="block" style="margin-right:16px">
+            <div class="block" style="margin-right:16px">
               <el-date-picker
-                v-model="listQuery.ctime"
+                v-model="listQuery.CTime"
                 align="right"
                 type="date"
                 placeholder="创建时间"
-                :picker-options="pickerOption">
-              </el-date-picker>
-            </div> -->
+                value-format="yyyy-MM-dd"
+                :picker-options="pickerOption"
+              />
+            </div>
           </div>
           <div class="btn">
             <el-button
@@ -114,7 +115,7 @@ export default {
     return {
       total: 0,
       listQuery: {
-        ctime: '',
+        CTime: '',
         name: '',
         page: 1,
         limit: 10
@@ -195,8 +196,9 @@ export default {
       })
     },
     handleSearch() {
-      if (this.listQuery.name === '' && this.listQuery.ctime === '') {
-        this.$message.error('请输入标签名称')
+      console.log(this.listQuery.CTime)
+      if (this.listQuery.name === '' && this.listQuery.CTime === '') {
+        this.$message.error('请输入查询内容')
       } else {
         this.listQuery.page = 1
         this.getList()
@@ -231,7 +233,7 @@ export default {
     },
     handleDel() {
       const idArray = this.tableDataAmount
-      if (idArray) {
+      if (idArray !== '') {
         idArray.forEach(k => {
           this.tempId.push(k.id)
         })
@@ -249,6 +251,8 @@ export default {
             this.getList()
           })
           .catch(err => { console.error(err) })
+      } else {
+        this.$message.error('请选择需要删除的标签')
       }
     },
     handleSelectionChange(data) {

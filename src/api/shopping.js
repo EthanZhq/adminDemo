@@ -7,16 +7,16 @@ export function getList(query) {
     params: query
   })
 }
-export function addCommentDetail(data) {
+export function creatComment(data) {
   return request({
-    url: '/admin/addCommentDetail',
+    url: '/admin/goods/comments',
     method: 'POST',
     data
   })
 }
 export function batchDelete(data) {
   return request({
-    url: '/admin/goods/batchDelete',
+    url: '/admin/goods',
     method: 'DELETE',
     data
   })
@@ -28,10 +28,16 @@ export function searchList(data) {
     data
   })
 }
-export function updateDetail(data) {
+export function upDown(params) {
   return request({
-    url: '/admin/goods/updateDetail',
+    url: '/admin/goods/upDown',
     method: 'PUT',
-    data
+    params
+  })
+}
+export function getRole(gId) {
+  return request({
+    url: `/admin/goods/comments/add/${gId}`,
+    method: 'GET'
   })
 }

@@ -17,33 +17,34 @@
       </div>
       <div
         class="group"
-        v-for="(item,idx) in groupList"
+        v-for="(row,idx) in groupList"
         :key="idx"
       >
         <div class="group-list">
-          <div class="group-list-title" @click="showChild(item)">
-              <span>{{item.name}}</span>
+          <div class="group-list-title" @click="child(row)">
+              <span>{{row.name}}</span>
           </div>
           <div>
             <el-button
               class="filter-item"
               type="primary"
-              @click="handleAddGroup"
+              @click="handleAddGroup(row)"
             >新增二级分组</el-button>
             <el-button
               class="filter-item"
               type="primary"
+              @click="handleEdit(row)"
             >编辑</el-button>
             <el-button
               class="filter-item"
               type="primary"
-              @click="handleDel(item)"
+              @click="handleDel(row)"
             >删除</el-button>
           </div>
         </div>
-        <div v-if="item.selected === true">
+        <div v-if="row.selected === true">
           <div class="level-group"
-            v-for="(k,index) in item.childs"
+            v-for="(k,index) in row.childs"
             :key="index"
           >
             <div>
@@ -57,6 +58,7 @@
               <el-button
                 class="filter-item"
                 type="primary"
+                @click="handleEditGroup(row,k)"
               >编辑</el-button>
               <el-button
                 class="filter-item"
@@ -69,17 +71,17 @@
       </div>
     </div>
     <el-dialog
-      title="添加"
       :visible.sync="dialogVisible"
+      :title="dialogType==='edit'?'修改':'添加'"
       width="30%">
       <div class="modal-level">
         <span class="modal-title">级别：</span>
-        <el-radio v-model="radio" label="0">新增一级分组</el-radio>
-        <el-radio v-model="radio" label="1">新增二级分组</el-radio>
+        <el-radio v-model="radio" label="0" :disabled="disabled">新增一级分组</el-radio>
+        <el-radio v-model="radio" label="1" :disabled="isDisabled">新增二级分组</el-radio>
       </div>
       <div class="higher-level" v-if="radio == 1">
         <span class="modal-title">上级分组</span>
-        <el-select v-model="listQuery.pid" placeholder="请选择上级分组" clearable class="filter-item" style="width: 150px">
+        <el-select v-model="temp.levelName" placeholder="请选择上级分组" clearable class="filter-item" style="width: 150px">
           <el-option v-for="k in groupList" :key="k.id" :label="k.name" :value="k.id" />
         </el-select>
       </div>
@@ -87,7 +89,7 @@
         <span class="modal-title" v-if="radio == 0">一级分组名称：</span>
         <span class="modal-title" v-else>二级分组名称：</span>
         <el-input
-          v-model="listQuery.gname"
+          v-model="temp.gname"
           placeholder="不超过10个字"
           style="width: 200px;"
           class="filter-item search-inp"
@@ -102,7 +104,7 @@
         >上传图片</el-button>
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button @click="cancel">取 消</el-button>
         <el-button type="primary" @click="confirmData">确 定</el-button>
       </span>
     </el-dialog>
@@ -110,20 +112,33 @@
 </template>
 
 <script>
-import { getGroupList, addGroup, deleteGroup } from '@/api/group'
+import { getGroupList, addGroup, deleteGroup, editGroup, detail } from '@/api/group'
 import { async } from 'q'
+const defaultRole = {
+  gname: '',
+  imagId: '',
+  level: '',
+  pid: '',
+  levelName: ''
+}
 export default {
   data() {
     return {
       radio: '0',
       dialogVisible: false,
+      disabled: false,
+      isDisabled: false,
       groupList: [],
       listQuery: {
         gname: '',
         imagId: '',
         level: '',
         pid: ''
-      }
+      },
+      levelName: '',
+      dialogType: 'new',
+      id: '',
+      temp: Object.assign({}, defaultRole),
     }
   },
   mounted() {
@@ -135,47 +150,95 @@ export default {
         this.groupList = response.data
       })
     },
-    showChild(item) {
-      if (item.selected === false) {
-        item.selected = true
+    child(row) {
+      if (row.selected === false) {
+        row.selected = true
       } else {
-        item.selected = false
+        row.selected = false
       }
     },
     confirmData() {
-      addGroup(this.listQuery).then(response => {
-        this.dialogVisible = false,
-        this.getGroupList()
-      })
+      const isEdit = this.dialogType === 'edit'
+      if (isEdit) {
+        editGroup(this.id,this.temp).then(response => {
+          this.dialogVisible = false,
+          this.getGroupList()
+          this.temp = Object.assign({}, defaultRole)
+        })
+      } else {
+        addGroup(this.temp).then(response => {
+          this.dialogVisible = false,
+          this.getGroupList()
+          this.temp = Object.assign({}, defaultRole)
+        })
+      }
     },
-    handleAddGroup() {
-      this.listQuery = {}
-      this.dialogVisible = true,
-      this.radio = '1'
+    cancel() {
+      this.listQuery = {},
+      this.dialogVisible = false
+    },
+    handleAddGroup(row) {
+      this.radio = '1',
+      this.dialogType = 'new',
+      this.temp = {
+        gname: '',
+        imagId: '',
+        level: '',
+        pid: row.id,
+        levelName: row.name
+      }
+      this.dialogVisible = true
+      this.isDisabled = false
+      this.disabled = false
     },
     handleAdd() {
-      this.listQuery.pid = 0,
-      this.dialogVisible = true,
-      this.radio = '0'
+      this.radio = '0',
+      this.dialogType = 'new',
+      this.temp = Object.assign({}, defaultRole)
+      this.dialogVisible = true
+      this.isDisabled = false
+      this.disabled = false
     },
-    handleDel(item) {
-      const id = item.id
-      deleteGroup(id).then(response => {
+    handleEdit(row) {
+      this.radio = '0',
+      this.id = row.id,
+      this.dialogType = 'edit',
+      this.temp.gname = row.name,
+      this.dialogVisible = true
+      this.isDisabled = true
+      this.disabled = false
+    },
+    handleEditGroup(row,k) {
+      this.radio = '1',
+      this.id = k.id,
+      this.dialogType = 'edit',
+      this.temp = {
+        gname: k.name,
+        imagId: '',
+        level: '',
+        pid: row.id,
+        levelName: row.name
+      }
+      this.dialogVisible = true
+      this.disabled = true
+      this.isDisabled = false
+    },
+    handleDel(row) {
+      deleteGroup(row.id).then(response => {
         this.getGroupList()
       })
     },
     handleDelGroup(k) {
-      const id = k.id
-      deleteGroup(id).then(response => {
+      deleteGroup(k.id).then(response => {
         this.getGroupList()
       })
     },
     foldAll() {
-      this.groupList.forEach(item => {
-        if(item.selected == false) {
-          item.selected = true
+      this.groupList.forEach(row => {
+        if(row.selected == false) {
+          row.selected = true
         } else {
-          item.selected = false
+          row.selected = false
         }
       })
     }

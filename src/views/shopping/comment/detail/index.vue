@@ -4,7 +4,7 @@
       <div class="order-info">
         <div class="info-title">
           <div class="info-picture">
-            <img :src="temp.avatarUrl" alt="">
+            <img src="" alt="">
           </div>
           <div class="main">
             <div class="data">
@@ -29,7 +29,7 @@
             </div>
             <div class="data">
               <span class="name">是否显示</span>
-              <span>{{temp.isShow}}</span>
+              <span>{{ temp.isShow }}</span>
             </div>
             <div class="data">
               <span class="name">订单编号</span>
@@ -49,14 +49,14 @@
               :colors="['#2f66ff', '#2f66ff', '#2f66ff']"
               :texts="['非常差', '差', '一般', '好', '非常好']"
               show-text
-              disabled>
-            </el-rate>
+              disabled
+            />
           </div>
           <div class="mid">
             <div class="comment-content">{{ temp.content }}</div>
             <div class="picture">
                 <div class="comment-pic">
-                  <img :src="temp.avatarUrl" alt="">
+                  <img src="" alt="">
                 </div>
             </div>
           </div>
@@ -65,16 +65,16 @@
             <el-rate
               v-model="temp.drank"
               :colors="['#ff866e', '#ff866e', '#ff866e']"
-              disabled>
-            </el-rate>
+              disabled
+            />
           </div>
           <div class="rate">
             <span>服务评价</span>
             <el-rate
               v-model="temp.srank"
               :colors="['#ffd43f', '#ffd43f', '#ffd43f']"
-              disabled>
-            </el-rate>
+              disabled
+            />
           </div>
         </div>
       </div>
@@ -110,20 +110,11 @@ export default {
   methods: {
     getDeatil() {
       detail(this.cId).then(response => {
-        this.temp = response.data[0]
-        if(this.temp.isShow == 1){
+        this.temp = response.data
+        if (this.temp.isShow === 1) {
           this.temp.isShow = '显示'
         } else {
           this.temp.isShow = '不显示'
-        }
-        if(this.temp.prank){
-          this.temp.prank = Math.round(this.temp.prank / 2)
-        }
-        if (this.temp.drank) {
-          this.temp.drank = Math.round(this.temp.drank / 2)
-        }
-        if (this.temp.srank) {
-          this.temp.srank = Math.round(this.temp.srank / 2)
         }
       })
     }
@@ -178,12 +169,6 @@ export default {
               width: 90px;
               line-height: 36px;
             }
-            // .shopping-name{
-            //   overflow: hidden;
-            //   text-overflow:ellipsis;
-            //   white-space: nowrap;
-            //   width: 72%
-            // }
           }
         }
       }
