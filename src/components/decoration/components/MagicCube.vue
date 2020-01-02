@@ -4,18 +4,18 @@
       <img :src="options.picList[0].pic" alt="">
     </div>
     <div v-if="options.type==1" class="type1">
-      <div><img :src="options.picList[0].pic" alt=""></div>
-      <div :style="{marginLeft:options.space+'px'}">
+      <div :style="{marginRight:options.space+'px'}"><img :src="options.picList[0].pic" alt="" :style="{height:165+options.space+'px'}"></div>
+      <div>
         <img :src="options.picList[1].pic" alt="">
-        <img :src="options.picList[2].pic" alt="">
+        <img :src="options.picList[2].pic" alt="" :style="{marginTop:options.space+'px'}">
       </div>
     </div>
     <div v-if="options.type==2" class="type2">
       <div>
         <img :src="options.picList[0].pic" alt="">
-        <img :src="options.picList[1].pic" alt="">
+        <img :src="options.picList[1].pic" alt="" :style="{marginTop:options.space+'px'}">
       </div>
-      <div :style="{marginLeft:options.space+'px'}"><img :src="options.picList[2].pic" alt=""></div>
+      <div :style="{marginLeft:options.space+'px'}"><img :src="options.picList[2].pic" alt="" :style="{height:165+options.space+'px'}"></div>
     </div>
     <div v-if="options.type==3" class="type3">
       <div :style="{marginRight:index!=options.picList.length-1?options.space+'px':0}" v-for="(item,index) in options.picList" :key="index">
@@ -51,11 +51,6 @@ export default {
   >div.type1>div:nth-child(1),>div.type2>div:nth-child(2){
     >img{
       height: 170px;
-    }
-  }
-  >div.type1>div:nth-child(2),>div.type2>div:nth-child(1){
-    img:nth-child(1){
-      margin-bottom: 5px;
     }
   }
   >div.type3{

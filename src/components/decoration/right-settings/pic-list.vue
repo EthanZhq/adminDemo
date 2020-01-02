@@ -1,7 +1,7 @@
 <template>
   <div class="pic">
     <draggable element="div" v-model="list">
-      <div v-for="(item,index) in list" :key="index" class="imgList" v-show="index==0&&length">
+      <div v-for="(item,index) in list" :key="index" class="imgList">
         <div>{{isNav?'导航':'图片'}}{{index+1}}<i v-if="index>0&&!isMagic" class="el-icon-delete" @click="delImg(index)"></i></div>
         <div v-if="isNav">
           <span>导航名称</span>
@@ -16,11 +16,11 @@
         </div>
         <div>
           <span>{{isNav?'图标':'选择图片'}}</span>
-          <img :src="item.pic" alt="" :class="{'nav':isNav}">
           <el-upload
             action="https://jsonplaceholder.typicode.com/posts/"
+            list-type="picture-card"
             :on-success="iconSuccess">
-            <el-button>选择{{isNav?'图标':'图片'}}</el-button>
+            <i class="el-icon-plus"></i>
           </el-upload>
         </div>
         <div>
@@ -43,16 +43,19 @@
     <div class="add" v-if="!isMagic">
       <el-button @click="addImg">添加{{isNav?'导航':'图片'}}</el-button><span>最多{{isNav?'5个':'十张'}}，上下拖动可排序</span>
     </div>
+    <CheckLink :dialogVisible="dialogVisible" @on-close-dialog="closeDialog"/>
   </div>
 </template>
 
 <script>
-// import draggable from 'vuedraggable'
-import colorPicker from '../../../plugin/colorPicker.vue'
+import draggable from 'vuedraggable'
+import colorPicker from '../../../plugin/colorPicker'
+import CheckLink from '../pop/checkLink'
 export default {
   components:{
     draggable,
-    colorPicker
+    colorPicker,
+    CheckLink
   },
   props:{
     imgList:{
@@ -74,7 +77,8 @@ export default {
   },
   data(){
     return{
-      list:[]
+      list:[],
+      dialogVisible:false
     }
   },
   created(){
@@ -83,7 +87,7 @@ export default {
   methods:{
     addImg(){
       let num=this.list.length+1
-      if(this.isNav&&num<6){
+      if(this.isNav && num<6){
         this.list.push({pic:require('../../../assets/decoration/pic.gif'),color:'#555',name:'导航'+num})
       }else if(!this.isNav&&num<11){
         this.list.push({pic:require('../../../assets/decoration/defalut.png')})
@@ -103,7 +107,11 @@ export default {
       }
     },
     showLink(i){
+      this.dialogVisible=true
       console.log(i+'显示系统链接')
+    },
+    closeDialog(){
+      this.dialogVisible=false
     }
   },
   watch:{
@@ -124,8 +132,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-button{
-  padding: 7px 15px;
+.disabled.el-upload--picture-card{
+  display: none;
 }
 .imgList,.add{
   padding: 30px 20px;
@@ -136,16 +144,6 @@ button{
     display: flex;
     align-items: center;
     margin-bottom: 15px;
-    >img{
-      border-radius: 5px;
-      border: 1px solid #e4e4e4;
-      width: 85px;
-      height: 100%;
-      margin-right: 18px;
-    }
-    >img.nav{
-      width: 55px;
-    }
     .el-input{
       width: 65%;
       >.el-input__inner{
@@ -191,5 +189,21 @@ button{
     color: #999;
     font-size: 13px;
   }
+}
+</style>
+<style>
+.el-upload--picture-card {
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+}
+.el-upload-list--picture-card .el-upload-list__item{
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+}
+.el-upload-list--picture-card .el-upload-list__item-status-label i{
+  position: absolute;
+  right: 14px;
 }
 </style>

@@ -48,7 +48,9 @@ export default {
   },
   methods: {
     addComponent(e){
-      this.components.list.unshift(e)
+      console.log(e)
+      let component=JSON.parse(JSON.stringify(e))
+      this.components.list.unshift(component)
       this.components.current=0
       console.log('添加'+this.components.list)
     },

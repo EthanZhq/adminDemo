@@ -9,12 +9,12 @@
 
 <script>
 export default {
-  data(){
-    return {
-      title:"我是导航"
+  props:{
+    options:{
+      type:Object,
+      default:{}
     }
-  },
-  props:['options']
+  }
 }
 </script>
 
