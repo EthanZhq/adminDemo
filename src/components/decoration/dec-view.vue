@@ -14,7 +14,7 @@
 </template>
 
 <script>
-// import draggable from 'vuedraggable'
+import draggable from 'vuedraggable'
 import Top from './components/Top'
 import Banner from './components/banner'
 import Nav from './components/nav'

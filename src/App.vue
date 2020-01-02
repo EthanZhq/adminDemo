@@ -53,6 +53,7 @@ img{
 }
 .el-radio__input.is-checked+.el-radio__label{
   color: #2f66ff
+}
 .el-loading-spinner i{
   font-size: 36px
 }
