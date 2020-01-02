@@ -53,8 +53,9 @@ export default {
           name:"Product",
           title:'商品模块',
           pic:require('../../assets/decoration/product.png'),
+          view:[{pic:require('../../assets/decoration/defalut.png')},{pic:require('../../assets/decoration/defalut.png')},{pic:require('../../assets/decoration/defalut.png')}],
           type:0,
-          options:{color:"#e4e4e4",bgColor:'#fff',placeholder:'搜索店铺内商品',border:1,textAlign:'center'}
+          options:{type:2,border:'1'}
         },
         {
           name:"Discount",

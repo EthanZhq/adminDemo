@@ -11,7 +11,6 @@
         <el-radio label="center">居中</el-radio>
       </el-radio-group>
     </div>
-    
     <div>
       <span>背景颜色</span>
       <div class="color">

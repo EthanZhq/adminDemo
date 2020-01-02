@@ -31,13 +31,17 @@ import Banner from '@/components/decoration/right-settings/banner'
 import Nav from '@/components/decoration/right-settings/nav'
 import Title from '@/components/decoration/right-settings/title'
 import MagicCube from '@/components/decoration/right-settings/magicCube'
+import Product from '@/components/decoration/right-settings/product'
+import Discount from '@/components/decoration/right-settings/discount'
 export default {
   components:{
     Search,
     Banner,
     Nav,
     Title,
-    MagicCube
+    MagicCube,
+    Product,
+    Discount
   },
   data() {
     return {

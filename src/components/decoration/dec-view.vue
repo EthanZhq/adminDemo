@@ -5,22 +5,24 @@
       <div class="top" style="background:#E02E24;">商城</div>
       <draggable element="div" v-model="list">
         <div v-for="(item,index) in list" :key="index" @click="changeCurrent(index)">
+          <div class="del"><span>{{item.title}}</span><i class="el-icon-delete" @click="delComponent(index)"></i></div>
           <component :is="item.name" :options="item.options"></component>
         </div>
       </draggable>
-      <div class="bottom"></div>
     </div>
   </div>
 </template>
 
 <script>
-// import draggable from 'vuedraggable'
+import draggable from 'vuedraggable'
 import Top from './components/Top'
-import Banner from './components/Banner'
-import Nav from './components/Nav'
-import Search from './components/Search'
-import Title from './components/Title'
-import MagicCube from './components/MagicCube'
+import Banner from './components/banner'
+import Nav from './components/nav'
+import Search from './components/search'
+import Title from './components/title'
+import MagicCube from './components/magicCube'
+import Product from './components/product'
+import Discount from './components/discount'
 export default {
   components: {
     draggable,
@@ -29,7 +31,9 @@ export default {
     Nav,
     Search,
     Title,
-    MagicCube
+    MagicCube,
+    Product,
+    Discount
   },
   props:{
     components:{
@@ -50,6 +54,9 @@ export default {
     changeCurrent(i){
       this.current=i
       this.$emit('on-change-list',i)
+    },
+    delComponent(i){
+      this.list.splice(i,1)
     }
   },
   watch:{
@@ -96,6 +103,29 @@ export default {
     >div:nth-child(2){
       width: 100%;
       flex: 1;
+      >div:hover{
+        border: 1px dashed #2589FF;
+        box-sizing: border-box;
+        >div.del{
+          display: block;
+        }
+      }
+      >div{
+        >div.del{
+          z-index: 99;
+          font-size: 13px;
+          color: #2589FF;
+          width: 100%;
+          background: #fff;
+          padding: 8px 15px;
+          display: none;
+          >i{
+            float: right;
+            cursor: pointer;
+            font-size: 15px;
+          }
+        }
+      }
     }
   }
 
