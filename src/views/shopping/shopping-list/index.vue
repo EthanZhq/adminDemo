@@ -134,7 +134,7 @@
           width="240">
           <template slot-scope="scope">
             <el-button type="primary" size="small" @click="creat(scope)">评论</el-button>
-            <el-button type="primary" size="small">查看</el-button>
+            <el-button type="primary" size="small" @click="detail(scope)">查看</el-button>
             <el-button type="primary" size="small" @click="handleDel(scope)">删除</el-button>
           </template>
         </el-table-column>
@@ -269,6 +269,14 @@ export default {
         query: {
           id: scope.row.gid,
           container: scope.row.gname
+        }
+      })
+    },
+    detail(scope){
+      this.$router.push({
+        path:'/shopping-list/add/',
+        query: {
+          id: scope.row.gid,
         }
       })
     },
