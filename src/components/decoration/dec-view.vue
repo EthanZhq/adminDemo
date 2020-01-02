@@ -15,7 +15,6 @@
 
 <script>
 import draggable from 'vuedraggable'
-import Top from './components/Top'
 import Banner from './components/banner'
 import Nav from './components/nav'
 import Search from './components/search'
@@ -26,7 +25,6 @@ import Discount from './components/discount'
 export default {
   components: {
     draggable,
-    Top,
     Banner,
     Nav,
     Search,
