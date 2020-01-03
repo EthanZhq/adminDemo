@@ -25,6 +25,7 @@ import Discount from './components/discount'
 export default {
   components: {
     draggable,
+    Top,
     Banner,
     Nav,
     Search,

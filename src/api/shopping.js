@@ -41,3 +41,29 @@ export function getRole(gId) {
     method: 'GET'
   })
 }
+export function addData(data) {
+  return request({
+    url: '/admin/goods/addEdit',
+    method: 'GET',
+    data
+  })
+}
+export function creatService(params) {
+  return request({
+    url: '/admin/goods/services',
+    method: 'POST',
+    params
+  })
+}
+export function details(gId) {
+  return request({
+    url: `/admin/goods/${gId}`,
+    method: 'GET'
+  })
+}
+export function editData(id) {
+  return request({
+    url: `/admin/goods/${id}`,
+    method: 'PUT'
+  })
+}

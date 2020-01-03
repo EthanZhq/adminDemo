@@ -16,7 +16,7 @@ export default {
 img{
   vertical-align: middle;
 }
-.el-button--primary{
+/* .el-button--primary{
   background: #2f66ff;
   border-color: #2f66ff
 }
@@ -46,37 +46,37 @@ img{
 .el-date-table td.today span:hover{
   color: #2f66ff;
   font-weight: 700
-}
-.el-radio__input.is-checked .el-radio__inner{
+} */
+/* .el-radio__input.is-checked .el-radio__inner{
   background: #2f66ff;
   border-color: #2f66ff
 }
 .el-radio__input.is-checked+.el-radio__label{
   color: #2f66ff
-}
+} */
 .el-loading-spinner i{
   font-size: 36px
 }
-.dialog{
+/* .dialog{
   border-radius: 5px;
-}
-.dialog .el-dialog__title{
+} */
+/* .dialog .el-dialog__title{
   font-size: 15px;
   color: #333;
   font-weight: 700;
-}
-.dialog .dialog-footer button{
+} */
+/* .dialog .dialog-footer button{
   padding: 8px 16px;
-}
-.dialog .dialog-footer button.el-button--primary{
+} */
+/* .dialog .dialog-footer button.el-button--primary{
   background: #409EFF;
   border-color: #2589FF;
-}
-.dialog .dialog-footer button.el-button--primary:hover{
+} */
+/* .dialog .dialog-footer button.el-button--primary:hover{
   opacity: 0.7;
-}
-.el-button{
+} */
+/* .el-button{
   padding: 8px 12px;
-}
+} */
 </style>
 
