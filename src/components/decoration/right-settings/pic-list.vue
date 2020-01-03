@@ -132,7 +132,6 @@ export default {
       this.current = i;
       this.dialogVisible = true;
       console.log(i + "显示系统链接");
-      console.log(this.dialogVisible);
     },
     closeDialog() {
       this.dialogVisible = false;

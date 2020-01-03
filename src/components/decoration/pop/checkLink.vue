@@ -18,7 +18,9 @@
           node-key="id"
           :default-expanded-keys="[2, 3]"
           :default-checked-keys="[5]"
-        ></el-tree>
+        >
+          <span slot="footer" class="dialog-footer"></span>
+        </el-tree>
       </el-tab-pane>
       <el-tab-pane
         label="商品详情"
@@ -109,7 +111,6 @@ export default {
   },
   watch: {
     isShow(newVal) {
-      console.log(newVal);
       this.dialogVisible = newVal;
     }
   },

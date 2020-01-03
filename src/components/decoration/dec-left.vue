@@ -197,7 +197,7 @@ export default {
 .container {
   width: 215px;
   height: 700px;
-  margin: 0 45px;
+  margin: 0 5%;
   border: 1px solid #e4e4ee;
   border-radius: 5px;
   .base,
