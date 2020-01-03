@@ -69,8 +69,7 @@
     />
     <el-dialog
       :visible.sync="dialogVisible"
-      :title="dialogType==="
-edit'?'修改':'添加''
+      :title="dialogType==='edit'?'修改':'添加'"
       width="30%"
       top="16%"
     >

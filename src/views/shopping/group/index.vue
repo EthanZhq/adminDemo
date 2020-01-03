@@ -77,14 +77,7 @@
 </template>
 
 <script>
-import {
-  getGroupList,
-  addGroup,
-  deleteGroup,
-  editGroup,
-  detail
-} from '@/api/group'
-import { async } from 'q'
+import { getGroupList, addGroup, deleteGroup, editGroup } from '@/api/group'
 const defaultRole = {
   gname: '',
   imagId: '',
@@ -132,61 +125,64 @@ export default {
       const isEdit = this.dialogType === 'edit'
       if (isEdit) {
         editGroup(this.id, this.temp).then(response => {
-          (this.dialogVisible = false), this.getGroupList()
+          this.dialogVisible = false
+          this.getGroupList()
           this.temp = Object.assign({}, defaultRole)
         })
       } else {
         addGroup(this.temp).then(response => {
-          (this.dialogVisible = false), this.getGroupList()
+          this.dialogVisible = false
+          this.getGroupList()
           this.temp = Object.assign({}, defaultRole)
         })
       }
     },
     cancel() {
-      (this.listQuery = {}), (this.dialogVisible = false)
+      this.listQuery = {}
+      this.dialogVisible = false
     },
     handleAddGroup(row) {
-      (this.radio = '1'),
-      (this.dialogType = 'new'),
-      (this.temp = {
+      this.radio = '1'
+      this.dialogType = 'new'
+      this.temp = {
         gname: '',
         imagId: '',
         level: '',
         pid: row.id,
         levelName: row.name
-      })
+      }
       this.dialogVisible = true
       this.isDisabled = false
       this.disabled = false
     },
     handleAdd() {
-      (this.radio = '0'),
-      (this.dialogType = 'new'),
-      (this.temp = Object.assign({}, defaultRole))
+      this.radio = '0'
+      this.dialogType = 'new'
+      this.temp = Object.assign({}, defaultRole)
       this.dialogVisible = true
       this.isDisabled = false
       this.disabled = false
     },
     handleEdit(row) {
-      (this.radio = '0'),
-      (this.id = row.id),
-      (this.dialogType = 'edit'),
-      (this.temp.gname = row.name),
-      (this.dialogVisible = true)
+      this.radio = '0'
+      this.id = row.id
+      this.dialogType = 'edit'
+      this.temp.gname = row.name
+      this.dialogVisible = true
       this.isDisabled = true
       this.disabled = false
     },
     handleEditGroup(row, k) {
-      (this.radio = '1'),
-      (this.id = k.id),
-      (this.dialogType = 'edit'),
-      (this.temp = {
+      this.radio = '1'
+      this.id = k.id
+      this.dialogType = 'edit'
+      this.temp = {
         gname: k.name,
         imagId: '',
         level: '',
         pid: row.id,
         levelName: row.name
-      })
+      }
       this.dialogVisible = true
       this.disabled = true
       this.isDisabled = false
@@ -203,7 +199,7 @@ export default {
     },
     foldAll() {
       this.groupList.forEach(row => {
-        if (row.selected == false) {
+        if (row.selected === false) {
           row.selected = true
         } else {
           row.selected = false

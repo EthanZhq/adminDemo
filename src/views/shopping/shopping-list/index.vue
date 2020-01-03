@@ -172,8 +172,8 @@ export default {
       this.listLoading = true
       getList(this.listQuery).then(response => {
         this.tableData = response.data
-        this.tableData.forEach(item => {
-          item.priceList.forEach(j => {
+        this.tableData.forEach(row => {
+          row.priceList.forEach(j => {
             if (j.type === 0) {
               j.type = '0元购'
             } else if (j.type === 1) {
@@ -190,12 +190,8 @@ export default {
       })
     },
     handleFilter() {
-      if (this.listQuery.GName === '' && this.listQuery.isOnSale === '') {
-        this.$message.error('请输入查询内容')
-      } else {
-        this.listQuery.page = 1
-        this.getList()
-      }
+      this.listQuery.page = 1
+      this.getList()
     },
     handleSelectionChange(data) {
       this.tableDataAmount = data

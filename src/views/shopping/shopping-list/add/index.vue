@@ -609,6 +609,13 @@ export default {
     }
   },
   mounted() {
+    const obj = {
+      lable: '规格1',
+      width: '160',
+      align: 'center',
+      property: 'volume'
+    }
+    this.tableHeader.push(obj)
     this.gId = this.$route.query.id
     // this.getDetail()
     this.getData()
