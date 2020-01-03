@@ -145,6 +145,113 @@
               <el-input v-model="listQuery.volume" placeholder="请输入商品单件体积" style="width: 450px;" class="filter-item" />
             </div>
           </div>
+          <div v-else>
+            <div class="express-box role">
+              <span class="express-title"> <span class="star">*</span>规格</span>
+              <div class="addRole">
+                <div v-for="(item,index) in roleArray" :key="index">
+                  <div class="box" v-if="item.roleName != ''">
+                    <div class="role-title">
+                      <span class="express-title">规格名</span>
+                      <el-tag
+                        :disable-transitions="false">
+                        {{item.roleName}}
+                      </el-tag>
+                    </div>
+                    <div class="role-title">
+                      <span class="express-title">规格值</span>
+                      <el-tag
+                        v-for="tag in item.dynamicTags"
+                        :key="tag"
+                        closable
+                        :disable-transitions="false"
+                        @close="handleClose(tag,index)">
+                        {{tag}}
+                      </el-tag>
+                      <el-input
+                        class="input-new-tag"
+                        v-if="item.inputVisible"
+                        v-model="inputValue"
+                        ref="saveTagInput"
+                        size="small"
+                        @keyup.enter.native="handleInputConfirm(index)"
+                        @blur="handleInputConfirm(index)"
+                      >
+                      </el-input>
+                      <el-button v-else class="button-new-tag" size="small" @click="showInput(index)">添加规格值</el-button>
+                    </div>
+                  </div>
+                </div>
+                <el-button
+                  class="filter-item"
+                  type="primary"
+                  @click="dialog = true"
+                >添加规格</el-button>
+              </div>
+            </div>
+            <div class="express-box add-table">
+            <span class="express-title">
+              <span class="star">*</span> 价格
+            </span>
+            <el-table
+              ref="multipleTable"
+              :data="tableData"
+              stripe
+              fit
+              border
+              highlight-current-row
+              :span-method="arraySpanMethod"
+              class="table"
+            >
+            <el-table-column
+                v-for="(item,idx) in tableSpecsHeader[0]"
+                :key="idx"
+                :label="item.lable"
+                :width="item.width"
+                :align="item.align"
+
+                :property="item.property"
+              >
+
+                <template slot-scope="scope" >
+                  <el-upload
+                    v-if="item.property === 'imgId'"
+                    class="avatar-uploader"
+                    action="https://jsonplaceholder.typicode.com/posts/"
+                    :show-file-list="false"
+                    :before-upload="beforeAvatarUpload">
+                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                  </el-upload>
+                  <el-input v-else v-model="scope.row[scope.column.property]" placeholder="" class="filter-item" />
+                </template>
+              </el-table-column>
+              <el-table-column
+                v-for="(item,idx) in tableHeader"
+                :key="idx"
+                :label="item.lable"
+                :width="item.width"
+                :align="item.align"
+
+                :property="item.property"
+              >
+
+                <template slot-scope="scope" >
+                  <el-upload
+                    v-if="item.property === 'imgId'"
+                    class="avatar-uploader"
+                    action="https://jsonplaceholder.typicode.com/posts/"
+                    :show-file-list="false"
+                    :before-upload="beforeAvatarUpload">
+                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                  </el-upload>
+                  <el-input v-else v-model="scope.row[scope.column.property]" placeholder="" class="filter-item" />
+                </template>
+              </el-table-column>
+            </el-table>
+          </div>
+          </div>
           <div class="express-box">
             <span class="express-title">
               <span class="star">*</span> 划线价
@@ -206,6 +313,26 @@
         <span slot="footer" class="dialog-footer">
           <el-button @click="dialogVisible = false">取 消</el-button>
           <el-button type="primary" @click="confirm()">确 定</el-button>
+        </span>
+      </el-dialog>
+      <el-dialog
+        :visible.sync="dialog"
+        width="30%"
+        top="16%"
+      >
+        <div>
+          <span class="service-name">规格名</span>
+          <el-input
+            v-model="roleArray.roleName"
+            maxlength="10"
+            placeholder="请输入规格名"
+            style="width: 200px;"
+            class="filter-item tags-inp"
+          />
+        </div>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="dialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="confirmData">确 定</el-button>
         </span>
       </el-dialog>
     </div>
@@ -305,7 +432,139 @@ export default {
         volume: 0,
         weight: 0
       },
+      tableSpecsHeader:[
+        [{
+          lable: '规格1',
+          width: '80',
+          align: 'center',
+          property: 'imgId'
+          },{
+            lable: '规格2',
+            width: '80',
+            align: 'center',
+            property: 'imgId'
+          },{
+            lable: '规格3',
+            width: '80',
+            align: 'center',
+            property: 'imgId'
+          }],
+        [{
+          lable: '111',
+            width: '80',
+            align: 'center',
+            rowspan:5
+            },{
+              lable: '111',
+            width: '80',
+            align: 'center',
+            rowspan:1
+            },{
+              lable: '111',
+            width: '80',
+            align: 'center',
+            rowspan:1
+            }],
+        [{
+          lable: '111',
+            width: '80',
+            align: 'center',
+            rowspan:0
+            },{
+              lable: '111',
+            width: '80',
+            align: 'center',
+            rowspan:1
+            },{
+              lable: '111',
+            width: '80',
+            align: 'center',
+            rowspan:1
+            },
+            {
+          lable: '111',
+            width: '80',
+            align: 'center',
+            rowspan:0
+            },{
+              lable: '111',
+            width: '80',
+            align: 'center',
+            rowspan:1
+            },{
+              lable: '111',
+            width: '80',
+            align: 'center',
+            rowspan:1
+            }]
+
+      ],
+      tableHeader: [
+        {
+          lable: '规格图片',
+          width: '80',
+          align: 'center',
+          property: 'imgId'
+        },
+
+        {
+          lable: '商家编码',
+          width: '160',
+          align: 'center',
+          property: 'code'
+        },
+        {
+          lable: '销售价',
+          width: '',
+          align: 'center',
+          property: 'price'
+        },
+        {
+          lable: '成本价',
+          width: '',
+          align: 'center',
+          property: 'costPrice'
+        },
+        {
+          lable: '库存',
+          width: '160',
+          align: 'center',
+          property: 'number'
+        },
+        {
+          lable: '重量',
+          width: '160',
+          align: 'center',
+          property: 'weight'
+        },
+        {
+          lable: '体积',
+          width: '160',
+          align: 'center',
+          property: 'volume'
+        }
+      ],
+      tableData: [
+        {
+          pricce: 260,
+          volume: 6,
+          weight: 20,
+          number: 250,
+          costPrice: 16,
+          code: 202019600000000
+        }
+      ],
+      inputVisible: false,
+      inputValue: '',
       dialogVisible: false,
+      dialog: false,
+      roleArray: [
+        {
+          roleName: '',
+          dynamicTags: [],
+          inputVisible:false
+        }
+      ],
       describe: '',
       radio: '1',
       active: 1,
@@ -317,7 +576,8 @@ export default {
         sName: ''
       },
       goodsSerVOs: [],
-      gId: ''
+      gId: '',
+      imageUrl: ''
     }
   },
   mounted() {
@@ -326,6 +586,9 @@ export default {
     this.getData()
   },
   methods: {
+    arraySpanMethod({ row, column, rowIndex, columnIndex }) {
+        console.log(row + "column="+column+ "rowIndex="+rowIndex+ "columnIndex="+columnIndex)
+    },
     getData() {
       addData().then(response => {
         this.group = response.data.groups
@@ -357,6 +620,50 @@ export default {
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url
       this.dialogVisible = true
+    },
+    handleAvatarSuccess(res, file) {
+      this.imageUrl = URL.createObjectURL(file.raw)
+    },
+    beforeAvatarUpload(file) {
+      const isJPG = file.type === 'image/jpeg'
+      const isLt2M = file.size / 1024 / 1024 < 2
+
+      // if (!isJPG) {
+      //   this.$message.error('上传头像图片只能是 JPG 格式!')
+      // }
+      if (!isLt2M) {
+        this.$message.error('上传头像图片大小不能超过 2MB!')
+      }
+      return isJPG && isLt2M
+    },
+    handleClose(tag, index) {
+      this.roleArray[index].dynamicTags.splice(this.roleArray[index].dynamicTags.indexOf(tag), 1)
+    },
+
+    showInput(index) {
+      this.roleArray[index].inputVisible = true
+      this.$nextTick(_ => {
+        this.$refs.saveTagInput.$refs.input.focus()
+      })
+    },
+
+    handleInputConfirm(index) {
+      const inputValue = this.inputValue
+      console.log(inputValue)
+      if (inputValue) {
+        this.roleArray[index].dynamicTags.push(inputValue)
+      }
+      this.roleArray[index].inputVisible = false
+      this.inputValue = ''
+    },
+    confirmData() {
+      this.dialog = false
+      const obj = {
+        roleName: this.roleArray.roleName,
+        dynamicTags: [],
+        inputVisible: false
+      }
+      this.roleArray.push(obj)
     }
   }
 }
@@ -441,6 +748,33 @@ export default {
         display: flex;
         align-items: flex-start
       }
+      .role{
+        display: flex;
+        align-items: flex-start;
+        .addRole{
+          border: 1px solid #e5e5e5;
+          width: 100%;
+          padding: 16px;
+          .box{
+            background:#f8f8f8;
+            padding:16px;
+            border-radius:8px;
+            margin-bottom: 20px;
+            .role-title{
+              display: flex;
+              align-items: center;
+              margin-bottom: 20px;
+              .express-title{
+                width: 60px
+              }
+            }
+          }
+        }
+      }
+      .add-table{
+        display: flex;
+        align-items: flex-start;
+      }
       .type {
         display: flex;
         flex-direction: column;
@@ -464,6 +798,29 @@ export default {
   .service-name{
     margin-right: 36px
   }
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 48px;
+    height: 48px;
+    line-height: 48px;
+    text-align: center;
+  }
+  .avatar {
+    width: 48px;
+    height: 48px;
+    display: block;
+  }
 }
 </style>
 <style>
@@ -478,5 +835,21 @@ export default {
 .el-upload-list--picture-card .el-upload-list__item {
   width: 60px;
   height: 60px;
+}
+.el-tag + .el-tag {
+  margin-right: 10px;
+}
+.el-tag {
+  margin-right: 10px;
+}
+.button-new-tag {
+  height: 32px;
+  line-height: 30px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.input-new-tag {
+  width: 90px;
+  vertical-align: bottom;
 }
 </style>

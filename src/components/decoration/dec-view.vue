@@ -14,15 +14,15 @@
 </template>
 
 <script>
-import draggable from 'vuedraggable'
-import Top from './components/Top'
-import Banner from './components/banner'
-import Nav from './components/nav'
-import Search from './components/search'
-import Title from './components/title'
-import MagicCube from './components/magicCube'
-import Product from './components/product'
-import Discount from './components/discount'
+// import draggable from 'vuedraggable'
+// import Top from './components/Top'
+// import Banner from './components/banner'
+// import Nav from './components/nav'
+// import Search from './components/search'
+// import Title from './components/title'
+// import MagicCube from './components/magicCube'
+// import Product from './components/product'
+// import Discount from './components/discount'
 export default {
   components: {
     draggable,

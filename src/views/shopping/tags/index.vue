@@ -233,7 +233,8 @@ export default {
     },
     handleDel() {
       const idArray = this.tableDataAmount
-      if (idArray !== '') {
+      console.log(idArray)
+      if (idArray != '') {
         idArray.forEach(k => {
           this.tempId.push(k.id)
         })

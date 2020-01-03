@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import draggable from 'vuedraggable'
+// import draggable from 'vuedraggable'
 import colorPicker from '../../../plugin/colorPicker'
 import CheckLink from '../pop/checkLink'
 export default {
