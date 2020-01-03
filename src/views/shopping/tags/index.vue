@@ -22,16 +22,8 @@
             </div>
           </div>
           <div class="btn">
-            <el-button
-              class="filter-item"
-              type="primary"
-              @click="handleAdd"
-            >新建标签</el-button>
-            <el-button
-              class="filter-item"
-              type="primary"
-              @click="handleDel"
-            >批量删除</el-button>
+            <el-button class="filter-item" type="primary" @click="handleAdd">新建标签</el-button>
+            <el-button class="filter-item" type="primary" @click="handleDel">批量删除</el-button>
           </div>
         </div>
         <el-button class="filter-item" type="primary" @click="handleSearch">查询</el-button>
@@ -47,12 +39,7 @@
         class="table"
         @selection-change="handleSelectionChange"
       >
-        <el-table-column
-          type="selection"
-          align="center"
-          width="50"
-          style="background-color:#000"
-        />
+        <el-table-column type="selection" align="center" width="50" style="background-color:#000" />
         <el-table-column
           v-for="(item,idx) in tableHeader"
           :key="idx"
@@ -65,12 +52,7 @@
             <span>{{ scope.row[scope.column.property] }}</span>
           </template>
         </el-table-column>
-        <el-table-column
-          fixed="right"
-          align="center"
-          label="操作"
-          width="200"
-        >
+        <el-table-column fixed="right" align="center" label="操作" width="200">
           <template slot-scope="scope">
             <el-button type="primary" size="small" @click="handleEdit(scope)">修改</el-button>
             <el-button type="danger" size="small" @click="handleDelete(scope)">删除</el-button>
@@ -78,10 +60,17 @@
         </el-table-column>
       </el-table>
     </div>
-    <pagination v-show="total>0" :page.sync="listQuery.page" :total="total" :limit.sync="listQuery.limit" @pagination="getList" />
+    <pagination
+      v-show="total>0"
+      :page.sync="listQuery.page"
+      :total="total"
+      :limit.sync="listQuery.limit"
+      @pagination="getList"
+    />
     <el-dialog
       :visible.sync="dialogVisible"
-      :title="dialogType==='edit'?'修改':'添加'"
+      :title="dialogType==="
+edit'?'修改':'添加''
       width="30%"
       top="16%"
     >
@@ -135,28 +124,30 @@ export default {
         disabledDate(time) {
           return time.getTime() > Date.now()
         },
-        shortcuts: [{
-          text: '今天',
-          onClick(picker) {
-            picker.$emit('pick', new Date())
+        shortcuts: [
+          {
+            text: '今天',
+            onClick(picker) {
+              picker.$emit('pick', new Date())
+            }
+          },
+          {
+            text: '昨天',
+            onClick(picker) {
+              const date = new Date()
+              date.setTime(date.getTime() - 3600 * 1000 * 24)
+              picker.$emit('pick', date)
+            }
+          },
+          {
+            text: '一周前',
+            onClick(picker) {
+              const date = new Date()
+              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+              picker.$emit('pick', date)
+            }
           }
-        },
-        {
-          text: '昨天',
-          onClick(picker) {
-            const date = new Date()
-            date.setTime(date.getTime() - 3600 * 1000 * 24)
-            picker.$emit('pick', date)
-          }
-        },
-        {
-          text: '一周前',
-          onClick(picker) {
-            const date = new Date()
-            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
-            picker.$emit('pick', date)
-          }
-        }]
+        ]
       },
       tableHeader: [
         {
@@ -251,7 +242,9 @@ export default {
             })
             this.getList()
           })
-          .catch(err => { console.error(err) })
+          .catch(err => {
+            console.error(err)
+          })
       } else {
         this.$message.error('请选择需要删除的标签')
       }
@@ -275,25 +268,27 @@ export default {
           })
           this.getList()
         })
-        .catch(err => { console.error(err) })
+        .catch(err => {
+          console.error(err)
+        })
     }
   }
 }
 </script>
 <style lang="scss" scoped>
-.wrap{
+.wrap {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: calc(100% - 55px);
-  .container{
+  .container {
     flex: 1;
     overflow-y: scroll;
     padding: 16px;
     background: #f1f4f6;
     border-radius: 10px;
     margin: 0 16px;
-    .title{
+    .title {
       padding: 16px;
       background: #fff;
       border-radius: 10px;
@@ -303,36 +298,34 @@ export default {
       .search-inp {
         margin-right: 12px;
       }
-      .btn{
-        margin-top: 16px
+      .btn {
+        margin-top: 16px;
       }
-      .select-box{
-        margin-right: 16px
+      .select-box {
+        margin-right: 16px;
       }
     }
-    .table{
+    .table {
       width: 100%;
-      margin-top:12px;
-      border-radius:10px;
+      margin-top: 12px;
+      border-radius: 10px;
     }
   }
   .container::-webkit-scrollbar {
-    display:none
+    display: none;
   }
-  .tags-inp{
-    margin-left: 12px
+  .tags-inp {
+    margin-left: 12px;
   }
-
 }
-
 </style>
 <style>
-.pagination-container{
+.pagination-container {
   height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
-  margin: 0
+  margin: 0;
 }
 </style>

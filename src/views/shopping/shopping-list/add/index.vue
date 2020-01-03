@@ -3,9 +3,9 @@
     <div class="app-container container">
       <div class="step">
         <el-steps :active="1" align-center>
-          <el-step title="填写商品基本信息"></el-step>
-          <el-step title="填写商品详细信息"></el-step>
-          <el-step title="完成"></el-step>
+          <el-step title="填写商品基本信息" />
+          <el-step title="填写商品详细信息" />
+          <el-step title="完成" />
         </el-steps>
       </div>
       <div class="add-info">
@@ -26,7 +26,12 @@
           <span class="express-title">
             <span class="star">*</span>商品名称
           </span>
-          <el-input v-model="listQuery.name" placeholder="请输入商品名称" style="width: 450px;" class="filter-item" />
+          <el-input
+            v-model="listQuery.name"
+            placeholder="请输入商品名称"
+            style="width: 450px;"
+            class="filter-item"
+          />
           <span class="note">(不超过30字)</span>
         </div>
         <div class="express-box">
@@ -40,7 +45,7 @@
             :on-preview="handlePictureCardPreview"
             :on-remove="handleRemove"
           >
-            <i class="el-icon-plus"></i>
+            <i class="el-icon-plus" />
           </el-upload>
         </div>
         <div class="express-box">
@@ -48,12 +53,7 @@
             <span class="star">*</span>商品分组
           </span>
           <el-select v-model="listQuery.groupId" multiple placeholder="请选择商品分组" style="width:360px">
-            <el-option
-              v-for="item in group"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            ></el-option>
+            <el-option v-for="item in group" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
         </div>
         <div class="express-box">
@@ -61,19 +61,19 @@
             <span class="star">*</span> 商品分类
           </span>
           <el-select v-model="listQuery.typeId" placeholder="请选择商品分类">
-            <el-option
-              v-for="item in type"
-              :key="item.id"
-              :label="item.typeName"
-              :value="item.id"
-            ></el-option>
+            <el-option v-for="item in type" :key="item.id" :label="item.typeName" :value="item.id" />
           </el-select>
         </div>
         <div class="express-box">
           <span class="express-title">
             <span class="star">*</span>分享描述
           </span>
-          <el-input v-model="listQuery.shareDesc" placeholder="请输入描述" style="width: 450px;" class="filter-item" />
+          <el-input
+            v-model="listQuery.shareDesc"
+            placeholder="请输入描述"
+            style="width: 450px;"
+            class="filter-item"
+          />
           <span class="note">(用户分享到朋友圈时候会展示给好友，不超过30字)</span>
         </div>
         <div class="express-box">
@@ -81,23 +81,23 @@
             <span class="star">*</span> 标签
           </span>
           <el-select v-model="listQuery.tagList.id" multiple placeholder="请选择" style="width:360px">
-            <el-option
-              v-for="item in tag"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            ></el-option>
+            <el-option v-for="item in tag" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
         </div>
         <div class="express-box">
           <span class="express-title">服务</span>
-          <el-select v-model="listQuery.serviceList.id" multiple placeholder="请选择" style="width:360px">
+          <el-select
+            v-model="listQuery.serviceList.id"
+            multiple
+            placeholder="请选择"
+            style="width:360px"
+          >
             <el-option
               v-for="item in goodsSerVOs"
               :key="item.id"
               :label="item.name"
               :value="item.id"
-            ></el-option>
+            />
           </el-select>
           <el-button
             class="filter-item creat-service"
@@ -118,45 +118,69 @@
           <el-radio v-model="radio" label="2">多规格</el-radio>
         </div>
         <div>
-          <div v-if="radio == '1'">
+          <div v-if="radio=='1' ">
             <div class="express-box">
               <span class="express-title">商品编码</span>
-              <el-input v-model="listQuery.code" placeholder="请输入商家编码" style="width: 450px;" class="filter-item" />
+              <el-input
+                v-model="listQuery.code"
+                placeholder="请输入商家编码"
+                style="width: 450px;"
+                class="filter-item"
+              />
             </div>
             <div class="express-box">
               <span class="express-title">
                 <span class="star">*</span> 成本价
               </span>
-              <el-input v-model="listQuery.costPrice" placeholder="请输入商品成本价" style="width: 450px;" class="filter-item" />
+              <el-input
+                v-model="listQuery.costPrice"
+                placeholder="请输入商品成本价"
+                style="width: 450px;"
+                class="filter-item"
+              />
             </div>
             <div class="express-box">
               <span class="express-title">
                 <span class="star">*</span> 库存
               </span>
-              <el-input v-model="listQuery.storeCount" placeholder="请输入商品库存" style="width: 450px;" class="filter-item" />
+              <el-input
+                v-model="listQuery.storeCount"
+                placeholder="请输入商品库存"
+                style="width: 450px;"
+                class="filter-item"
+              />
               <span class="note">总库存,库存为 0 时，会放到『已售罄』的商品列表，用户的购物车中会实时更新,必选</span>
             </div>
             <div class="express-box">
               <span class="express-title">重量</span>
-              <el-input v-model="listQuery.weight" placeholder="请输入商品单件重量" style="width: 450px;" class="filter-item" />
+              <el-input
+                v-model="listQuery.weight"
+                placeholder="请输入商品单件重量"
+                style="width: 450px;"
+                class="filter-item"
+              />
             </div>
             <div class="express-box">
               <span class="express-title">体积</span>
-              <el-input v-model="listQuery.volume" placeholder="请输入商品单件体积" style="width: 450px;" class="filter-item" />
+              <el-input
+                v-model="listQuery.volume"
+                placeholder="请输入商品单件体积"
+                style="width: 450px;"
+                class="filter-item"
+              />
             </div>
           </div>
           <div v-else>
             <div class="express-box role">
-              <span class="express-title"> <span class="star">*</span>规格</span>
+              <span class="express-title">
+                <span class="star">*</span>规格
+              </span>
               <div class="addRole">
                 <div v-for="(item,index) in roleArray" :key="index">
-                  <div class="box" v-if="item.roleName != ''">
+                  <div v-if="item.roleName!='' " class="box">
                     <div class="role-title">
                       <span class="express-title">规格名</span>
-                      <el-tag
-                        :disable-transitions="false">
-                        {{item.roleName}}
-                      </el-tag>
+                      <el-tag :disable-transitions="false">{{ item.roleName }}</el-tag>
                     </div>
                     <div class="role-title">
                       <span class="express-title">规格值</span>
@@ -165,98 +189,90 @@
                         :key="tag"
                         closable
                         :disable-transitions="false"
-                        @close="handleClose(tag,index)">
-                        {{tag}}
-                      </el-tag>
+                        @close="handleClose(tag,index)"
+                      >{{ tag }}</el-tag>
                       <el-input
-                        class="input-new-tag"
                         v-if="item.inputVisible"
-                        v-model="inputValue"
                         ref="saveTagInput"
+                        v-model="inputValue"
+                        class="input-new-tag"
                         size="small"
                         @keyup.enter.native="handleInputConfirm(index)"
                         @blur="handleInputConfirm(index)"
-                      >
-                      </el-input>
-                      <el-button v-else class="button-new-tag" size="small" @click="showInput(index)">添加规格值</el-button>
+                      />
+                      <el-button
+                        v-else
+                        class="button-new-tag"
+                        size="small"
+                        @click="showInput(index)"
+                      >添加规格值</el-button>
                     </div>
                   </div>
                 </div>
-                <el-button
-                  class="filter-item"
-                  type="primary"
-                  @click="dialog = true"
-                >添加规格</el-button>
+                <el-button class="filter-item" type="primary" @click="dialog = true">添加规格</el-button>
               </div>
             </div>
             <div class="express-box add-table">
-            <span class="express-title">
-              <span class="star">*</span> 价格
-            </span>
-            <el-table
-              ref="multipleTable"
-              :data="tableData"
-              stripe
-              fit
-              border
-              highlight-current-row
-              :span-method="arraySpanMethod"
-              class="table"
-            >
-            <el-table-column
-                v-for="(item,idx) in tableSpecsHeader[0]"
-                :key="idx"
-                :label="item.lable"
-                :width="item.width"
-                :align="item.align"
-
-                :property="item.property"
+              <span class="express-title">
+                <span class="star">*</span> 价格
+              </span>
+              <el-table
+                ref="multipleTable"
+                :data="tableData"
+                stripe
+                fit
+                border
+                highlight-current-row
+                :span-method="arraySpanMethod"
+                class="table"
               >
-
-                <template slot-scope="scope" >
-                  <el-upload
-                    v-if="item.property === 'imgId'"
-                    class="avatar-uploader"
-                    action="https://jsonplaceholder.typicode.com/posts/"
-                    :show-file-list="false"
-                    :before-upload="beforeAvatarUpload">
-                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                  </el-upload>
-                  <el-input v-else v-model="scope.row[scope.column.property]" placeholder="" class="filter-item" />
-                </template>
-              </el-table-column>
-              <el-table-column
-                v-for="(item,idx) in tableHeader"
-                :key="idx"
-                :label="item.lable"
-                :width="item.width"
-                :align="item.align"
-
-                :property="item.property"
-              >
-
-                <template slot-scope="scope" >
-                  <el-upload
-                    v-if="item.property === 'imgId'"
-                    class="avatar-uploader"
-                    action="https://jsonplaceholder.typicode.com/posts/"
-                    :show-file-list="false"
-                    :before-upload="beforeAvatarUpload">
-                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                  </el-upload>
-                  <el-input v-else v-model="scope.row[scope.column.property]" placeholder="" class="filter-item" />
-                </template>
-              </el-table-column>
-            </el-table>
-          </div>
+                <el-table-column
+                  v-for="(item,idx) in tableSpecsHeader[0]"
+                  :key="idx"
+                  :label="item.lable"
+                  :width="item.width"
+                  :align="item.align"
+                  :property="item.property"
+                >
+                  <template slot-scope="scope">
+                    <el-input
+                      v-model="scope.row[scope.column.property]"
+                      placeholder
+                      class="filter-item"
+                    />
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  v-for="(item,idx) in tableHeader"
+                  :key="idx"
+                  :label="item.lable"
+                  :width="item.width"
+                  :align="item.align"
+                  :property="item.property"
+                >
+                  <template slot-scope="scope">
+                    <img v-if="item.property=='imgId'" src="../../../../assets/image/add.png" alt >
+                    <el-input
+                      v-else
+                      v-model="scope.row[scope.column.property]"
+                      placeholder
+                      class="filter-item"
+                    />
+                  </template>
+                </el-table-column>
+              </el-table>
+            </div>
           </div>
           <div class="express-box">
             <span class="express-title">
               <span class="star">*</span> 划线价
             </span>
-            <el-input v-model="listQuery.linePrice" placeholder="请输入商品划线价" style="width: 450px;" class="filter-item" />
+            <el-input
+              v-model="listQuery.linePrice"
+              placeholder="请输入商品划线价"
+              style="width: 450px;"
+              class="filter-item"
+            />
             <span class="note">商品没有优惠的情况下，划线价在商品详情会以划线形式显示</span>
           </div>
           <div class="express-box sale">
@@ -277,7 +293,12 @@
           <div class="express-box sale">
             <span class="express-title">虚拟销量</span>
             <div class="sales-volume">
-              <el-input v-model="listQuery.virtualSalesSum" placeholder="请输入商品虚拟销量" style="width: 450px;" class="filter-item" />
+              <el-input
+                v-model="listQuery.virtualSalesSum"
+                placeholder="请输入商品虚拟销量"
+                style="width: 450px;"
+                class="filter-item"
+              />
               <span>设置后，您的用户看到的销量=初始销量+下单量</span>
             </div>
           </div>
@@ -288,18 +309,16 @@
           <h3>其他信息</h3>
         </div>
         <div class="express-box sale">
-          <span class="express-title"><span class="star">*</span>运费信息</span>
+          <span class="express-title">
+            <span class="star">*</span>运费信息
+          </span>
           <div class="other">
             <el-radio v-model="listQuery.isPinkage" label="0">卖家包邮</el-radio>
             <el-radio v-model="listQuery.isPinkage" label="1" style="margin-top:16px">买家承担运费</el-radio>
           </div>
         </div>
       </div>
-      <el-dialog
-        :visible.sync="dialogVisible"
-        width="30%"
-        top="16%"
-      >
+      <el-dialog :visible.sync="dialogVisible" width="30%" top="16%">
         <div>
           <span class="service-name">服务名称</span>
           <el-input
@@ -315,11 +334,7 @@
           <el-button type="primary" @click="confirm()">确 定</el-button>
         </span>
       </el-dialog>
-      <el-dialog
-        :visible.sync="dialog"
-        width="30%"
-        top="16%"
-      >
+      <el-dialog :visible.sync="dialog" width="30%" top="16%">
         <div>
           <span class="service-name">规格名</span>
           <el-input
@@ -432,72 +447,85 @@ export default {
         volume: 0,
         weight: 0
       },
-      tableSpecsHeader:[
-        [{
-          lable: '规格1',
-          width: '80',
-          align: 'center',
-          property: 'imgId'
-          },{
+      tableSpecsHeader: [
+        [
+          {
+            lable: '规格1',
+            width: '80',
+            align: 'center',
+            property: 'imgId'
+          },
+          {
             lable: '规格2',
             width: '80',
             align: 'center',
             property: 'imgId'
-          },{
+          },
+          {
             lable: '规格3',
             width: '80',
             align: 'center',
             property: 'imgId'
-          }],
-        [{
-          lable: '111',
+          }
+        ],
+        [
+          {
+            lable: '111',
             width: '80',
             align: 'center',
-            rowspan:5
-            },{
-              lable: '111',
+            rowspan: 5
+          },
+          {
+            lable: '111',
             width: '80',
             align: 'center',
-            rowspan:1
-            },{
-              lable: '111',
+            rowspan: 1
+          },
+          {
+            lable: '111',
             width: '80',
             align: 'center',
-            rowspan:1
-            }],
-        [{
-          lable: '111',
+            rowspan: 1
+          }
+        ],
+        [
+          {
+            lable: '111',
             width: '80',
             align: 'center',
-            rowspan:0
-            },{
-              lable: '111',
+            rowspan: 0
+          },
+          {
+            lable: '111',
             width: '80',
             align: 'center',
-            rowspan:1
-            },{
-              lable: '111',
+            rowspan: 1
+          },
+          {
+            lable: '111',
             width: '80',
             align: 'center',
-            rowspan:1
-            },
-            {
-          lable: '111',
+            rowspan: 1
+          },
+          {
+            lable: '111',
             width: '80',
             align: 'center',
-            rowspan:0
-            },{
-              lable: '111',
+            rowspan: 0
+          },
+          {
+            lable: '111',
             width: '80',
             align: 'center',
-            rowspan:1
-            },{
-              lable: '111',
+            rowspan: 1
+          },
+          {
+            lable: '111',
             width: '80',
             align: 'center',
-            rowspan:1
-            }]
-
+            rowspan: 1
+          }
+        ]
       ],
       tableHeader: [
         {
@@ -562,7 +590,7 @@ export default {
         {
           roleName: '',
           dynamicTags: [],
-          inputVisible:false
+          inputVisible: false
         }
       ],
       describe: '',
@@ -587,7 +615,15 @@ export default {
   },
   methods: {
     arraySpanMethod({ row, column, rowIndex, columnIndex }) {
-        console.log(row + "column="+column+ "rowIndex="+rowIndex+ "columnIndex="+columnIndex)
+      console.log(
+        row +
+          'column=' +
+          column +
+          'rowIndex=' +
+          rowIndex +
+          'columnIndex=' +
+          columnIndex
+      )
     },
     getData() {
       addData().then(response => {
@@ -621,23 +657,11 @@ export default {
       this.dialogImageUrl = file.url
       this.dialogVisible = true
     },
-    handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw)
-    },
-    beforeAvatarUpload(file) {
-      const isJPG = file.type === 'image/jpeg'
-      const isLt2M = file.size / 1024 / 1024 < 2
-
-      // if (!isJPG) {
-      //   this.$message.error('上传头像图片只能是 JPG 格式!')
-      // }
-      if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!')
-      }
-      return isJPG && isLt2M
-    },
     handleClose(tag, index) {
-      this.roleArray[index].dynamicTags.splice(this.roleArray[index].dynamicTags.indexOf(tag), 1)
+      this.roleArray[index].dynamicTags.splice(
+        this.roleArray[index].dynamicTags.indexOf(tag),
+        1
+      )
     },
 
     showInput(index) {
@@ -722,17 +746,17 @@ export default {
             padding-right: 2px;
           }
         }
-        .other{
+        .other {
           display: flex;
           flex-direction: column;
         }
-        .creat-service{
-          margin-left: 36px
+        .creat-service {
+          margin-left: 36px;
         }
-        .sales-volume{
+        .sales-volume {
           display: flex;
           flex-direction: column;
-          span{
+          span {
             font-size: 14px;
             color: #999;
             padding-top: 20px;
@@ -744,34 +768,34 @@ export default {
           padding-left: 20px;
         }
       }
-      .sale{
-        display: flex;
-        align-items: flex-start
-      }
-      .role{
+      .sale {
         display: flex;
         align-items: flex-start;
-        .addRole{
+      }
+      .role {
+        display: flex;
+        align-items: flex-start;
+        .addRole {
           border: 1px solid #e5e5e5;
           width: 100%;
           padding: 16px;
-          .box{
-            background:#f8f8f8;
-            padding:16px;
-            border-radius:8px;
+          .box {
+            background: #f8f8f8;
+            padding: 16px;
+            border-radius: 8px;
             margin-bottom: 20px;
-            .role-title{
+            .role-title {
               display: flex;
               align-items: center;
               margin-bottom: 20px;
-              .express-title{
-                width: 60px
+              .express-title {
+                width: 60px;
               }
             }
           }
         }
       }
-      .add-table{
+      .add-table {
         display: flex;
         align-items: flex-start;
       }
@@ -795,8 +819,8 @@ export default {
   .container::-webkit-scrollbar {
     display: none;
   }
-  .service-name{
-    margin-right: 36px
+  .service-name {
+    margin-right: 36px;
   }
   .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;
@@ -806,7 +830,7 @@ export default {
     overflow: hidden;
   }
   .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
+    border-color: #409eff;
   }
   .avatar-uploader-icon {
     font-size: 28px;
