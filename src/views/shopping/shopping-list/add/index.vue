@@ -114,7 +114,7 @@
           <span class="express-title">
             <span class="star">*</span> 商品规格
           </span>
-          <el-radio v-model="radio" label="1">单一规格</el-radio>
+          <el-radio v-model="radio" label="1">统一规格</el-radio>
           <el-radio v-model="radio" label="2">多规格</el-radio>
         </div>
         <div>
@@ -218,7 +218,7 @@
               </span>
               <el-table
                 ref="multipleTable"
-                :data="tableData"
+                :data="specArray"
                 stripe
                 fit
                 border
@@ -227,31 +227,51 @@
                 class="table"
               >
                 <el-table-column
-                  v-for="(item,idx) in tableSpecsHeader[0]"
-                  :key="idx"
-                  :label="item.lable"
+                  v-for="(item,ind) in tableSpecsHeader"
+                  :key="ind"
+                  :label="item.key"
                   :width="item.width"
                   :align="item.align"
                   :property="item.property"
                 >
                   <template slot-scope="scope">
                     <el-input
-                      v-model="scope.row[scope.column.property]"
+                      v-model="scope.row[scope.column.property][ind].key"
                       placeholder
                       class="filter-item"
                     />
                   </template>
                 </el-table-column>
                 <el-table-column
-                  v-for="(item,idx) in tableHeader"
+                  v-for="(row,idx) in tableHeader"
                   :key="idx"
-                  :label="item.lable"
-                  :width="item.width"
-                  :align="item.align"
-                  :property="item.property"
+                  :label="row.lable"
+                  :width="row.width"
+                  :align="row.align"
+                  :property="row.property"
                 >
                   <template slot-scope="scope">
-                    <img v-if="item.property=='imgId'" src="../../../../assets/image/add.png" alt >
+                    <img
+                      v-if="row.property=='imgId'"
+                      src="../../../../assets/image/add.png"
+                      alt
+                      style="width:36px;height:36px"
+                    >
+                    <div v-else-if="row.property=='prices'">
+                      <img
+                        v-if="row.prices ==''"
+                        src="../../../../assets/image/add.png"
+                        alt
+                        style="width:36px;height:36px"
+                        @click="modal = true"
+                      >
+                      <div v-else class="card-box">
+                        <div v-for="(item,index) in row.prices" :key="index" class="card">
+                          <div class="way">{{ item.type }}</div>
+                          <div class="price">{{ item.price }}</div>
+                        </div>
+                      </div>
+                    </div>
                     <el-input
                       v-else
                       v-model="scope.row[scope.column.property]"
@@ -350,6 +370,64 @@
           <el-button type="primary" @click="confirmData">确 定</el-button>
         </span>
       </el-dialog>
+      <el-dialog :visible.sync="modal" width="30%" top="16%">
+        <div>
+          <div class="buy-way">
+            <span class="way">规格名</span>
+            <el-select
+              v-model="obj.way"
+              placeholder="请选择"
+              clearable
+              class="filter-item select-box"
+              style="width: 130px"
+            >
+              <el-option v-for="item in way" :key="item.key" :label="item.state" :value="item.key" />
+            </el-select>
+          </div>
+          <div v-if="obj.way == '0'" class="buy-way">
+            <span class="way">积分</span>
+            <el-input
+              v-model="listQuery.GName"
+              placeholder="请输入积分"
+              style="width: 200px;"
+              class="filter-item search-inp"
+            />
+          </div>
+          <div v-else-if="obj.way == '1'" class="buy-way">
+            <span class="way">现金</span>
+            <el-input
+              v-model="listQuery.GName"
+              placeholder="请输入现金"
+              style="width: 200px;"
+              class="filter-item search-inp"
+            />
+          </div>
+          <div v-else>
+            <div class="buy-way">
+              <span class="way">积分</span>
+              <el-input
+                v-model="listQuery.GName"
+                placeholder="请输入积分"
+                style="width: 200px;"
+                class="filter-item search-inp"
+              />
+            </div>
+            <div class="buy-way">
+              <span class="way">现金</span>
+              <el-input
+                v-model="listQuery.GName"
+                placeholder="请输入现金"
+                style="width: 200px;"
+                class="filter-item search-inp"
+              />
+            </div>
+          </div>
+        </div>
+        <span slot="footer" class="dialog-footer">
+          <el-button>取 消</el-button>
+          <el-button type="primary">确 定</el-button>
+        </span>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -359,6 +437,9 @@ import { addData, creatService, details } from '@/api/shopping'
 export default {
   data() {
     return {
+      obj: {
+        way: ''
+      },
       listQuery: {
         code: '',
         costPrice: 0,
@@ -378,9 +459,9 @@ export default {
         ],
         priceDtos: [
           {
-            id: 0,
+            id: '',
             price: '',
-            type: 0
+            type: ''
           }
         ],
         reduceWay: '0',
@@ -447,152 +528,65 @@ export default {
         volume: 0,
         weight: 0
       },
-      tableSpecsHeader: [
-        [
-          {
-            lable: '规格1',
-            width: '80',
-            align: 'center',
-            property: 'imgId'
-          },
-          {
-            lable: '规格2',
-            width: '80',
-            align: 'center',
-            property: 'imgId'
-          },
-          {
-            lable: '规格3',
-            width: '80',
-            align: 'center',
-            property: 'imgId'
-          }
-        ],
-        [
-          {
-            lable: '111',
-            width: '80',
-            align: 'center',
-            rowspan: 5
-          },
-          {
-            lable: '111',
-            width: '80',
-            align: 'center',
-            rowspan: 1
-          },
-          {
-            lable: '111',
-            width: '80',
-            align: 'center',
-            rowspan: 1
-          }
-        ],
-        [
-          {
-            lable: '111',
-            width: '80',
-            align: 'center',
-            rowspan: 0
-          },
-          {
-            lable: '111',
-            width: '80',
-            align: 'center',
-            rowspan: 1
-          },
-          {
-            lable: '111',
-            width: '80',
-            align: 'center',
-            rowspan: 1
-          },
-          {
-            lable: '111',
-            width: '80',
-            align: 'center',
-            rowspan: 0
-          },
-          {
-            lable: '111',
-            width: '80',
-            align: 'center',
-            rowspan: 1
-          },
-          {
-            lable: '111',
-            width: '80',
-            align: 'center',
-            rowspan: 1
-          }
-        ]
-      ],
       tableHeader: [
         {
           lable: '规格图片',
           width: '80',
           align: 'center',
-          property: 'imgId'
+          property: 'pic'
         },
 
         {
           lable: '商家编码',
           width: '160',
           align: 'center',
-          property: 'code'
+          property: 'no'
         },
         {
           lable: '销售价',
           width: '',
           align: 'center',
-          property: 'price'
+          property: 'prices'
         },
         {
           lable: '成本价',
-          width: '',
+          width: '160',
           align: 'center',
-          property: 'costPrice'
+          property: 'market'
         },
         {
           lable: '库存',
-          width: '160',
+          width: '140',
           align: 'center',
-          property: 'number'
+          property: 'count'
         },
         {
           lable: '重量',
-          width: '160',
+          width: '100',
           align: 'center',
           property: 'weight'
         },
         {
           lable: '体积',
-          width: '160',
+          width: '100',
           align: 'center',
           property: 'volume'
         }
       ],
-      tableData: [
-        {
-          pricce: 260,
-          volume: 6,
-          weight: 20,
-          number: 250,
-          costPrice: 16,
-          code: 202019600000000
-        }
+      tableData: [],
+      way: [
+        { key: '0', state: '0元购' },
+        { key: '1', state: '现金购' },
+        { key: '2', state: '积分抵扣' }
       ],
       inputVisible: false,
       inputValue: '',
       dialogVisible: false,
       dialog: false,
-      roleArray: [
-        {
-          roleName: '',
-          dynamicTags: [],
-          inputVisible: false
-        }
-      ],
+      modal: false,
+      roleArray: [],
+      tableSpecsHeader: [],
+      specArray: [],
       describe: '',
       radio: '1',
       active: 1,
@@ -609,28 +603,54 @@ export default {
     }
   },
   mounted() {
-    const obj = {
-      lable: '规格1',
-      width: '160',
-      align: 'center',
-      property: 'volume'
-    }
-    this.tableHeader.push(obj)
     this.gId = this.$route.query.id
     // this.getDetail()
     this.getData()
   },
   methods: {
     arraySpanMethod({ row, column, rowIndex, columnIndex }) {
-      console.log(
-        row +
-          'column=' +
-          column +
-          'rowIndex=' +
-          rowIndex +
-          'columnIndex=' +
-          columnIndex
-      )
+      const totalRow = this.specArray.length
+      const totalCol = this.tableSpecsHeader.length
+      if (columnIndex < totalCol) {
+        const currentSpecRowId = this.specArray[rowIndex].specs[columnIndex].key
+        // const currentSpecRowId = this.specArray[rowIndex].specs[columnIndex].id
+        let maxIndex = 1
+        let need = false
+        if (rowIndex - 1 >= 0) {
+          // 扫描前一个元素是否一样，如果一样，就该行隐藏
+          for (let index = rowIndex - 1; index >= 0; index--) {
+            const preSpecRowId = this.specArray[index].specs[columnIndex].key
+            // const preSpecRowId = this.specArray[index].specs[columnIndex].id
+            console.log(currentSpecRowId + '--' + preSpecRowId)
+            if (currentSpecRowId === preSpecRowId) {
+              // 需要合并
+              return [0, 0]
+            } else {
+              break
+            }
+          }
+        }
+        // 扫描后一个元素是否一样，如果一样，就合并
+        if (rowIndex + 1 < totalRow) {
+          for (let index = rowIndex + 1; index < totalRow; index++) {
+            const nextSpecRowId = this.specArray[index].specs[columnIndex].key
+            // const nextSpecRowId = this.specArray[index].specs[columnIndex].id
+            console.log(currentSpecRowId + '--' + nextSpecRowId)
+            if (currentSpecRowId === nextSpecRowId) {
+              // 需要合并
+              need = true
+              maxIndex += 1
+            } else {
+              break
+            }
+          }
+        }
+        if (need) {
+          return [maxIndex, 1]
+        } else {
+          return [1, 1]
+        }
+      }
     },
     getData() {
       addData().then(response => {
@@ -680,9 +700,51 @@ export default {
 
     handleInputConfirm(index) {
       const inputValue = this.inputValue
+      const list = []
+      const a = ['a1', 'a2']
+      const b = ['b1', 'b2']
+      const c = ['c1', 'c2']
+      const d = ['d1', 'd2']
+      // d1c1b1a1  d2c1b1a1 d1c2b1a1 d2c2b1a1
+      list
+        .push(a)
+        .push(b)
+        .push(c)
+        .push(d)
+      for (let i = list.length - 1; i >= 0; i--) {
+        for (let j = 0; j < list[i].length; j++) {
+          console.log(list[i][j])
+        }
+      }
+
       console.log(inputValue)
       if (inputValue) {
         this.roleArray[index].dynamicTags.push(inputValue)
+        for (let j = 0; j < this.roleArray.length; j++) {
+          const specsTemp = []
+          specsTemp.push({ id: 3, key: inputValue })
+          this.specArray.push({
+            specs: specsTemp,
+            pic: { id: 0, url: '' },
+            no: '',
+            prices: [],
+            market: '',
+            count: '',
+            weight: '',
+            volume: ''
+          })
+        }
+        // console.log(this.roleArray)
+        // const objData = {
+        //   pricce: '',
+        //   volume: '',
+        //   weight: '',
+        //   number: '',
+        //   costPrice: '',
+        //   code: '',
+        //   color: this.roleArray[index].dynamicTags[0]
+        // }
+        // this.tableData.push(objData)
       }
       this.roleArray[index].inputVisible = false
       this.inputValue = ''
@@ -694,7 +756,16 @@ export default {
         dynamicTags: [],
         inputVisible: false
       }
+
       this.roleArray.push(obj)
+
+      this.tableSpecsHeader.push({
+        id: 1,
+        key: this.roleArray.roleName,
+        width: '100',
+        align: 'center',
+        property: 'specs'
+      })
     }
   }
 }
@@ -851,6 +922,15 @@ export default {
     width: 48px;
     height: 48px;
     display: block;
+  }
+  .buy-way {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    .way {
+      width: 50px;
+      margin-right: 16px;
+    }
   }
 }
 </style>

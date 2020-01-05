@@ -4,7 +4,7 @@
       <div class="order-info">
         <div class="info-title">
           <div class="info-picture">
-            <img src="" alt="">
+            <img src alt >
           </div>
           <div class="main">
             <div class="data">
@@ -36,10 +36,7 @@
               <span>{{ temp.code }}</span>
             </div>
           </div>
-          <el-button
-            class="filter-item"
-            type="primary"
-          >查看订单详情</el-button>
+          <el-button class="filter-item" type="primary">查看订单详情</el-button>
         </div>
         <div class="content">
           <div class="rate">
@@ -55,26 +52,18 @@
           <div class="mid">
             <div class="comment-content">{{ temp.content }}</div>
             <div class="picture">
-                <div class="comment-pic">
-                  <img src="" alt="">
-                </div>
+              <div class="comment-pic">
+                <img src alt >
+              </div>
             </div>
           </div>
           <div class="rate">
             <span>物流评价</span>
-            <el-rate
-              v-model="temp.drank"
-              :colors="['#ff866e', '#ff866e', '#ff866e']"
-              disabled
-            />
+            <el-rate v-model="temp.drank" :colors="['#ff866e', '#ff866e', '#ff866e']" disabled />
           </div>
           <div class="rate">
             <span>服务评价</span>
-            <el-rate
-              v-model="temp.srank"
-              :colors="['#ffd43f', '#ffd43f', '#ffd43f']"
-              disabled
-            />
+            <el-rate v-model="temp.srank" :colors="['#ffd43f', '#ffd43f', '#ffd43f']" disabled />
           </div>
         </div>
       </div>
@@ -122,12 +111,12 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.wrap{
+.wrap {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: calc(100% - 55px);
-  .container{
+  .container {
     flex: 1;
     overflow-y: scroll;
     padding: 16px;
@@ -135,36 +124,36 @@ export default {
     border-radius: 10px;
     margin: 0 16px 16px;
     font-size: 15px;
-    .order-info{
-      .info-title{
+    .order-info {
+      .info-title {
         display: flex;
         align-items: center;
         justify-content: space-between;
         background: #fff;
         border-radius: 10px;
         padding: 24px;
-        .info-picture{
+        .info-picture {
           width: 120px;
           height: 120px;
           border-radius: 50%;
-          img{
+          img {
             width: 100%;
             height: 100%;
             border-radius: 50%;
           }
         }
-        .main{
+        .main {
           flex: 1;
           margin: 0 24px;
           color: #a7a8aa;
           display: flex;
           align-items: center;
           flex-wrap: wrap;
-          .data{
+          .data {
             width: 50%;
             display: flex;
             align-items: center;
-            .name{
+            .name {
               display: flex;
               width: 90px;
               line-height: 36px;
@@ -172,52 +161,52 @@ export default {
           }
         }
       }
-      .content{
+      .content {
         margin-top: 10px;
         border-radius: 10px;
         background: #fff;
         padding: 24px;
-        .mid{
-          padding-bottom: 16px
+        .mid {
+          padding-bottom: 16px;
         }
-        .rate{
+        .rate {
           display: flex;
           align-items: center;
           margin-bottom: 16px;
-          padding-left:36px;
-          span{
+          padding-left: 36px;
+          span {
             margin-right: 20px;
           }
         }
-        .picture{
-          padding-left:36px;
-          .comment-pic{
+        .picture {
+          padding-left: 36px;
+          .comment-pic {
             width: 100px;
             height: 100px;
             border-radius: 6px;
-            img{
+            img {
               width: 100%;
               height: 100%;
               border-radius: 6px;
             }
           }
         }
-        .comment-content{
-          padding-bottom: 16px
+        .comment-content {
+          padding-bottom: 16px;
         }
       }
     }
   }
   .container::-webkit-scrollbar {
-    display:none
+    display: none;
   }
 }
 </style>
 <style>
-.el-rate__icon{
-  font-size: 36px
+.el-rate__icon {
+  font-size: 36px;
 }
-.el-rate{
+.el-rate {
   height: auto;
 }
 </style>

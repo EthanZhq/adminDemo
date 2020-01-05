@@ -5,23 +5,18 @@
         <div class="order-title">
           <div class="title-tap">
             <div>
-            原订单 <span class="number">订单号：201907158505346668</span>
+              原订单
+              <span class="number">订单号：201907158505346668</span>
             </div>
             <div>
-            <el-button
-              class="filter-item"
-              type="primary"
-            >新建评论</el-button>
-            <el-button
-              class="filter-item"
-              type="primary"
-            >新建</el-button>
+              <el-button class="filter-item" type="primary">新建评论</el-button>
+              <el-button class="filter-item" type="primary">新建</el-button>
             </div>
           </div>
         </div>
         <div class="shopping-info">
           <div style="padding-left:24px">
-             <el-table
+            <el-table
               ref="multipleTable"
               :data="list"
               border
@@ -41,7 +36,11 @@
               </el-table-column>
               <el-table-column label="图片" align="center" width="80">
                 <template>
-                  <img src="https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png" alt="" class="shopping-pic">
+                  <img
+                    src="https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png"
+                    alt
+                    class="shopping-pic"
+                  >
                 </template>
               </el-table-column>
               <el-table-column label="属性规格" align="center" width="120">
@@ -78,7 +77,7 @@
                   <span class="link-type">{{ row.number }}</span>
                 </template>
               </el-table-column>
-               <el-table-column label="商品最终价格" align="center">
+              <el-table-column label="商品最终价格" align="center">
                 <template slot-scope="{ row }">
                   <div class="card-box">
                     <div class="card">
@@ -98,21 +97,19 @@
       </div>
       <div class="order-info">
         <div class="order-title">
-           <div class="title-tap">
-              <div>
-                新订单 <span class="number">订单号：201907158505346668</span>
-              </div>
+          <div class="title-tap">
             <div>
-            <el-button
-              class="filter-item"
-              type="primary"
-            >删除</el-button>
+              新订单
+              <span class="number">订单号：201907158505346668</span>
+            </div>
+            <div>
+              <el-button class="filter-item" type="primary">删除</el-button>
             </div>
           </div>
         </div>
         <div class="shopping-info">
           <div style="padding-left:24px">
-             <el-table
+            <el-table
               ref="multipleTable"
               :data="list"
               border
@@ -132,7 +129,11 @@
               </el-table-column>
               <el-table-column label="图片" align="center" width="80px">
                 <template>
-                  <img src="https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png" alt="" class="shopping-pic">
+                  <img
+                    src="https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png"
+                    alt
+                    class="shopping-pic"
+                  >
                 </template>
               </el-table-column>
               <el-table-column label="属性规格" align="center" width="120">
@@ -182,17 +183,13 @@
                     </div>
                   </div>
                 </template>
-                </el-table-column>
-                <el-table-column
-                  fixed="right"
-                  align="center"
-                  label="操作"
-                  width="200">
-                  <template slot-scope="scope">
-                    <el-button @click="handleClick(scope.row)" type="primary" size="small">查看</el-button>
-                    <el-button type="danger" size="small">删除</el-button>
-                  </template>
-                </el-table-column>
+              </el-table-column>
+              <el-table-column fixed="right" align="center" label="操作" width="200">
+                <template slot-scope="scope">
+                  <el-button type="primary" @click="handleClick(scope.row)" size="small">查看</el-button>
+                  <el-button type="danger" size="small">删除</el-button>
+                </template>
+              </el-table-column>
             </el-table>
           </div>
         </div>
@@ -226,17 +223,17 @@ export default {
   methods: {
     handleClick(tab, event) {
       console.log(tab, event)
-    },
+    }
   }
 }
 </script>
 <style lang="scss" scoped>
-.wrap{
+.wrap {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: calc(100% - 55px);
-  .container{
+  .container {
     flex: 1;
     overflow-y: scroll;
     padding: 16px;
@@ -244,103 +241,103 @@ export default {
     border-radius: 10px;
     margin: 0 16px 16px;
     font-size: 15px;
-    .order-info{
+    .order-info {
       background: #fff;
       padding: 24px;
       margin: 0 0 16px;
       color: #888;
       border-radius: 16px;
-      .order-title{
+      .order-title {
         padding-bottom: 16px;
         color: #000;
-        .title-tap{
+        .title-tap {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          .number{
+          .number {
             color: #999;
             padding-left: 20px;
-            font-size:14px
+            font-size: 14px;
           }
         }
       }
-      .info{
+      .info {
         padding-left: 24px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         flex-wrap: wrap;
-        span{
+        span {
           display: flex;
           width: 32%;
-          padding-bottom: 20px
+          padding-bottom: 20px;
         }
-        .operation{
+        .operation {
           display: flex;
           align-items: center;
-          span{
-            padding: 0
+          span {
+            padding: 0;
           }
         }
       }
-      .shopping-info{
-        .table{
+      .shopping-info {
+        .table {
           border-radius: 10px;
-          .shopping-pic{
+          .shopping-pic {
             width: 30px;
             height: 30px;
           }
         }
-        .card-box{
+        .card-box {
           display: flex;
           align-items: center;
           justify-content: space-between;
           flex-wrap: wrap;
-          .card{
+          .card {
             width: 210px;
             padding: 0;
             display: flex;
             align-items: center;
-            border: 1px solid #EBEEF5;
+            border: 1px solid #ebeef5;
             border-radius: 6px;
             font-size: 14px;
-            .way{
+            .way {
               background: #7cf2cf;
-              color:#fff;
+              color: #fff;
               padding: 4px 6px;
               border-top-left-radius: 6px;
               border-bottom-left-radius: 6px;
             }
-            .price{
+            .price {
               padding: 4px 6px;
             }
           }
-          .card-way{
+          .card-way {
             width: 150px;
             padding: 0;
             display: flex;
             align-items: center;
-            border: 1px solid #EBEEF5;
+            border: 1px solid #ebeef5;
             border-radius: 6px;
-            .buy-way{
+            .buy-way {
               background: #f9d45c;
-              color:#fff;
+              color: #fff;
               padding: 4px 6px;
               border-top-left-radius: 6px;
               border-bottom-left-radius: 6px;
             }
-            .price{
+            .price {
               padding: 4px 6px;
             }
           }
         }
       }
-      .button{
+      .button {
         display: flex;
         justify-content: center;
-        padding-top: 20px
+        padding-top: 20px;
       }
-      .infomation{
+      .infomation {
         background: #f5f5f5;
         margin-top: 20px;
         padding: 12px;
@@ -348,13 +345,13 @@ export default {
         display: flex;
         flex-direction: column;
       }
-      .table{
-        border-radius: 10px
+      .table {
+        border-radius: 10px;
       }
     }
   }
   .container::-webkit-scrollbar {
-    display:none
+    display: none;
   }
 }
 </style>

@@ -143,7 +143,7 @@ export const constantRoutes = [
         meta: { title: '全部订单' }
       },
       {
-        path: '/all-order/detail/:id(\\d+)',
+        path: '/all-order/detail/',
         name: 'detail',
         component: () => import('@/views/order/all-order/detail/index'),
         meta: { title: '订单详情' },
