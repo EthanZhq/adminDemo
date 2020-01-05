@@ -3,8 +3,8 @@
     <div>
       <div>轮播间隔（S）</div>
       <div>
-        <el-slider v-model="options.interval" :min="2" :max="10"></el-slider>
-        {{options.interval}}
+        <el-slider v-model="options.interval" :min="2" :max="10" />
+        {{ options.interval }}
       </div>
     </div>
     <PicList :img-list="options.imgList" @on-change-list="changeOptions" />
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import PicList from "./pic-list";
+import PicList from './pic-list'
 export default {
   components: {
     PicList
@@ -20,32 +20,33 @@ export default {
   props: {
     component: {
       type: Object,
+      // eslint-disable-next-line vue/require-valid-default-prop
       default: {}
     }
   },
   data() {
     return {
       options: {}
-    };
+    }
   },
   created() {
-    this.options = this.component.options;
+    this.options = this.component.options
   },
   methods: {
     changeOptions(e) {
-      this.options.imgList = e;
-      this.$emit("on-change-options", this.options);
+      this.options.imgList = e
+      this.$emit('on-change-options', this.options)
     }
   },
   watch: {
     component: {
       handler(newValue) {
-        this.options = newValue.options;
+        this.options = newValue.options
       },
       deep: true
     }
   }
-};
+}
 </script>
 
 <style scoped lang="scss">

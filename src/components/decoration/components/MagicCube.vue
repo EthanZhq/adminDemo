@@ -1,31 +1,34 @@
 <template>
   <div class="wrap">
-    <div v-if="options.type==0">
+    <div v-if="options.type == 0">
       <img :src="options.picList[0].pic" alt />
     </div>
-    <div v-if="options.type==1" class="type1">
-      <div :style="{marginRight:options.space+'px'}">
-        <img :src="options.picList[0].pic" alt :style="{height:165+options.space+'px'}" />
+    <div v-if="options.type == 1" class="type1">
+      <div :style="{ marginRight: options.space + 'px' }">
+        <img :src="options.picList[0].pic" alt :style="{ height: 165 + options.space + 'px' }" />
       </div>
       <div>
         <img :src="options.picList[1].pic" alt />
-        <img :src="options.picList[2].pic" alt :style="{marginTop:options.space+'px'}" />
+        <img :src="options.picList[2].pic" alt :style="{ marginTop: options.space + 'px' }" />
       </div>
     </div>
-    <div v-if="options.type==2" class="type2">
+    <div v-if="options.type == 2" class="type2">
       <div>
         <img :src="options.picList[0].pic" alt />
-        <img :src="options.picList[1].pic" alt :style="{marginTop:options.space+'px'}" />
+        <img :src="options.picList[1].pic" alt :style="{ marginTop: options.space + 'px' }" />
       </div>
-      <div :style="{marginLeft:options.space+'px'}">
-        <img :src="options.picList[2].pic" alt :style="{height:165+options.space+'px'}" />
+      <div :style="{ marginLeft: options.space + 'px' }">
+        <img :src="options.picList[2].pic" alt :style="{ height: 165 + options.space + 'px' }" />
       </div>
     </div>
-    <div v-if="options.type==3" class="type3">
+    <div v-if="options.type == 3" class="type3">
       <div
-        :style="{marginRight:index!=options.picList.length-1?options.space+'px':0}"
-        v-for="(item,index) in options.picList"
+        v-for="(item, index) in options.picList"
         :key="index"
+        :style="{
+          marginRight:
+            index != options.picList.length - 1 ? options.space + 'px' : 0
+        }"
       >
         <img :src="item.pic" alt />
       </div>
@@ -35,8 +38,8 @@
 
 <script>
 export default {
-  props: ["options"]
-};
+  props: ['options']
+}
 </script>
 
 <style scoped lang="scss">

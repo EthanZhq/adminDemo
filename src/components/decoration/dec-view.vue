@@ -4,9 +4,9 @@
     <div class="view">
       <div class="top" style="background:#E02E24;">商城</div>
       <draggable element="div" v-model="list">
-        <div v-for="(item,index) in list" :key="index" @click="changeCurrent(index)">
+        <div v-for="(item, index) in list" :key="index" @click="changeCurrent(index)">
           <div class="del">
-            <span>{{item.title}}</span>
+            <span>{{ item.title }}</span>
             <i class="el-icon-delete" @click="delComponent(index)"></i>
           </div>
           <component :is="item.name" :options="item.options"></component>
@@ -17,17 +17,18 @@
 </template>
 
 <script>
-import draggable from "vuedraggable";
-import Banner from "./components/banner";
-import Nav from "./components/nav";
-import Search from "./components/search";
-import Title from "./components/title";
-import MagicCube from "./components/magicCube";
-import Product from "./components/product";
-import Discount from "./components/discount";
+// import draggable from "vuedraggable";
+import Banner from './components/banner'
+import Nav from './components/nav'
+import Search from './components/search'
+import Title from './components/title'
+import MagicCube from './components/magicCube'
+import Product from './components/product'
+import Discount from './components/discount'
 export default {
   components: {
-    draggable,
+    // draggable,
+    // eslint-disable-next-line no-undef
     Top,
     Banner,
     Nav,
@@ -40,6 +41,7 @@ export default {
   props: {
     components: {
       type: Object,
+      // eslint-disable-next-line vue/require-valid-default-prop
       default: {}
     }
   },
@@ -47,35 +49,35 @@ export default {
     return {
       list: [],
       current: 0
-    };
+    }
   },
   created() {
-    this.list = this.components.list;
+    this.list = this.components.list
   },
   methods: {
     changeCurrent(i) {
-      this.current = i;
-      this.$emit("on-change-list", i);
+      this.current = i
+      this.$emit('on-change-list', i)
     },
     delComponent(i) {
-      this.list.splice(i, 1);
+      this.list.splice(i, 1)
     }
   },
   watch: {
     components: {
       handler(newValue) {
-        this.list = this.components.list;
+        this.list = this.components.list
       },
       deep: true
     },
     list: {
       handler(newValue) {
-        this.$emit("on-change-list", newValue);
+        this.$emit('on-change-list', newValue)
       },
       deep: true
     }
   }
-};
+}
 </script>
 <style scoped lang="scss">
 .content {

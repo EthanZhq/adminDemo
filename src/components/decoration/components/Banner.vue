@@ -25,15 +25,15 @@ export default {
   data() {
     return {
       current: 0
-    };
+    }
   },
-  props: ["options"],
+  props: ['options'],
   methods: {
     changeCurrent(i) {
-      this.current = i;
+      this.current = i
     }
   }
-};
+}
 </script>
 
 <style scoped lang="scss">

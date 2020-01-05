@@ -8,12 +8,12 @@
       >
         <div class="base">
           <div
-            v-for="(item,index) in list.filter(item=>item.type==0)"
+            v-for="(item, index) in list.filter(item => item.type == 0)"
             :key="index"
             @click="addItem(item)"
           >
             <img :src="item.pic" alt />
-            <span>{{item.title}}</span>
+            <span>{{ item.title }}</span>
           </div>
         </div>
       </el-tab-pane>
@@ -24,12 +24,12 @@
       >
         <div class="market">
           <div
-            v-for="(item,index) in list.filter(item=>item.type==1)"
+            v-for="(item, index) in list.filter(item => item.type == 1)"
             :key="index"
             @click="addItem(item)"
           >
             <img :src="item.pic" alt />
-            <span>{{item.title}}</span>
+            <span>{{ item.title }}</span>
           </div>
         </div>
       </el-tab-pane>
@@ -41,157 +41,157 @@
 export default {
   data() {
     return {
-      active: "first",
+      active: 'first',
       list: [
         {
-          name: "Banner",
-          title: "轮播图片",
-          pic: require("../../assets/decoration/pic.gif"),
+          name: 'Banner',
+          title: '轮播图片',
+          pic: require('../../assets/decoration/pic.gif'),
           type: 0,
           options: {
             interval: 3,
-            imgList: [{ pic: require("../../assets/decoration/banner.jpg") }]
+            imgList: [{ pic: require('../../assets/decoration/banner.jpg') }]
           }
         },
         {
-          name: "Nav",
-          title: "店铺导航",
-          pic: require("../../assets/decoration/nav.png"),
+          name: 'Nav',
+          title: '店铺导航',
+          pic: require('../../assets/decoration/nav.png'),
           type: 0,
           options: {
             navs: [
               {
-                name: "断码清仓",
-                pic: require("../../assets/decoration/pic.gif"),
-                color: "#555"
+                name: '断码清仓',
+                pic: require('../../assets/decoration/pic.gif'),
+                color: '#555'
               },
               {
-                name: "全球购",
-                pic: require("../../assets/decoration/pic.gif"),
-                color: "#555"
+                name: '全球购',
+                pic: require('../../assets/decoration/pic.gif'),
+                color: '#555'
               },
               {
-                name: "幸运砸金蛋",
-                pic: require("../../assets/decoration/pic.gif"),
-                color: "#555"
+                name: '幸运砸金蛋',
+                pic: require('../../assets/decoration/pic.gif'),
+                color: '#555'
               },
               {
-                name: "潮人穿搭",
-                pic: require("../../assets/decoration/pic.gif"),
-                color: "#555"
+                name: '潮人穿搭',
+                pic: require('../../assets/decoration/pic.gif'),
+                color: '#555'
               }
             ]
           }
         },
         {
-          name: "Title",
-          title: "标题栏",
-          pic: require("../../assets/decoration/title.png"),
+          name: 'Title',
+          title: '标题栏',
+          pic: require('../../assets/decoration/title.png'),
           view: [
-            { pic: require("../../assets/decoration/defalut.png") },
-            { pic: require("../../assets/decoration/defalut.png") }
+            { pic: require('../../assets/decoration/defalut.png') },
+            { pic: require('../../assets/decoration/defalut.png') }
           ],
           type: 0,
           options: {
             type: 1,
-            title: "热销推荐",
-            bgColor: "#fff",
-            color: "#666",
+            title: '热销推荐',
+            bgColor: '#fff',
+            color: '#666',
             fontSize: 16,
-            fontWeight: "0",
-            lineColor: "#333",
-            arrowColor: "#666"
+            fontWeight: '0',
+            lineColor: '#333',
+            arrowColor: '#666'
           }
         },
         {
-          name: "Product",
-          title: "商品模块",
-          pic: require("../../assets/decoration/product.png"),
+          name: 'Product',
+          title: '商品模块',
+          pic: require('../../assets/decoration/product.png'),
           view: [
-            { pic: require("../../assets/decoration/defalut.png") },
-            { pic: require("../../assets/decoration/defalut.png") },
-            { pic: require("../../assets/decoration/defalut.png") }
+            { pic: require('../../assets/decoration/defalut.png') },
+            { pic: require('../../assets/decoration/defalut.png') },
+            { pic: require('../../assets/decoration/defalut.png') }
           ],
           type: 0,
-          options: { type: 2, border: "1" }
+          options: { type: 2, border: '1' }
         },
         {
-          name: "Discount",
-          title: "限时秒杀",
-          pic: require("../../assets/decoration/discount.png"),
+          name: 'Discount',
+          title: '限时秒杀',
+          pic: require('../../assets/decoration/discount.png'),
           type: 0,
-          options: { color: "pink" }
+          options: { color: 'pink' }
         },
         {
-          name: "MagicCube",
-          title: "魔方",
+          name: 'MagicCube',
+          title: '魔方',
           view: [
-            { pic: require("../../assets/decoration/defalut.png") },
-            { pic: require("../../assets/decoration/defalut.png") },
-            { pic: require("../../assets/decoration/defalut.png") },
-            { pic: require("../../assets/decoration/defalut.png") }
+            { pic: require('../../assets/decoration/defalut.png') },
+            { pic: require('../../assets/decoration/defalut.png') },
+            { pic: require('../../assets/decoration/defalut.png') },
+            { pic: require('../../assets/decoration/defalut.png') }
           ],
-          pic: require("../../assets/decoration/magicCube.png"),
+          pic: require('../../assets/decoration/magicCube.png'),
           type: 0,
           options: {
             type: 0,
             space: 10,
             picList: [
-              { pic: require("../../assets/decoration/defalut.png") },
-              { pic: require("../../assets/decoration/defalut.png") },
-              { pic: require("../../assets/decoration/defalut.png") }
+              { pic: require('../../assets/decoration/defalut.png') },
+              { pic: require('../../assets/decoration/defalut.png') },
+              { pic: require('../../assets/decoration/defalut.png') }
             ]
           }
         },
         {
-          name: "Search",
-          title: "搜索模块",
-          pic: require("../../assets/decoration/search.png"),
+          name: 'Search',
+          title: '搜索模块',
+          pic: require('../../assets/decoration/search.png'),
           type: 0,
           options: {
-            color: "#e4e4e4",
-            bgColor: "#E02E24",
-            placeholder: "搜索店铺内商品",
-            border: "1",
-            textAlign: "center"
+            color: '#e4e4e4',
+            bgColor: '#E02E24',
+            placeholder: '搜索店铺内商品',
+            border: '1',
+            textAlign: 'center'
           }
         },
         {
-          name: "Coupon",
-          title: "优惠券",
-          pic: require("../../assets/decoration/pic.gif"),
+          name: 'Coupon',
+          title: '优惠券',
+          pic: require('../../assets/decoration/pic.gif'),
           type: 1,
-          options: { color: "deeppink" }
+          options: { color: 'deeppink' }
         },
 
         {
-          name: "Freeshipping",
-          title: "满包邮",
-          pic: require("../../assets/decoration/pic.gif"),
+          name: 'Freeshipping',
+          title: '满包邮',
+          pic: require('../../assets/decoration/pic.gif'),
           type: 1,
-          options: { color: "pink" }
+          options: { color: 'pink' }
         },
         {
-          name: "Group",
-          title: "拼团",
-          pic: require("../../assets/decoration/pic.gif"),
+          name: 'Group',
+          title: '拼团',
+          pic: require('../../assets/decoration/pic.gif'),
           type: 1
         },
         {
-          name: "Thematic",
-          title: "专题推荐",
-          pic: require("../../assets/decoration/pic.gif"),
+          name: 'Thematic',
+          title: '专题推荐',
+          pic: require('../../assets/decoration/pic.gif'),
           type: 1
         }
       ]
-    };
+    }
   },
   methods: {
     addItem(e) {
-      this.$emit("on-add-component", e);
+      this.$emit('on-add-component', e)
     }
   }
-};
+}
 </script>
 <style scoped lang="scss">
 .container {

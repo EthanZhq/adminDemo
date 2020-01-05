@@ -25,17 +25,17 @@
       <span>50</span>
     </div>
     <div class="product">
-      <div v-for="(item,index) in product" :key="index">
+      <div v-for="(item, index) in product" :key="index">
         <img :src="item.pic" alt />
         <div>
-          <div>{{item.brand}}</div>
-          <div>{{item.name}}</div>
+          <div>{{ item.brand }}</div>
+          <div>{{ item.name }}</div>
           <div>
             秒杀价：
-            <span>￥{{item.price}}</span>
+            <span>￥{{ item.price }}</span>
           </div>
           <div>
-            <span>仅剩{{item.num}}件</span>
+            <span>仅剩{{ item.num }}件</span>
             <span>马上抢</span>
           </div>
         </div>
@@ -46,28 +46,28 @@
 
 <script>
 export default {
-  props: ["options"],
+  props: ['options'],
   data() {
     return {
       product: [
         {
-          pic: require("../../../assets/decoration/pic.gif"),
-          brand: "稻草人（MEXICAN）",
-          name: "肩手提包大容量欧美时尚黑白拼接肩包",
+          pic: require('../../../assets/decoration/pic.gif'),
+          brand: '稻草人（MEXICAN）',
+          name: '肩手提包大容量欧美时尚黑白拼接肩包',
           price: 656.99,
           num: 76
         },
         {
-          pic: require("../../../assets/decoration/pic.gif"),
-          brand: "COACH蔻驰",
-          name: "女士咖啡色PVC配皮单肩手提包",
+          pic: require('../../../assets/decoration/pic.gif'),
+          brand: 'COACH蔻驰',
+          name: '女士咖啡色PVC配皮单肩手提包',
           price: 1139.9,
           num: 54
         }
       ]
-    };
+    }
   }
-};
+}
 </script>
 
 <style scoped lang="scss">
@@ -97,7 +97,7 @@ export default {
       position: relative;
     }
     .active::before {
-      content: "";
+      content: '';
       position: absolute;
       bottom: -20px;
       left: 50%;
