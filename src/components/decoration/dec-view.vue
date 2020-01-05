@@ -18,25 +18,25 @@
 
 <script>
 // import draggable from "vuedraggable";
-import Banner from './components/banner'
-import Nav from './components/nav'
-import Search from './components/search'
-import Title from './components/title'
-import MagicCube from './components/magicCube'
-import Product from './components/product'
-import Discount from './components/discount'
+// import Banner from './components/banner'
+// import Nav from './components/nav'
+// import Search from './components/search'
+// import Title from './components/title'
+// import MagicCube from './components/magicCube'
+// import Product from './components/product'
+// import Discount from './components/discount'
 export default {
   components: {
     // draggable,
     // eslint-disable-next-line no-undef
-    Top,
-    Banner,
-    Nav,
-    Search,
-    Title,
-    MagicCube,
-    Product,
-    Discount
+    // Top,
+    // Banner,
+    // Nav,
+    // Search,
+    // Title,
+    // MagicCube,
+    // Product,
+    // Discount
   },
   props: {
     components: {
@@ -51,18 +51,6 @@ export default {
       current: 0
     }
   },
-  created() {
-    this.list = this.components.list
-  },
-  methods: {
-    changeCurrent(i) {
-      this.current = i
-      this.$emit('on-change-list', i)
-    },
-    delComponent(i) {
-      this.list.splice(i, 1)
-    }
-  },
   watch: {
     components: {
       handler(newValue) {
@@ -75,6 +63,18 @@ export default {
         this.$emit('on-change-list', newValue)
       },
       deep: true
+    }
+  },
+  created() {
+    this.list = this.components.list
+  },
+  methods: {
+    changeCurrent(i) {
+      this.current = i
+      this.$emit('on-change-list', i)
+    },
+    delComponent(i) {
+      this.list.splice(i, 1)
     }
   }
 }
