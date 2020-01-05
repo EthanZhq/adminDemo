@@ -1,32 +1,37 @@
 <template>
   <div class="wrap" :style="{background:options.bgColor}" :class="options.textAlign">
-    <input type="text" :placeholder="options.placeholder" :style="{borderColor:options.color,borderRadius:options.border=='0'?'0px':'50px',textAlign:options.textAlign}">
+    <input
+      type="text"
+      :placeholder="options.placeholder"
+      :style="{borderColor:options.color,borderRadius:options.border=='0'?'0px':'50px',textAlign:options.textAlign}"
+    />
     <button :style="{borderColor:options.color,borderRadius:options.border=='0'?'0px':'50px'}">取消</button>
   </div>
 </template>
 
 <script>
 export default {
-  props:{
-    options:{
-      type:Object,
-      default:{}
+  props: {
+    options: {
+      type: Object,
+      default: {}
     }
   }
-}
+};
 </script>
 
 <style scoped lang="scss">
-.wrap{
-	width: 100%;
+.wrap {
+  width: 100%;
   display: flex;
   box-sizing: border-box;
   padding: 10px 15px;
   position: relative;
-  .border{
+  .border {
     border: 1px dashed #cccccc;
   }
-  input,button{
+  input,
+  button {
     border-width: 1px;
     border-style: solid;
     font-size: 14px;
@@ -35,19 +40,19 @@ export default {
     background-color: #fff;
     outline: none;
   }
-  input{
+  input {
     flex: 1;
     margin-right: 10px;
     position: relative;
   }
-  button{
+  button {
     padding: 6px 20px;
   }
 }
-.wrap::before{
-  content: '';
+.wrap::before {
+  content: "";
   display: inline-block;
-  background-image: url('../../../assets/decoration/search.png');
+  background-image: url("../../../assets/decoration/search.png");
   position: absolute;
   left: 35px;
   top: 18px;
@@ -56,11 +61,11 @@ export default {
   background-size: cover;
   z-index: 99;
 }
-.wrap.center::before{
+.wrap.center::before {
   left: 20%;
   top: 18px;
 }
-.wrap.left input{
+.wrap.left input {
   padding-left: 40px;
 }
 </style>
