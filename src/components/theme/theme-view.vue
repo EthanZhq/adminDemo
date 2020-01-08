@@ -5,7 +5,7 @@
       <div>
         <div :style="{color:theme.primary}">
           积分抵扣
-          <i class="el-icon-circle-check"></i>
+          <i class="el-icon-circle-check" />
         </div>
         <div>
           <div :style="{backgroundColor:theme.auxiliary}">加入购物车</div>
@@ -42,45 +42,45 @@
 
 <script>
 export default {
-  data() {
-    return {
-      primary: ""
-    };
-  },
   props: {
     theme: {
       type: Object,
       default: {}
     }
   },
-  created() {
-    this.hexToRgb(this.theme.primary);
+  data() {
+    return {
+      primary: ''
+    }
   },
   watch: {
     theme: {
       handler(newVal) {
-        this.hexToRgb(newVal.primary);
+        this.hexToRgb(newVal.primary)
       },
       deep: true
     }
   },
+  created() {
+    this.hexToRgb(this.theme.primary)
+  },
   methods: {
     hexToRgb(val) {
-      let a, b, c;
-      a = val.slice(1, 3);
-      b = val.slice(3, 5);
-      c = val.slice(5, 7);
+      let a, b, c
+      a = val.slice(1, 3)
+      b = val.slice(3, 5)
+      c = val.slice(5, 7)
       this.primary =
-        "rgba(" +
+        'rgba(' +
         parseInt(a, 16) +
-        "," +
+        ',' +
         parseInt(b, 16) +
-        "," +
+        ',' +
         parseInt(c, 16) +
-        ",.15)";
+        ',.15)'
     }
   }
-};
+}
 </script>
 <style scoped lang="scss">
 .theme-view {
@@ -93,7 +93,7 @@ export default {
     > div:nth-child(1),
     > div:nth-child(2) {
       background-repeat: no-repeat;
-      background-image: url("../../assets/theme/rendering2.png");
+      background-image: url('../../assets/theme/rendering2.png');
       width: 320px;
       height: 647px;
       background-size: 100% auto;
@@ -175,7 +175,7 @@ export default {
       }
     }
     > div:nth-child(2) {
-      background-image: url("../../assets/theme/rendering1.png");
+      background-image: url('../../assets/theme/rendering1.png');
       margin-left: 60px;
       > div:first-child {
         bottom: 93px;
