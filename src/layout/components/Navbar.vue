@@ -1,8 +1,26 @@
 <template>
   <div class="navbar">
-    <div class="bar">
-      <div style="padding-left:20px;color:#fff">
-        <span style="color:#0099FF;">全民营销</span>管理后台
+    <div class="left-menu">
+      <div class="jurisdiction">
+        <img
+          src="/icons/svg/dashboard.svg"
+          alt=""
+        >
+        <span>权限管理</span>
+      </div>
+      <div class="users">
+        <img
+          src="/icons/svg/dashboard.svg"
+          alt=""
+        >
+        <span>用户管理</span>
+      </div>
+      <div class="systemLog">
+        <img
+          src="/icons/svg/dashboard.svg"
+          alt=""
+        >
+        <span>系统日志</span>
       </div>
     </div>
     <div class="right-menu">
@@ -60,12 +78,23 @@ export default {
   align-items: center;
   justify-content: space-between;
   margin-left: -3px;
-  .bar {
+  .left-menu {
     display: flex;
-    align-items: center;
-    font-size: 18px;
-    color: #666;
-    font-weight: 600;
+    color: #aeaeae;
+    img {
+      width: 128px;
+      height: 100px;
+    }
+    .jurisdiction {
+      > img {
+        width: 128px;
+        height: 100px;
+      }
+    }
+    .user {
+    }
+    .systemLog {
+    }
   }
   .hamburger-container {
     height: 100%;
