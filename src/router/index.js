@@ -46,229 +46,154 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
+    redirect: '/index',
     children: [
       {
-        path: 'dashboard',
-        name: 'Dashboard',
-        component: () => import('@/views/dashboard/index'),
-        meta: { title: '概况', icon: 'dashboard' }
+        path: 'index',
+        name: 'index',
+        component: () => import('@/views/index/index'),
+        meta: { title: '首页', icon: 'dashboard' }
+      }
+    ]
+  },
+  {
+    path: '/mission/index',
+    component: Layout,
+    meta: { title: '任务管理', icon: 'store' }
+  },
+  {
+    path: '/client/index',
+    component: Layout,
+    // redirect: '/client/index',
+    name: 'client',
+    meta: { title: '客户管理', icon: 'store' },
+    children: [
+      {
+        path: 'commercialOpportunity',
+        name: 'commercialOpportunity',
+        component: () => import('@/views/client/commercialOpportunity/index'),
+        meta: { title: '意向客户管理' }
+      },
+      {
+        path: 'potentialClients',
+        name: 'potentialClients',
+        component: () => import('@/views/client/potentialClients/index'),
+        meta: { title: '商机管理' }
       }
     ]
   },
 
   {
-    path: '/example',
+    path: '/project/index',
     component: Layout,
-    redirect: '/example/table',
-    name: 'example',
-    meta: { title: '店铺12345678', icon: 'store' },
+    meta: { title: '项目管理', icon: 'form' },
     children: [
       {
-        path: 'table',
-        name: '表格',
-        component: () => import('@/views/table/index'),
-        meta: { title: '首页装修' }
+        path: 'building',
+        name: 'building',
+        component: () => import('@/views/project/building/index'),
+        meta: { title: '楼栋管理' }
       },
       {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '风格配色', roles: ['editor'] }
+        path: 'prePa',
+        name: 'prePa',
+        component: () => import('@/views/project/prePa/index'),
+        meta: { title: '项目立项' }
       }
     ]
   },
   {
-    path: '/shopping',
+    path: '/economics/index',
     component: Layout,
-    redirect: '/shopping/shopping-list',
-    name: 'Shopping',
-    meta: { title: '商品', icon: 'shopping-bag' },
+    // redirect: '/client/index',
+    name: 'economics',
+    meta: { title: '经济管理', icon: 'store' },
     children: [
       {
-        path: 'shopping-list',
-        name: 'shopping-list',
-        component: () => import('@/views/shopping/shopping-list/index'),
-        meta: { title: '商品列表' }
+        path: 'company',
+        name: 'company',
+        component: () => import('@/views/economics/company/index'),
+        meta: { title: '经济公司管理' }
       },
       {
-        path: '/shopping-list/add',
-        name: 'add',
-        component: () => import('@/views/shopping/shopping-list/add/index'),
-        meta: { title: '添加' },
-        hidden: true
+        path: 'store',
+        name: 'store',
+        component: () => import('@/views/economics/store/index'),
+        meta: { title: '经济门店管理' }
       },
       {
-        path: 'group',
-        name: 'group',
-        component: () => import('@/views/shopping/group/index'),
-        meta: { title: '商品分组' }
-      },
-      {
-        path: 'tags',
-        name: 'tags',
-        component: () => import('@/views/shopping/tags/index'),
-        meta: { title: '商品标签' }
-      },
-      {
-        path: 'comment',
-        name: 'comment',
-        component: () => import('@/views/shopping/comment/index'),
-        meta: { title: '商品评论' }
-      },
-      {
-        path: '/comment/detail/',
-        name: 'detail',
-        component: () => import('@/views/shopping/comment/detail/index'),
-        meta: { title: '详情' },
-        hidden: true
-      },
-      {
-        path: '/shopping-list/creat/',
-        name: 'creat',
-        component: () => import('@/views/shopping/shopping-list/creat/index'),
-        meta: { title: '创建评论' },
-        hidden: true
+        path: 'middleman',
+        name: 'middleman',
+        component: () => import('@/views/economics/middleman/index'),
+        meta: { title: '经纪人管理' }
       }
     ]
   },
 
   {
-    path: '/order',
+    path: '/accounting/index',
     component: Layout,
-    meta: { title: '订单', icon: 'form' },
+    // redirect: '/client/index',
+    name: 'accounting',
+    meta: { title: '账单管理', icon: 'store' },
     children: [
       {
-        path: 'all-order',
-        name: 'all-order',
-        component: () => import('@/views/order/all-order/index'),
-        meta: { title: '全部订单' }
+        path: 'returnedMoney',
+        name: 'returnedMoney',
+        component: () => import('@/views/accounting/returnedMoney/index'),
+        meta: { title: '回款管理' }
       },
       {
-        path: '/all-order/detail/',
-        name: 'detail',
-        component: () => import('@/views/order/all-order/detail/index'),
-        meta: { title: '订单详情' },
-        hidden: true
+        path: 'invoice',
+        name: 'invoice',
+        component: () => import('@/views/accounting/invoice/index'),
+        meta: { title: '开票回款管理' }
       },
       {
-        path: '/all-order/demolition-order',
-        name: 'detail',
-        component: () => import('@/views/order/all-order/demolition-order/index'),
-        meta: { title: '拆单' },
-        hidden: true
+        path: 'settlement',
+        name: 'settlement',
+        component: () => import('@/views/accounting/settlement/index'),
+        meta: { title: '结算管理' }
       },
       {
-        path: 'delivery-management',
-        name: 'delivery-management',
-        component: () => import('@/views/order/delivery-management/index'),
-        meta: { title: '发货管理' }
-      },
-      {
-        path: 'after-sales-order',
-        name: 'after-sales-order',
-        component: () => import('@/views/order/after-sales-order/index'),
-        meta: { title: '售后订单' }
-      },
-      {
-        path: '/after-sales-order/details/:id(\\d+)',
-        name: 'details',
-        component: () => import('@/views/order/after-sales-order/details/index'),
-        meta: { title: '订单详情' },
-        hidden: true
-      }
-    ]
-  },
-
-  {
-    path: '/member',
-    component: Layout,
-    redirect: '/member/memberList',
-    name: 'member',
-    meta: { title: '会员', icon: 'vip' },
-    children: [
-      {
-        path: 'memberList',
-        name: 'memberList',
-        component: () => import('@/views/member/memberList/index'),
-        meta: { title: '会员列表' }
-      },
-      {
-        path: '/memberList/detail',
-        name: 'detail',
-        component: () => import('@/views/member/memberList/detail/index'),
-        meta: { title: '会员详情' },
-        hidden: true
-      },
-      {
-        path: 'memberGrade',
-        name: 'MemberGrade',
-        component: () => import('@/views/member/memberGrade/index'),
-        meta: { title: '等级配置' }
-      },
-      {
-        path: '/memberGrade/add',
-        name: 'add',
-        component: () => import('@/views/member/memberGrade/add/index'),
-        meta: { title: '会员等级' },
-        hidden: true
-      },
-      {
-        path: 'memberIntegral',
-        name: 'memberIntegral',
-        component: () => import('@/views/member/memberIntegral/index'),
-        meta: { title: '积分配置' }
-      }
-    ]
-  },
-  {
-    path: '/assets',
-    component: Layout,
-    redirect: '/assets/storeInfo',
-    name: 'Assets',
-    meta: { title: '资产', icon: 'dollar' },
-    children: [
-      {
-        path: 'assets',
-        name: 'Assets',
-        component: () => import('@/views/assets/index'),
-        meta: { title: '资产' }
+        path: 'settlements',
+        name: 'settlements',
+        component: () => import('@/views/accounting/settlements/index'),
+        meta: { title: '结算单管理' }
       }
     ]
   },
   {
     path: '/setUp',
     component: Layout,
-    redirect: '/setUp/storeInfo',
+    // redirect: '/setUp/storeInfo',
     name: 'SetUp',
-    meta: { title: '设置', icon: 'set_up' },
+    meta: { title: '系统设置', icon: 'set_up' },
     children: [
       {
-        path: 'storeInfo',
-        name: 'StoreInfo',
-        component: () => import('@/views/setUp/storeInfo/index'),
-        meta: { title: '店铺信息' }
+        path: 'department',
+        name: 'department',
+        component: () => import('@/views/setUp/department/index'),
+        meta: { title: '部门设置' }
       },
       {
-        path: 'express-management',
-        name: 'express-management',
-        component: () => import('@/views/setUp/express-management/index'),
-        meta: { title: '快递管理' }
+        path: 'users',
+        name: 'users',
+        component: () => import('@/views/setUp/users/index'),
+        meta: { title: '用户设置' }
       },
       {
-        path: '/express-management/add',
-        name: 'add',
-        component: () => import('@/views/setUp/express-management/add/index'),
-        meta: { title: '添加快递公司' },
-        hidden: true
-      },
-      {
-        path: 'generalSettings',
-        name: 'GeneralSettings',
-        component: () => import('@/views/setUp/generalSettings/index'),
-        meta: { title: '通用设置' }
+        path: 'jurisdiction',
+        name: 'jurisdiction',
+        component: () => import('@/views/setUp/jurisdiction/index'),
+        meta: { title: '权限设置' }
       }
     ]
+  },
+  {
+    path: '/statistics/index',
+    component: Layout,
+    meta: { title: '统计', icon: 'store' }
   },
 
   // 404 page must be placed at the end !!!

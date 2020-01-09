@@ -6,17 +6,26 @@
       </div>
     </div>
     <div class="right-menu">
-      <el-dropdown class="avatar-container" trigger="click">
+      <el-dropdown
+        class="avatar-container"
+        trigger="click"
+      >
         <div class="avatar-wrapper">
           <i class="el-icon-user" />用户
           <i class="el-icon-caret-bottom" />
         </div>
-        <el-dropdown-menu slot="dropdown" class="user-dropdown">
+        <el-dropdown-menu
+          slot="dropdown"
+          class="user-dropdown"
+        >
           <router-link to="/">
             <el-dropdown-item>首页</el-dropdown-item>
           </router-link>
           <el-dropdown-item divided>
-            <span style="display:block;" @click="logout">退出登录</span>
+            <span
+              style="display:block;"
+              @click="logout"
+            >退出登录</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>

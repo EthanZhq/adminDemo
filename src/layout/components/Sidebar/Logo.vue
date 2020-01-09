@@ -1,14 +1,14 @@
 <template>
-  <div class="sidebar-logo-container" :class="{'collapse':collapse}">
+  <div
+    class="sidebar-logo-container"
+    :class="{'collapse':collapse}"
+  >
     <transition name="sidebarLogoFade">
-      <router-link v-if="collapse" key="collapse" class="sidebar-logo-link" to="/">
-        <img v-if="logo" :src="logo" class="sidebar-logo" />
-        <!-- <h1 v-else class="sidebar-title">{{ title }} </h1> -->
-      </router-link>
-      <router-link v-else key="expand" class="sidebar-logo-link" to="/">
-        <img v-if="logo" :src="logo" class="sidebar-logo" />
-        <!-- <h1 class="sidebar-title">{{ title }} </h1> -->
-      </router-link>
+      <div class="bar">
+        <div style="padding-left:20px;color:#fff">
+          <span style="color:#0099FF;">全民营销</span>管理后台
+        </div>
+      </div>
     </transition>
   </div>
 </template>
@@ -50,6 +50,13 @@ export default {
   background: #1b2637;
   text-align: center;
   overflow: hidden;
+  .bar {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    color: #666;
+    font-weight: 600;
+  }
 
   & .sidebar-logo-link {
     height: 100%;
