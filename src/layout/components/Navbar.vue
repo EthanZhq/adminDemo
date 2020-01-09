@@ -1,19 +1,19 @@
 <template>
   <div class="navbar">
     <div class="bar">
-      <div style="padding-left:20px">天玑云客微商城</div>
+      <div style="padding-left:20px;color:#fff">
+        <span style="color:#0099FF;">全民营销</span>管理后台
+      </div>
     </div>
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
-          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
+          <i class="el-icon-user" />用户
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
           <router-link to="/">
-            <el-dropdown-item>
-              首页
-            </el-dropdown-item>
+            <el-dropdown-item>首页</el-dropdown-item>
           </router-link>
           <el-dropdown-item divided>
             <span style="display:block;" @click="logout">退出登录</span>
@@ -29,10 +29,7 @@ import { mapGetters } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters([
-      'sidebar',
-      'avatar'
-    ])
+    ...mapGetters(['sidebar', 'avatar'])
   },
   methods: {
     async logout() {
@@ -48,26 +45,27 @@ export default {
   height: 50px;
   overflow: hidden;
   position: relative;
-  background: #fff;
-  box-shadow: 0 1px 4px rgba(0,21,41,.08);
+  background: #1b2637;
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  .bar{
+  margin-left: -3px;
+  .bar {
     display: flex;
     align-items: center;
     font-size: 18px;
     color: #666;
-    font-weight: 600
+    font-weight: 600;
   }
   .hamburger-container {
     height: 100%;
     cursor: pointer;
-    transition: background .3s;
-    -webkit-tap-highlight-color:transparent;
+    transition: background 0.3s;
+    -webkit-tap-highlight-color: transparent;
 
     &:hover {
-      background: rgba(0, 0, 0, .025)
+      background: rgba(0, 0, 0, 0.025);
     }
   }
 
@@ -94,10 +92,10 @@ export default {
 
       &.hover-effect {
         cursor: pointer;
-        transition: background .3s;
+        transition: background 0.3s;
 
         &:hover {
-          background: rgba(0, 0, 0, .025)
+          background: rgba(0, 0, 0, 0.025);
         }
       }
     }
