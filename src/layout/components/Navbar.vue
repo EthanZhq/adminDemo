@@ -3,7 +3,7 @@
     <div class="left-menu">
       <div class="jurisdiction">
         <img
-          src="/icons/svg/dashboard.svg"
+          src="../../icons/svg/dashboard.svg"
           alt=""
         >
         <span>权限管理</span>

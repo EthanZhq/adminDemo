@@ -46,10 +46,10 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    redirect: '/index',
+    // redirect: '/index',
     children: [
       {
-        path: 'index',
+        path: '/index',
         name: 'index',
         component: () => import('@/views/index/index'),
         meta: { title: '首页', icon: 'dashboard' }
@@ -57,26 +57,38 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/mission/index',
+    path: '/mission',
     component: Layout,
-    meta: { title: '任务管理', icon: 'store' }
+    // meta: { title: '任务管理', icon: 'store' },
+    children: [
+      {
+        path: '/mission',
+        name: 'Mission',
+        component: () => import('@/views/mission/index'),
+        meta: { title: '任务管理', icon: 'store' }
+      }
+    ]
   },
   {
-    path: '/client/index',
+    path: '/client',
     component: Layout,
-    // redirect: '/client/index',
-    name: 'client',
     meta: { title: '客户管理', icon: 'store' },
     children: [
       {
-        path: 'commercialOpportunity',
-        name: 'commercialOpportunity',
+        path: '/client',
+        name: 'Client',
+        component: () => import('@/views/client/index'),
+        meta: { title: '首页' }
+      },
+      {
+        path: '/client/commercialOpportunity',
+        name: 'CommercialOpportunity',
         component: () => import('@/views/client/commercialOpportunity/index'),
         meta: { title: '意向客户管理' }
       },
       {
-        path: 'potentialClients',
-        name: 'potentialClients',
+        path: '/client/potentialClients',
+        name: 'PotentialClients',
         component: () => import('@/views/client/potentialClients/index'),
         meta: { title: '商机管理' }
       }
@@ -84,46 +96,58 @@ export const constantRoutes = [
   },
 
   {
-    path: '/project/index',
+    path: '/project',
     component: Layout,
     meta: { title: '项目管理', icon: 'form' },
     children: [
       {
-        path: 'building',
-        name: 'building',
+        path: '/project',
+        name: 'Project',
+        component: () => import('@/views/project/index'),
+        meta: { title: '首页' }
+      },
+      {
+        path: '/project/building',
+        name: 'Building',
         component: () => import('@/views/project/building/index'),
         meta: { title: '楼栋管理' }
       },
       {
-        path: 'prePa',
-        name: 'prePa',
+        path: '/project/prePa',
+        name: 'PrePa',
         component: () => import('@/views/project/prePa/index'),
         meta: { title: '项目立项' }
       }
     ]
   },
   {
-    path: '/economics/index',
+    path: '/economics',
     component: Layout,
     // redirect: '/client/index',
-    name: 'economics',
+    //  name: 'economics',
     meta: { title: '经济管理', icon: 'store' },
     children: [
       {
-        path: 'company',
-        name: 'company',
+        path: '/economics',
+        name: 'Economics',
+        component: () => import('@/views/economics/index'),
+        meta: { title: '首页' }
+      },
+      {
+        path: '/economics/company',
+        name: 'Company',
         component: () => import('@/views/economics/company/index'),
         meta: { title: '经济公司管理' }
       },
       {
-        path: 'store',
-        name: 'store',
+        path: '/economics/store',
+        name: 'Store',
         component: () => import('@/views/economics/store/index'),
         meta: { title: '经济门店管理' }
       },
       {
-        path: 'middleman',
-        name: 'middleman',
+        path: '/economics/middleman',
+        name: 'Middleman',
         component: () => import('@/views/economics/middleman/index'),
         meta: { title: '经纪人管理' }
       }
@@ -131,33 +155,39 @@ export const constantRoutes = [
   },
 
   {
-    path: '/accounting/index',
+    path: '/accounting',
     component: Layout,
     // redirect: '/client/index',
-    name: 'accounting',
+    //  name: 'Accounting',
     meta: { title: '账单管理', icon: 'store' },
     children: [
       {
-        path: 'returnedMoney',
-        name: 'returnedMoney',
+        path: '/accounting',
+        name: 'Accounting',
+        component: () => import('@/views/accounting/index'),
+        meta: { title: '首页' }
+      },
+      {
+        path: '/accounting/returnedMoney',
+        name: 'ReturnedMoney',
         component: () => import('@/views/accounting/returnedMoney/index'),
         meta: { title: '回款管理' }
       },
       {
-        path: 'invoice',
-        name: 'invoice',
+        path: '/accounting/invoice',
+        name: 'Invoice',
         component: () => import('@/views/accounting/invoice/index'),
         meta: { title: '开票回款管理' }
       },
       {
-        path: 'settlement',
-        name: 'settlement',
+        path: '/accounting/settlement',
+        name: 'Settlement',
         component: () => import('@/views/accounting/settlement/index'),
         meta: { title: '结算管理' }
       },
       {
-        path: 'settlements',
-        name: 'settlements',
+        path: '/accounting/settlements',
+        name: 'Settlements',
         component: () => import('@/views/accounting/settlements/index'),
         meta: { title: '结算单管理' }
       }
@@ -167,33 +197,41 @@ export const constantRoutes = [
     path: '/setUp',
     component: Layout,
     // redirect: '/setUp/storeInfo',
-    name: 'SetUp',
+    //  name: 'SetUp',
     meta: { title: '系统设置', icon: 'set_up' },
     children: [
       {
-        path: 'department',
-        name: 'department',
+        path: '/setUp/department',
+        name: 'Department',
         component: () => import('@/views/setUp/department/index'),
         meta: { title: '部门设置' }
       },
       {
-        path: 'users',
-        name: 'users',
+        path: '/setUp/users',
+        name: 'Users',
         component: () => import('@/views/setUp/users/index'),
         meta: { title: '用户设置' }
       },
       {
-        path: 'jurisdiction',
-        name: 'jurisdiction',
+        path: '/setUp/jurisdiction',
+        name: 'Jurisdiction',
         component: () => import('@/views/setUp/jurisdiction/index'),
         meta: { title: '权限设置' }
       }
     ]
   },
   {
-    path: '/statistics/index',
+    path: '/statistics',
     component: Layout,
-    meta: { title: '统计', icon: 'store' }
+    meta: { title: '统计', icon: 'store' },
+    children: [
+      {
+        path: '/statistics',
+        name: 'Statistics',
+        component: () => import('@/views/statistics/index'),
+        meta: { title: '统计', icon: 'store' }
+      }
+    ]
   },
 
   // 404 page must be placed at the end !!!
