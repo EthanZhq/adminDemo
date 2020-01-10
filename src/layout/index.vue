@@ -1,9 +1,22 @@
 <template>
-  <div :class="classObj" class="app-wrapper">
-    <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
+  <div
+    :class="classObj"
+    class="app-wrapper"
+  >
+    <div
+      v-if="device==='mobile'&&sidebar.opened"
+      class="drawer-bg"
+      @click="handleClickOutside"
+    />
     <sidebar class="sidebar-container" />
-    <div class="main-container" style="width:calc(100% - 145px);">
-      <div class="" style="height:calc(100vh - 70px);width:100%">
+    <div
+      class="main-container"
+      style="width:calc(100% - 145px);"
+    >
+      <div
+        class=""
+        style="height:calc(100vh - 70px);width:100%"
+      >
         <div :class="{'fixed-header':fixedHeader}">
           <navbar />
         </div>
@@ -53,28 +66,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import "~@/styles/mixin.scss";
-  @import "~@/styles/variables.scss";
+@import '~@/styles/mixin.scss';
+@import '~@/styles/variables.scss';
 
-  .app-wrapper {
-    @include clearfix;
-    position: relative;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    &.mobile.openSidebar{
-      position: fixed;
-      top: 0;
-    }
-  }
-  .drawer-bg {
-    background: #000;
-    opacity: 0.3;
-    width: 100%;
+.app-wrapper {
+  @include clearfix;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  &.mobile.openSidebar {
+    position: fixed;
     top: 0;
-    height: 100%;
-    position: absolute;
-    z-index: 999;
   }
+}
+.drawer-bg {
+  background: #000;
+  opacity: 0.3;
+  width: 100%;
+  top: 0;
+  height: 100%;
+  position: absolute;
+  z-index: 999;
+}
 </style>

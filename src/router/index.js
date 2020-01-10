@@ -46,32 +46,13 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    // redirect: '/index',
+    redirect: '/index',
     children: [
       {
-        path: '/index',
-        name: 'index',
+        path: '/',
+        name: 'Index',
         component: () => import('@/views/index/index'),
         meta: { title: '首页', icon: 'dashboard' }
-      }
-    ]
-  },
-  {
-    path: '/client',
-    component: Layout,
-    meta: { title: '客户管理', icon: 'store' },
-    children: [
-      {
-        path: '/client/commercialOpportunity',
-        name: 'CommercialOpportunity',
-        component: () => import('@/views/client/commercialOpportunity/index'),
-        meta: { title: '意向客户管理' }
-      },
-      {
-        path: '/client/potentialClients',
-        name: 'PotentialClients',
-        component: () => import('@/views/client/potentialClients/index'),
-        meta: { title: '商机管理' }
       }
     ]
   },
@@ -79,46 +60,71 @@ export const constantRoutes = [
   {
     path: '/project',
     component: Layout,
-    meta: { title: '项目管理', icon: 'form' },
+    redirect: '/project/building',
+    name: 'Project',
+    meta: { title: '项目管理', icon: 'example' },
     children: [
       {
-        path: '/project/building',
+        path: 'building',
         name: 'Building',
         component: () => import('@/views/project/building/index'),
-        meta: { title: '楼栋管理' }
+        meta: { title: '楼栋管理', icon: 'table' }
       },
       {
-        path: '/project/prePa',
+        path: 'prePa',
         name: 'PrePa',
         component: () => import('@/views/project/prePa/index'),
-        meta: { title: '项目立项' }
+        meta: { title: '项目立项', icon: 'tree' }
       }
     ]
   },
+
   {
     path: '/economics',
     component: Layout,
-    // redirect: '/client/index',
-    //  name: 'economics',
-    meta: { title: '经济管理', icon: 'store' },
+    redirect: '/economics/company',
+    name: 'Economics',
+    meta: { title: '经济管理', icon: 'example' },
     children: [
       {
-        path: '/economics/company',
+        path: 'company',
         name: 'Company',
         component: () => import('@/views/economics/company/index'),
-        meta: { title: '经济公司管理' }
+        meta: { title: '经济公司管理', icon: 'table' }
       },
       {
-        path: '/economics/store',
-        name: 'Store',
+        path: 'store',
+        name: 'store',
         component: () => import('@/views/economics/store/index'),
-        meta: { title: '经济门店管理' }
+        meta: { title: '经济门店管理', icon: 'tree' }
       },
       {
-        path: '/economics/middleman',
+        path: 'middleman',
         name: 'Middleman',
         component: () => import('@/views/economics/middleman/index'),
-        meta: { title: '经纪人管理' }
+        meta: { title: '经纪人管理', icon: 'table' }
+      }
+    ]
+  },
+
+  {
+    path: '/client',
+    component: Layout,
+    redirect: '/client/commercialOpportunity',
+    name: 'Client',
+    meta: { title: '客户管理', icon: 'example' },
+    children: [
+      {
+        path: 'commercialOpportunity',
+        name: 'CommercialOpportunity',
+        component: () => import('@/views/client/commercialOpportunity/index'),
+        meta: { title: '意向客户管理', icon: 'table' }
+      },
+      {
+        path: 'potentialClients',
+        name: 'PotentialClients',
+        component: () => import('@/views/client/potentialClients/index'),
+        meta: { title: '商机管理', icon: 'tree' }
       }
     ]
   },
@@ -126,73 +132,77 @@ export const constantRoutes = [
   {
     path: '/accounting',
     component: Layout,
-    // redirect: '/client/index',
-    //  name: 'Accounting',
-    meta: { title: '账单管理', icon: 'store' },
+    redirect: '/accounting/returnedMoney',
+    name: 'Accounting',
+    meta: { title: '账务管理', icon: 'example' },
     children: [
       {
-        path: '/accounting/returnedMoney',
+        path: 'returnedMoney',
         name: 'ReturnedMoney',
         component: () => import('@/views/accounting/returnedMoney/index'),
-        meta: { title: '回款管理' }
+        meta: { title: '回款管理', icon: 'table' }
       },
       {
-        path: '/accounting/invoice',
+        path: 'invoice',
         name: 'Invoice',
         component: () => import('@/views/accounting/invoice/index'),
-        meta: { title: '开票回款管理' }
+        meta: { title: '开票回款管理', icon: 'tree' }
       },
       {
-        path: '/accounting/settlement',
+        path: 'settlement',
         name: 'Settlement',
         component: () => import('@/views/accounting/settlement/index'),
-        meta: { title: '结算管理' }
+        meta: { title: '结算管理', icon: 'table' }
       },
       {
-        path: '/accounting/settlements',
+        path: 'settlements',
         name: 'Settlements',
         component: () => import('@/views/accounting/settlements/index'),
-        meta: { title: '结算单管理' }
+        meta: { title: '结算单管理', icon: 'tree' }
       }
     ]
   },
-  {
-    path: '/setUp',
-    component: Layout,
-    // redirect: '/setUp/storeInfo',
-    //  name: 'SetUp',
-    meta: { title: '系统设置', icon: 'set_up' },
-    children: [
-      {
-        path: '/setUp/department',
-        name: 'Department',
-        component: () => import('@/views/setUp/department/index'),
-        meta: { title: '部门设置' }
-      },
-      {
-        path: '/setUp/users',
-        name: 'Users',
-        component: () => import('@/views/setUp/users/index'),
-        meta: { title: '用户设置' }
-      },
-      {
-        path: '/setUp/jurisdiction',
-        name: 'Jurisdiction',
-        component: () => import('@/views/setUp/jurisdiction/index'),
-        meta: { title: '权限设置' }
-      }
-    ]
-  },
+
   {
     path: '/statistics',
     component: Layout,
-    meta: { title: '统计', icon: 'store' },
     children: [
       {
-        path: '/statistics',
-        name: 'Statistics',
+        path: 'statistics',
+        name: 'statistics',
         component: () => import('@/views/statistics/index'),
-        meta: { title: '统计' }
+        meta: { title: '统计', icon: 'form' }
+      }
+    ]
+  },
+
+  {
+    path: '/systemSetup',
+    component: Layout,
+    redirect: '/setUp/department',
+    name: 'SetUp',
+    meta: {
+      title: '系统设置',
+      icon: 'nested'
+    },
+    children: [
+      {
+        path: 'department',
+        name: 'Department',
+        component: () => import('@/views/systemSetup/department/index'),
+        meta: { title: '部门设置', icon: 'tree' }
+      },
+      {
+        path: 'usersSetup',
+        name: 'UsersSetup',
+        component: () => import('@/views/systemSetup/usersSetup/index'),
+        meta: { title: '用户设置', icon: 'tree' }
+      },
+      {
+        path: 'diction',
+        name: 'Diction',
+        component: () => import('@/views/systemSetup/diction/index'),
+        meta: { title: '权限设置', icon: 'tree' }
       }
     ]
   },

@@ -72,7 +72,7 @@ export default {
   height: 50px;
   overflow: hidden;
   position: relative;
-  background: #1b2637;
+  background: #304156;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
   display: flex;
   align-items: center;
@@ -80,7 +80,7 @@ export default {
   margin-left: -3px;
   .left-menu {
     display: flex;
-    color: #aeaeae;
+    color: #bfcbd9;
     img {
       width: 128px;
       height: 100px;

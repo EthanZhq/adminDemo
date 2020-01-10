@@ -47,7 +47,7 @@ export default {
   width: 100%;
   height: 50px;
   line-height: 50px;
-  background: #1b2637;
+  background: #304156;
   text-align: center;
   overflow: hidden;
   .bar {

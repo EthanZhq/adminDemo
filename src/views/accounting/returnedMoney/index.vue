@@ -5,15 +5,15 @@
         <div style="margin-top: 15px;display:flex;">
           <el-input
             v-model="input"
-            style="width:200px;marging-right:20px;"
-            placeholder="请输入内容"
+            style="width:215px;marging-right:20px;"
+            placeholder="请输入客户手名称/手机号"
             clearable
           />
           <div style="margin-left: 20px;">
             <el-select
               v-model="value"
               clearable
-              placeholder="请选择"
+              placeholder="请选择项目"
             >
               <el-option
                 v-for="item in options"
@@ -28,7 +28,7 @@
             <el-select
               v-model="value"
               clearable
-              placeholder="请选择"
+              placeholder="请选择佣金类型"
             >
               <el-option
                 v-for="item in options"
@@ -42,7 +42,7 @@
             <el-select
               v-model="value"
               clearable
-              placeholder="请选择"
+              placeholder="请选择结算类型"
             >
               <el-option
                 v-for="item in options"
@@ -52,6 +52,24 @@
               />
             </el-select>
           </div>
+          <div style="margin-left: 20px;">
+            <el-select
+              v-model="value"
+              clearable
+              placeholder="是否退佣"
+            >
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+          </div>
+          <div style="margin-left: 200px;">
+            <el-button type="primary">搜索</el-button>
+          </div>
+
         </div>
       </div>
 
@@ -59,27 +77,31 @@
         <el-button
           type="primary"
           plain
-        >编辑</el-button>
+        >生成业绩确认单</el-button>
         <el-button
           type="primary"
           plain
-        >审核</el-button>
+        >业绩确认</el-button>
         <el-button
           type="primary"
           plain
-        >启用</el-button>
+        >跟进</el-button>
         <el-button
           type="primary"
           plain
-        >禁用</el-button>
+        >退佣</el-button>
         <el-button
           plain
-          style="background:none;color:#1c1c1c;"
-        >删除</el-button>
+          style="background:#F3F3F3;color:#1c1c1c;"
+        >查看</el-button>
         <el-button
           plain
-          style="background:none;color:#1c1c1c;"
-        >历史合作记录</el-button>
+          style="background:#F3F3F3;color:#1c1c1c;"
+        >修改记录</el-button>
+        <el-button
+          plain
+          style="background:#F3F3F3;color:#1c1c1c;"
+        >修改记录</el-button>
       </div>
       <!-- 表格 -->
       <div>
@@ -88,7 +110,8 @@
           :data="tableData"
           border
           tooltip-effect="dark"
-          style="width: 100%"
+          style="width:95%"
+          height="550"
           @selection-change="handleSelectionChange"
         >
           <el-table-column
@@ -96,60 +119,114 @@
             width="55"
           />
           <el-table-column
-            prop="name"
-            label="公司编号"
+            prop="id"
+            label="回款编号"
             width="180"
-          >zj00000001</el-table-column>
-          <el-table-column
-            prop="address"
-            label="公司名称"
-            width="150"
-          >鏈家</el-table-column>
-          <el-table-column
-            prop="date"
-            label="联系人"
-            width="150"
-          >張三</el-table-column>
+          >U2019100001</el-table-column>
           <el-table-column
             prop="name"
-            label="联系电话"
+            label="项目名称"
             width="150"
-          >15225846698</el-table-column>
-          <el-table-column
-            prop="address"
-            label="最近合作时间段"
-            width="230"
-          >2001-12-99至2018-09-95</el-table-column>
-          <el-table-column
-            prop="date"
-            label="审核状态"
-            width="150"
-          >
-            <span style="color:#4171f9;">待审核</span>
-          </el-table-column>
-          <el-table-column
-            prop="name"
-            label="状态"
-            width="150"
-          >
-            <el-switch
-              v-model="value1"
-              active-color="#13ce66"
-              inactive-color="#13ce66"
-              active-text="是"
-              inactive-text="否"
-            />
+          >万科新都荟
           </el-table-column>
           <el-table-column
             prop="address"
+            label="房源信息"
+            width="150"
+          >1期99栋1单元</el-table-column>
+          <el-table-column
+            prop="area"
+            label="面积（m²）"
+            width="100"
+          >99.87</el-table-column>
+          <el-table-column
+            prop="totalPrice"
+            label="成交总价(元)"
+            width="120"
+          >5436123.31</el-table-column>
+          <el-table-column
+            prop="buyName"
+            label="购房人姓名"
+            width="100"
+          >李四
+          </el-table-column>
+          <el-table-column
+            prop="tel"
+            label="联系方式"
+            width="120"
+          >
+            15295549911
+          </el-table-column>
+          <el-table-column
+            prop="state"
+            label="交易状态"
+            width="100"
+          > 认筹</el-table-column>
+          <el-table-column
+            prop="type"
+            label="佣金类型"
+            width="100"
+          >带看费</el-table-column>
+          <el-table-column
+            prop="commissionMeans"
+            label="佣金方式"
+            width="100"
+          >按次定价</el-table-column>
+          <el-table-column
+            prop="pricingMode"
+            label="定价方式"
+            width="100"
+          >固定定价</el-table-column>
+          <el-table-column
+            prop="standard"
+            label="佣金标准"
+            width="100"
+          >带看费</el-table-column>
+          <el-table-column
+            prop="referrer"
+            label="推荐人"
+            width="100"
+          >张三</el-table-column>
+          <el-table-column
+            prop="organization"
+            label="推荐机构"
+            width="100"
+          >链家</el-table-column>
+          <el-table-column
+            prop="commissioned"
+            label="应结佣金"
+            width="100"
+          >50000</el-table-column>
+          <el-table-column
+            prop="commission"
+            label="实结佣金"
+            width="100"
+          >30000</el-table-column>
+          <el-table-column
+            prop="lossCommission"
+            label="损失佣金"
+            width="100"
+          >20000</el-table-column>
+          <el-table-column
+            prop="organization"
+            label="回款状态"
+            width="100"
+          > <span style="color:#108EE9">未结算</span> </el-table-column>
+          <el-table-column
+            prop="whether"
+            label="是否退佣"
+            width="100"
+          >否</el-table-column>
+          <el-table-column
+            prop="date"
             label="创建时间"
-            width="230"
-          >2019-11-15 09：00：00</el-table-column>
+            width="100"
+          >2019-11-15 08:00:00</el-table-column>
           <el-table-column
-            prop="address"
+            prop="创建人"
             label="创建人"
-            width="150"
-          >張三</el-table-column>
+            width="100"
+          >李四</el-table-column>
         </el-table>
         <!-- <div style="margin-top: 20px">
           <el-button @click="toggleSelection([tableData[1], tableData[2]])">切换第二、第三行的选中状态</el-button>
@@ -214,7 +291,7 @@ export default {
       // select: '',
       value1: true,
       currentPage4: 10,
-      tableData: [{}, {}, {}, {}, {}, {}, {}]
+      tableData: [{}, {}, {}, {}, {}, {}, {}, {}, {}]
     }
   },
   created() {

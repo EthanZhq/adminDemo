@@ -29,18 +29,6 @@ module.exports = {
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
-  // css: {
-  //   loaderOptions: {
-  //     less: {
-  //       modifyVars: {
-  //         'primary-color': '#304156',
-  //         'link-color': '#304156',
-  //         'border-radius-base': '2px'
-  //       },
-  //       javascriptEnabled: true
-  //     }
-  //   }
-  // },
   devServer: {
     port: port,
     open: true,
@@ -48,15 +36,7 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    proxy: {
-      [process.env.VUE_APP_BASE_API]: {
-        target: `http://192.168.0.218:7022`,
-        changeOrigin: true,
-        pathRewrite: {
-          ['^' + process.env.VUE_APP_BASE_API]: ''
-        }
-      }
-    }
+    before: require('./mock/mock-server.js')
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that

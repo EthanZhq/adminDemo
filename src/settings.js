@@ -1,12 +1,11 @@
 module.exports = {
-
-  title: '天玑云客微商城',
+  title: 'Vue Admin Template',
 
   /**
    * @type {boolean} true | false
    * @description Whether fix the header
    */
-  fixedHeader: true,
+  fixedHeader: false,
 
   /**
    * @type {boolean} true | false
