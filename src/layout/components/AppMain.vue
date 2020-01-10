@@ -1,6 +1,6 @@
 <template>
   <section class="app-main">
-    <!-- <breadcrumb class="breadcrumb-container" /> -->
+    <breadcrumb class="breadcrumb-container" />
     <transition
       name="fade-transform"
       mode="out-in"
@@ -11,11 +11,11 @@
 </template>
 
 <script>
-// import Breadcrumb from '@/components/Breadcrumb'
+import Breadcrumb from '@/components/Breadcrumb'
 export default {
   name: 'AppMain',
   components: {
-    // Breadcrumb
+    Breadcrumb
   },
   computed: {
     key() {
