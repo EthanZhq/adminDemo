@@ -6,9 +6,10 @@
           <el-input
             v-model="input"
             style="width:200px;marging-right:20px;"
-            placeholder="请输入内容"
+            placeholder="请输入15151内容"
             clearable
           />
+
           <div style="margin-left: 20px;">
             <el-select
               v-model="value"
