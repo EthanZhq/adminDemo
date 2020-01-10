@@ -10,7 +10,11 @@
             clearable
           />
           <div style="margin-left: 20px;">
-            <el-select v-model="value" clearable placeholder="请选择">
+            <el-select
+              v-model="value"
+              clearable
+              placeholder="请选择"
+            >
               <el-option
                 v-for="item in options"
                 :key="item.value"
@@ -21,7 +25,11 @@
           </div>
 
           <div style="margin-left: 20px;">
-            <el-select v-model="value" clearable placeholder="请选择">
+            <el-select
+              v-model="value"
+              clearable
+              placeholder="请选择"
+            >
               <el-option
                 v-for="item in options"
                 :key="item.value"
@@ -31,7 +39,11 @@
             </el-select>
           </div>
           <div style="margin-left: 20px;">
-            <el-select v-model="value" clearable placeholder="请选择">
+            <el-select
+              v-model="value"
+              clearable
+              placeholder="请选择"
+            >
               <el-option
                 v-for="item in options"
                 :key="item.value"
@@ -44,12 +56,30 @@
       </div>
 
       <div class="head">
-        <el-button type="primary" plain>编辑</el-button>
-        <el-button type="primary" plain>审核</el-button>
-        <el-button type="primary" plain>启用</el-button>
-        <el-button type="primary" plain>禁用</el-button>
-        <el-button plain style="background:none;color:#1c1c1c;">删除</el-button>
-        <el-button plain style="background:none;color:#1c1c1c;">历史合作记录</el-button>
+        <el-button
+          type="primary"
+          plain
+        >编辑</el-button>
+        <el-button
+          type="primary"
+          plain
+        >审核</el-button>
+        <el-button
+          type="primary"
+          plain
+        >启用</el-button>
+        <el-button
+          type="primary"
+          plain
+        >禁用</el-button>
+        <el-button
+          plain
+          style="background:none;color:#1c1c1c;"
+        >删除</el-button>
+        <el-button
+          plain
+          style="background:none;color:#1c1c1c;"
+        >历史合作记录</el-button>
       </div>
       <!-- 表格 -->
       <div>
@@ -61,16 +91,47 @@
           style="width: 100%"
           @selection-change="handleSelectionChange"
         >
-          <el-table-column type="selection" width="55" />
-          <el-table-column prop="name" label="公司编号" width="180">zj00000001</el-table-column>
-          <el-table-column prop="address" label="公司名称" width="150">鏈家</el-table-column>
-          <el-table-column prop="date" label="联系人" width="150">張三</el-table-column>
-          <el-table-column prop="name" label="联系电话" width="150">15225846698</el-table-column>
-          <el-table-column prop="address" label="最近合作时间段" width="230">2001-12-99至2018-09-95</el-table-column>
-          <el-table-column prop="date" label="审核状态" width="150">
+          <el-table-column
+            type="selection"
+            width="55"
+          />
+          <el-table-column
+            prop="name"
+            label="公司编号"
+            width="180"
+          >zj00000001</el-table-column>
+          <el-table-column
+            prop="address"
+            label="公司名称"
+            width="150"
+          >鏈家</el-table-column>
+          <el-table-column
+            prop="date"
+            label="联系人"
+            width="150"
+          >張三</el-table-column>
+          <el-table-column
+            prop="name"
+            label="联系电话"
+            width="150"
+          >15225846698</el-table-column>
+          <el-table-column
+            prop="address"
+            label="最近合作时间段"
+            width="230"
+          >2001-12-99至2018-09-95</el-table-column>
+          <el-table-column
+            prop="date"
+            label="审核状态"
+            width="150"
+          >
             <span style="color:#4171f9;">待审核</span>
           </el-table-column>
-          <el-table-column prop="name" label="状态" width="150">
+          <el-table-column
+            prop="name"
+            label="状态"
+            width="150"
+          >
             <el-switch
               v-model="value1"
               active-color="#13ce66"
@@ -79,8 +140,16 @@
               inactive-text="否"
             />
           </el-table-column>
-          <el-table-column prop="address" label="创建时间" width="230">2019-11-15 09：00：00</el-table-column>
-          <el-table-column prop="address" label="创建人" width="150">張三</el-table-column>
+          <el-table-column
+            prop="address"
+            label="创建时间"
+            width="230"
+          >2019-11-15 09：00：00</el-table-column>
+          <el-table-column
+            prop="address"
+            label="创建人"
+            width="150"
+          >張三</el-table-column>
         </el-table>
         <!-- <div style="margin-top: 20px">
           <el-button @click="toggleSelection([tableData[1], tableData[2]])">切换第二、第三行的选中状态</el-button>
@@ -90,14 +159,14 @@
       <div class="paging">
         <div class="paging-right">
           <el-pagination
-            @size-change="handleSizeChange"
             :current-page="currentPage4"
             :page-size="100"
             :total="400"
             pager-count="5"
-            @current-change="handleCurrentChange"
             :page-sizes="[100, 200, 300, 400]"
             layout="total, sizes, prev, pager, next, jumper"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
           />
         </div>
       </div>

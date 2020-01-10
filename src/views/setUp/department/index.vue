@@ -19,17 +19,21 @@
           </div>
           <div class="btn">
             <el-button
-                class="filter-item"
-                type="primary"
+              class="filter-item"
+              type="primary"
             >批量删除</el-button>
             <el-button
-                class="filter-item"
-                type="primary"
-                @click="goAdd"
+              class="filter-item"
+              type="primary"
+              @click="goAdd"
             >添加快递公司</el-button>
           </div>
         </div>
-        <el-button class="filter-item" type="primary" icon="el-icon-search">搜索</el-button>
+        <el-button
+          class="filter-item"
+          type="primary"
+          icon="el-icon-search"
+        >搜索</el-button>
       </div>
       <el-table
         :key="tableKey"
@@ -47,37 +51,55 @@
           align="center"
           width="50"
           style="background-color:#000"
+        />
+        <el-table-column
+          label="物流公司名称"
+          align="center"
+          width=""
         >
-        </el-table-column>
-        <el-table-column label="物流公司名称" align="center" width="">
           <template slot-scope="{ row }">
             <span>{{ row.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="快递公司编码" align="center">
+        <el-table-column
+          label="快递公司编码"
+          align="center"
+        >
           <template slot-scope="{ row }">
             <span>{{ row.code }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="开启状态" align="center" width="200px">
+        <el-table-column
+          label="开启状态"
+          align="center"
+          width="200px"
+        >
           <template slot-scope="{ row }">
             <el-switch
               v-model="row.flag"
               inactive-color="#999"
-            >
-            </el-switch>
+            />
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="180px" align="center">
+        <el-table-column
+          label="操作"
+          width="180px"
+          align="center"
+        >
           <el-button
-              class="filter-item"
-              type="primary"
-              icon="el-icon-edit"
+            class="filter-item"
+            type="primary"
+            icon="el-icon-edit"
           >编辑</el-button>
         </el-table-column>
       </el-table>
     </div>
-    <pagination v-show="total>0" :page.sync="listQuery.page" :total="total" :limit.sync="listQuery.limit"/>
+    <pagination
+      v-show="total>0"
+      :page.sync="listQuery.page"
+      :total="total"
+      :limit.sync="listQuery.limit"
+    />
   </div>
 </template>
 
@@ -97,14 +119,14 @@ export default {
       listLoading: false,
       downloadLoading: false,
       tableKey: 0,
-      flag:[
+      flag: [
         {
-          key:0,
-          isShow:'是'
+          key: 0,
+          isShow: '是'
         },
         {
-          key:1,
-          isShow:'否'
+          key: 1,
+          isShow: '否'
         }
       ],
       list: [
@@ -124,25 +146,25 @@ export default {
   },
   methods: {
     goAdd() {
-      this.$router.push({path:'/express-management/add'})
+      this.$router.push({ path: '/express-management/add' })
     }
   }
 }
 </script>
 <style lang="scss">
-.wrap{
+.wrap {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: calc(100% - 55px);
-  .container{
+  .container {
     flex: 1;
     overflow-y: scroll;
     padding: 16px;
     background: #f1f4f6;
     border-radius: 10px;
     margin: 0 16px;
-    .title{
+    .title {
       padding: 16px;
       background: #fff;
       border-radius: 10px;
@@ -152,41 +174,42 @@ export default {
       .search-inp {
         margin-right: 12px;
       }
-      .btn{
-        margin-top: 16px
+      .btn {
+        margin-top: 16px;
       }
-      .select-box{
-        margin-right: 16px
+      .select-box {
+        margin-right: 16px;
       }
     }
-    .table{
+    .table {
       width: 100%;
-      margin-top:12px;
-      border-radius:10px;
+      margin-top: 12px;
+      border-radius: 10px;
     }
-    .el-table, .el-table__expanded-cell{
+    .el-table,
+    .el-table__expanded-cell {
       background: none;
-      width: 100%
+      width: 100%;
     }
   }
   .container::-webkit-scrollbar {
-    display:none
+    display: none;
   }
-  .pagination-container{
+  .pagination-container {
     height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0;
-    margin: 0
+    margin: 0;
   }
 }
-.el-switch__label *{
-  font-size: 12px
+.el-switch__label * {
+  font-size: 12px;
 }
 .flag .el-switch__label {
-    position: absolute;
-    display: none;
-    color: #fff;
+  position: absolute;
+  display: none;
+  color: #fff;
 }
 </style>

@@ -57,29 +57,10 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/mission',
-    component: Layout,
-    // meta: { title: '任务管理', icon: 'store' },
-    children: [
-      {
-        path: '/mission',
-        name: 'Mission',
-        component: () => import('@/views/mission/index'),
-        meta: { title: '任务管理', icon: 'store' }
-      }
-    ]
-  },
-  {
     path: '/client',
     component: Layout,
     meta: { title: '客户管理', icon: 'store' },
     children: [
-      {
-        path: '/client',
-        name: 'Client',
-        component: () => import('@/views/client/index'),
-        meta: { title: '首页' }
-      },
       {
         path: '/client/commercialOpportunity',
         name: 'CommercialOpportunity',
@@ -101,12 +82,6 @@ export const constantRoutes = [
     meta: { title: '项目管理', icon: 'form' },
     children: [
       {
-        path: '/project',
-        name: 'Project',
-        component: () => import('@/views/project/index'),
-        meta: { title: '首页' }
-      },
-      {
         path: '/project/building',
         name: 'Building',
         component: () => import('@/views/project/building/index'),
@@ -127,12 +102,6 @@ export const constantRoutes = [
     //  name: 'economics',
     meta: { title: '经济管理', icon: 'store' },
     children: [
-      {
-        path: '/economics',
-        name: 'Economics',
-        component: () => import('@/views/economics/index'),
-        meta: { title: '首页' }
-      },
       {
         path: '/economics/company',
         name: 'Company',
@@ -161,12 +130,6 @@ export const constantRoutes = [
     //  name: 'Accounting',
     meta: { title: '账单管理', icon: 'store' },
     children: [
-      {
-        path: '/accounting',
-        name: 'Accounting',
-        component: () => import('@/views/accounting/index'),
-        meta: { title: '首页' }
-      },
       {
         path: '/accounting/returnedMoney',
         name: 'ReturnedMoney',
@@ -229,7 +192,7 @@ export const constantRoutes = [
         path: '/statistics',
         name: 'Statistics',
         component: () => import('@/views/statistics/index'),
-        meta: { title: '统计', icon: 'store' }
+        meta: { title: '统计' }
       }
     ]
   },
