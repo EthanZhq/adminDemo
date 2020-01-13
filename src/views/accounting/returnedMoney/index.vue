@@ -77,30 +77,37 @@
         <el-button
           type="primary"
           plain
+          @click="open(0)"
         >生成业绩确认单</el-button>
         <el-button
           type="primary"
           plain
-        >业绩确认</el-button>
+          @click="open(1)"
+        >业绩单确认</el-button>
         <el-button
           type="primary"
           plain
+          @click="open(2)"
         >跟进</el-button>
         <el-button
           type="primary"
           plain
+          @click="open(3)"
         >退佣</el-button>
         <el-button
           plain
           style="background:#F3F3F3;color:#1c1c1c;"
+          @click="open(4)"
         >查看</el-button>
         <el-button
           plain
           style="background:#F3F3F3;color:#1c1c1c;"
+          @click="open(5)"
         >修改记录</el-button>
         <el-button
           plain
           style="background:#F3F3F3;color:#1c1c1c;"
+          @click="open(6)"
         >修改记录</el-button>
       </div>
       <!-- 表格 -->
@@ -239,8 +246,8 @@
             :current-page="currentPage4"
             :page-size="100"
             :total="400"
-            pager-count="5"
-            :page-sizes="[100, 200, 300, 400]"
+            :pager-count="5"
+            :page-sizes="[5,100, 200, 300, 400]"
             layout="total, sizes, prev, pager, next, jumper"
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -248,40 +255,50 @@
         </div>
       </div>
     </div>
+    <createPage
+      :create-page="createPage"
+      @cancel="cancels(0)"
+    />
+    <requirePage
+      :require-page="requirePage"
+      @cancel="cancels(1)"
+    />
   </div>
 </template>
 
 <script>
-// import ThemeSettings from '@/components/theme/theme-settings'
-// import ThemeView from '@/components/theme/theme-view'
+import CreatePage from './createPage'
+import RequirePage from './requirePage'
+
 export default {
   components: {
-    // ThemeSettings,
-    // ThemeView
+    CreatePage,
+    RequirePage
   },
   data() {
     return {
-      options: [
-        {
-          value: '选项1',
-          label: '黄金糕'
-        },
-        {
-          value: '选项2',
-          label: '双皮奶'
-        },
-        {
-          value: '选项3',
-          label: '蚵仔煎'
-        },
-        {
-          value: '选项4',
-          label: '龙须面'
-        },
-        {
-          value: '选项5',
-          label: '北京烤鸭'
-        }
+      createPage: false,
+      requirePage: false,
+      options: [{
+        value: '选项1',
+        label: '黄金糕'
+      },
+      {
+        value: '选项2',
+        label: '双皮奶'
+      },
+      {
+        value: '选项3',
+        label: '蚵仔煎'
+      },
+      {
+        value: '选项4',
+        label: '龙须面'
+      },
+      {
+        value: '选项5',
+        label: '北京烤鸭'
+      }
       ],
       value: '',
       input: '',
@@ -291,13 +308,63 @@ export default {
       // select: '',
       value1: true,
       currentPage4: 10,
-      tableData: [{}, {}, {}, {}, {}, {}, {}, {}, {}]
+      tableData: [{}, {}, {}, {}, {}, {}, {}, {}, {}],
+      requireTable: [{}, {}, {}, {}, {}, {}, {}, {}, {}]
     }
   },
   created() {
     this.theme = this.list[0]
   },
   methods: {
+    // 打开生成页面
+    open(state) {
+      if (state === 0) {
+        console.log(this.createPage)
+        this.createPage = true
+        console.log(this.createPage)
+      }
+      if (state === 1) {
+        console.log(this.requirePage)
+        this.requirePage = true
+        console.log(this.requirePage)
+      }
+      if (state === 2) {
+        console.log(this.createPage)
+        this.createPage = true
+        console.log(this.createPage)
+      }
+      if (state === 3) {
+        console.log(this.createPage)
+        this.createPage = true
+        console.log(this.createPage)
+      }
+      if (state === 4) {
+        console.log(this.createPage)
+        this.createPage = true
+        console.log(this.createPage)
+      }
+      if (state === 5) {
+        console.log(this.createPage)
+        this.createPage = true
+        console.log(this.createPage)
+      }
+      if (state === 6) {
+        console.log(this.createPage)
+        this.createPage = true
+        console.log(this.createPage)
+      }
+    },
+    cancels(state) {
+      if (state === 0) {
+        this.createPage = false
+        console.log(this.createPage)
+      }
+      if (state === 1) {
+        this.requirePage = false
+        console.log(this.requirePage)
+      }
+    },
+    // 关闭弹框
     toggleSelection(rows) {
       if (rows) {
         rows.forEach(row => {
@@ -319,7 +386,10 @@ export default {
   }
 }
 </script>
-<style scoped lang="scss">
+<style
+  scoped
+  lang="scss"
+    >
 .el-select .el-input {
   width: 130px;
 }
@@ -356,4 +426,3 @@ export default {
   font-size: 15px;
 }
 </style>
-
