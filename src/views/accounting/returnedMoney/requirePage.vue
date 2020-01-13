@@ -364,11 +364,8 @@
         slot="footer"
         class="dialog-footer"
       >
-        <el-button @click="outerVisible = false">取 消</el-button>
-        <el-button
-          type="primary"
-          @click="innerVisible = true"
-        >确 定</el-button>
+        <el-button @click="innerVisible = false">取 消</el-button>
+        <el-button type="primary">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -455,13 +452,6 @@ export default {
       }
     }
   }
-}
-.content-center {
-  .content-center-text {
-  }
-}
-.secondSpan {
-  float: right;
 }
 </style>
 

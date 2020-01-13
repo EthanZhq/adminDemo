@@ -263,22 +263,36 @@
       :require-page="requirePage"
       @cancel="cancels(1)"
     />
+    <follow
+      :follow="follow"
+      @cancel="cancels(2)"
+    >12</follow>
+    <returnCommission
+      :return-commission="returnCommission"
+      @cancel="cancels(3)"
+    >12</returnCommission>
   </div>
 </template>
 
 <script>
 import CreatePage from './createPage'
 import RequirePage from './requirePage'
+import Follow from './follow'
+import ReturnCommission from './returnCommission'
 
 export default {
   components: {
     CreatePage,
-    RequirePage
+    RequirePage,
+    Follow,
+    ReturnCommission
   },
   data() {
     return {
       createPage: false,
       requirePage: false,
+      follow: false,
+      returnCommission: false,
       options: [{
         value: '选项1',
         label: '黄金糕'
@@ -329,29 +343,14 @@ export default {
         console.log(this.requirePage)
       }
       if (state === 2) {
-        console.log(this.createPage)
-        this.createPage = true
-        console.log(this.createPage)
+        console.log(this.follow)
+        this.follow = true
+        console.log(this.follow)
       }
       if (state === 3) {
-        console.log(this.createPage)
-        this.createPage = true
-        console.log(this.createPage)
-      }
-      if (state === 4) {
-        console.log(this.createPage)
-        this.createPage = true
-        console.log(this.createPage)
-      }
-      if (state === 5) {
-        console.log(this.createPage)
-        this.createPage = true
-        console.log(this.createPage)
-      }
-      if (state === 6) {
-        console.log(this.createPage)
-        this.createPage = true
-        console.log(this.createPage)
+        console.log(this.returnCommission)
+        this.returnCommission = true
+        console.log(this.returnCommission)
       }
     },
     cancels(state) {
@@ -362,6 +361,14 @@ export default {
       if (state === 1) {
         this.requirePage = false
         console.log(this.requirePage)
+      }
+      if (state === 2) {
+        this.follow = false
+        console.log(this.follow)
+      }
+      if (state === 3) {
+        this.returnCommission = false
+        console.log(this.returnCommission)
       }
     },
     // 关闭弹框

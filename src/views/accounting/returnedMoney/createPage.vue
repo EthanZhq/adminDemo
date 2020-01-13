@@ -12,7 +12,7 @@
         style="margin:0 auto"
         class="cap"
         align="center"
-      >南京绿地之窗业绩确认单123</h4>
+      >南京绿地之窗业绩确认单</h4>
       <table
         v-for="(item,index) in requireTable"
         :key="index"
