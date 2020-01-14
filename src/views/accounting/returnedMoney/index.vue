@@ -327,7 +327,7 @@ export default {
     }
   },
   created() {
-    this.theme = this.list[0]
+    // this.theme = this.list[0]
   },
   methods: {
     // 打开生成页面
