@@ -143,6 +143,8 @@ export default {
     return {
       tableData: [{}, {}, {}, {}, {}, {}, {}],
       value: '',
+      value1: '',
+      input: '',
       input1: '',
       input2: '',
       input3: '',
@@ -150,16 +152,26 @@ export default {
       dialogVisible: false,
       configuration: false,
       outerVisible: false,
-      innerVisible: false
+      innerVisible: false,
+      currentPage4: 4
     }
   },
   methods: {
+    handleSelectionChange(val) {
+      this.multipleSelection = val
+    },
     handleClose(done) {
       this.$confirm('确认关闭？')
         .then(_ => {
           done()
         })
         .catch(_ => {})
+    },
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`)
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`)
     }
   }
 }

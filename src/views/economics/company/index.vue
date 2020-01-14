@@ -193,9 +193,9 @@ export default {
       newAdd: false
     }
   },
-  created() {
-    this.theme = this.list[0]
-  },
+  // created() {
+  //   this.theme = this.list[0]
+  // },
   methods: {
     handleClose(done) {
       this.$confirm('确认关闭？')
