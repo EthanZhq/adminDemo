@@ -122,7 +122,7 @@
             :current-page="currentPage4"
             :page-size="100"
             :total="400"
-            pager-count="5"
+            :pager-count="5"
             :page-sizes="[100, 200, 300, 400]"
             layout="total, sizes, prev, pager, next, jumper"
             @size-change="handleSizeChange"

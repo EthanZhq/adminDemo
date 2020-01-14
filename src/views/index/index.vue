@@ -144,9 +144,9 @@ export default {
       tableData: [{}, {}, {}, {}, {}, {}, {}]
     }
   },
-  created() {
-    this.theme = this.list[0]
-  },
+  // created() {
+  //   this.theme = this.list[0]
+  // },
   methods: {
     toggleSelection(rows) {
       if (rows) {
