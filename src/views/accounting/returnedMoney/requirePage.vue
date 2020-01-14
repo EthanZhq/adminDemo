@@ -4,7 +4,7 @@
     <el-dialog
       title="回款确认单"
       :visible.sync="isShow"
-      width="58%"
+      width="65%"
       :before-close="handleClose"
       @close="cancel"
     >
@@ -25,7 +25,7 @@
         border="0"
         style=" border:1px solid #CCCCCC;"
         cellspacing="0"
-        cellpadding="4"
+        cellpadding="5"
       >
         <tr>
           <td rowspan="3">1</td>
@@ -35,8 +35,8 @@
           <td>电话：13900001111</td>
           <td>身份证号：123123122342245677</td>
           <td>签约时间：2019-01-31&nbsp;09:00:00</td>
-          <td style=" border-left:1px solid #CCCCCC;">累计单套损失：50000</td>
-          <td>
+          <td style="border-left:1px solid #CCCCCC;">累计单套损失：50000</td>
+          <td style="border-left:1px solid #CCCCCC;">
             单套损失：
             <input
               type="text"
