@@ -13,7 +13,7 @@
           style="margin:0 auto"
           class="cap"
           align="center"
-        >南京绿地之窗业绩确认单</h4>
+        >南京绿地之窗回款确认单</h4>
         <div class="twoSpan">
           <span class="firstSpan">购房信息</span>
           <span class="secondSpan">结算信息</span>
