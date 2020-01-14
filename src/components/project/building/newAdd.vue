@@ -10,9 +10,9 @@
       <div class="msg-tittle">基础设施</div>
 
       <el-form
+        ref="ruleForm"
         :model="ruleForm"
         :rules="rules"
-        ref="ruleForm"
         label-width="100px"
         class="demo-ruleForm"
       >
@@ -72,9 +72,9 @@
       <div class="msg-tittle">基础设施</div>
 
       <el-form
+        ref="ruleForm"
         :model="ruleForm"
         :rules="rules"
-        ref="ruleForm"
         label-width="100px"
         class="demo-ruleForm"
       >

@@ -1,7 +1,5 @@
-
 <template>
   <div class="wrap">
-    我是楼栋管理的修改
     <div class="msg">
       <div class="msg-tittle">基础设施</div>
       <el-form
@@ -78,10 +76,10 @@
         <div style="flex:6;border:1px solid #f5f5f5;">二单元</div>
       </div>
 
-      <div style="margin-top: 20px">
+      <!-- <div style="margin-top: 20px">
         <el-button @click="setCurrent(tableData[1])">选中第二行</el-button>
         <el-button @click="setCurrent()">取消选择</el-button>
-      </div>
+      </div>-->
     </div>
   </div>
 </template>

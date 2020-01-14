@@ -40,7 +40,32 @@
     </div>
     <div>
       <div style="padding-bottom:20px ;">
-        <el-button type="primary">配置</el-button>
+        <el-button type="primary" @click="configuration = true">配置</el-button>
+
+        <el-button type="text" @click="outerVisible = true">点击打开外层 Dialog</el-button>
+
+        <el-dialog title="外层 Dialog" :visible.sync="outerVisible">
+          <configuration />
+          <el-dialog
+            width="30%"
+            title="内层 Dialog"
+            :visible.sync="innerVisible"
+            append-to-body
+          >156165</el-dialog>
+          <div slot="footer" class="dialog-footer">
+            <el-button @click="outerVisible = false">取 消</el-button>
+            <el-button type="primary" @click="innerVisible = true">打开内层 Dialog</el-button>
+          </div>
+        </el-dialog>
+        <el-dialog title="配置" :visible.sync="configuration" width="30%" :before-close="handleClose">
+          <span>
+            <configuration />
+          </span>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="configuration = false">取 消</el-button>
+            <el-button type="primary" @click="configuration = false">确 定</el-button>
+          </span>
+        </el-dialog>
         <el-button type="primary" @click="dialogVisible = true">终止合作</el-button>
 
         <el-dialog title="提示" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
@@ -109,7 +134,11 @@
   </div>
 </template>
 <script>
+import configuration from '@/components/project/building/configuration.vue'
 export default {
+  components: {
+    configuration
+  },
   data() {
     return {
       tableData: [{}, {}, {}, {}, {}, {}, {}],
@@ -118,7 +147,10 @@ export default {
       input2: '',
       input3: '',
       select: '',
-      dialogVisible: false
+      dialogVisible: false,
+      configuration: false,
+      outerVisible: false,
+      innerVisible: false
     }
   },
   methods: {
