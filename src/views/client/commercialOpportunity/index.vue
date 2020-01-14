@@ -5,15 +5,29 @@
         <div style="margin-top: 15px;display:flex;">
           <el-input
             v-model="input"
-            style="width:200px;marging-right:20px;"
-            placeholder="请输入内容"
+            style="width:215px;marging-right:20px;"
+            placeholder="请输入客户手名称/手机号"
             clearable
           />
           <div style="margin-left: 20px;">
             <el-select
               v-model="value"
               clearable
-              placeholder="请选择"
+              placeholder="请选择意向项目"
+            >
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+          </div>
+          <div style="margin-left: 20px;">
+            <el-select
+              v-model="value"
+              clearable
+              placeholder="请选择客户来源"
             >
               <el-option
                 v-for="item in options"
@@ -28,7 +42,7 @@
             <el-select
               v-model="value"
               clearable
-              placeholder="请选择"
+              placeholder="请选择跟进状态"
             >
               <el-option
                 v-for="item in options"
@@ -38,19 +52,8 @@
               />
             </el-select>
           </div>
-          <div style="margin-left: 20px;">
-            <el-select
-              v-model="value"
-              clearable
-              placeholder="请选择"
-            >
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              />
-            </el-select>
+          <div style="margin-left: 300px;">
+            <el-button type="primary">搜索</el-button>
           </div>
         </div>
       </div>
@@ -59,27 +62,29 @@
         <el-button
           type="primary"
           plain
-        >编辑</el-button>
+          @click="open(0)"
+        >编 辑</el-button>
         <el-button
           type="primary"
           plain
-        >审核</el-button>
+          @click="open(1)"
+        >跟 进</el-button>
         <el-button
           type="primary"
           plain
-        >启用</el-button>
+          @click="open(2)"
+        >转认购</el-button>
         <el-button
           type="primary"
           plain
-        >禁用</el-button>
+          @click="open(3)"
+        >转成交</el-button>
         <el-button
+          type="primary"
           plain
-          style="background:none;color:#1c1c1c;"
-        >删除</el-button>
-        <el-button
-          plain
-          style="background:none;color:#1c1c1c;"
-        >历史合作记录</el-button>
+          @click="open(4)"
+        >信息转移</el-button>
+
       </div>
       <!-- 表格 -->
       <div>
@@ -88,7 +93,8 @@
           :data="tableData"
           border
           tooltip-effect="dark"
-          style="width: 100%"
+          style="width:95%"
+          height="450"
           @selection-change="handleSelectionChange"
         >
           <el-table-column
@@ -96,65 +102,54 @@
             width="55"
           />
           <el-table-column
-            prop="name"
-            label="公司编号"
-            width="180"
-          >zj00000001</el-table-column>
-          <el-table-column
-            prop="address"
-            label="公司名称"
-            width="150"
-          >鏈家</el-table-column>
-          <el-table-column
-            prop="date"
-            label="联系人"
-            width="150"
-          >張三</el-table-column>
+            prop="id"
+            label="客户编号"
+            width="200"
+          >U2019100001</el-table-column>
           <el-table-column
             prop="name"
-            label="联系电话"
-            width="150"
-          >15225846698</el-table-column>
-          <el-table-column
-            prop="address"
-            label="最近合作时间段"
-            width="230"
-          >2001-12-99至2018-09-95</el-table-column>
-          <el-table-column
-            prop="date"
-            label="审核状态"
-            width="150"
-          >
-            <span style="color:#4171f9;">待审核</span>
+            label="客户名称"
+            width="200"
+          >万科新都荟
           </el-table-column>
           <el-table-column
-            prop="name"
-            label="状态"
-            width="150"
-          >
-            <el-switch
-              v-model="value1"
-              active-color="#13ce66"
-              inactive-color="#13ce66"
-              active-text="是"
-              inactive-text="否"
-            />
-          </el-table-column>
+            prop="organization"
+            label="联系方式"
+            width="200"
+          >12312341234</el-table-column>
           <el-table-column
-            prop="address"
+            prop="date"
+            label="来源"
+            width="120"
+          >布点</el-table-column>
+          <el-table-column
+            prop="whether"
+            label="跟进状态"
+            width="120"
+          >留电</el-table-column>
+
+          <el-table-column
+            prop="date"
+            label="关联项目"
+            width="160"
+          >万科新都荟</el-table-column>
+          <el-table-column
+            prop="state"
+            label="客户状态"
+            width="120"
+          >有效</el-table-column>
+          <el-table-column
+            prop="state"
             label="创建时间"
-            width="230"
-          >2019-11-15 09：00：00</el-table-column>
+            width="200"
+          >2019-11-15 08:00:00</el-table-column>
+
           <el-table-column
-            prop="address"
-            label="创建人"
-            width="150"
-          >張三</el-table-column>
+            prop="state"
+            label="负责人"
+            width="120"
+          >张三</el-table-column>
         </el-table>
-        <!-- <div style="margin-top: 20px">
-          <el-button @click="toggleSelection([tableData[1], tableData[2]])">切换第二、第三行的选中状态</el-button>
-          <el-button @click="toggleSelection()">取消选择</el-button>
-        </div>-->
       </div>
       <div class="paging">
         <div class="paging-right">
@@ -162,8 +157,8 @@
             :current-page="currentPage4"
             :page-size="100"
             :total="400"
-            pager-count="5"
-            :page-sizes="[100, 200, 300, 400]"
+            :pager-count="5"
+            :page-sizes="[5,100, 200, 300, 400]"
             layout="total, sizes, prev, pager, next, jumper"
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -171,40 +166,40 @@
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
 <script>
-// import ThemeSettings from '@/components/theme/theme-settings'
-// import ThemeView from '@/components/theme/theme-view'
 export default {
   components: {
-    // ThemeSettings,
-    // ThemeView
+
   },
   data() {
     return {
-      options: [
-        {
-          value: '选项1',
-          label: '黄金糕'
-        },
-        {
-          value: '选项2',
-          label: '双皮奶'
-        },
-        {
-          value: '选项3',
-          label: '蚵仔煎'
-        },
-        {
-          value: '选项4',
-          label: '龙须面'
-        },
-        {
-          value: '选项5',
-          label: '北京烤鸭'
-        }
+      followUp: false,
+      transfer: false,
+      detailsPage: false,
+      options: [{
+        value: '选项1',
+        label: '黄金糕'
+      },
+      {
+        value: '选项2',
+        label: '双皮奶'
+      },
+      {
+        value: '选项3',
+        label: '蚵仔煎'
+      },
+      {
+        value: '选项4',
+        label: '龙须面'
+      },
+      {
+        value: '选项5',
+        label: '北京烤鸭'
+      }
       ],
       value: '',
       input: '',
@@ -214,13 +209,47 @@ export default {
       // select: '',
       value1: true,
       currentPage4: 10,
-      tableData: [{}, {}, {}, {}, {}, {}, {}]
+      tableData: [{}, {}, {}, {}, {}, {}, {}, {}, {}],
+      requireTable: [{}, {}, {}, {}, {}, {}, {}, {}, {}]
     }
   },
   created() {
-    this.theme = this.list[0]
+    // this.theme = this.list[0]
   },
   methods: {
+    // 打开生成页面
+    open(state) {
+      if (state === 2) {
+        console.log(this.followUp)
+        this.followUp = true
+        console.log(this.followUp)
+      }
+      if (state === 3) {
+        console.log(this.transfer)
+        this.transfer = true
+        console.log(this.transfer)
+      }
+      if (state === 4) {
+        console.log(this.detailsPage)
+        this.detailsPage = true
+        console.log(this.detailsPage)
+      }
+    },
+    cancels(state) {
+      if (state === 2) {
+        this.followUp = false
+        console.log(this.followUp)
+      }
+      if (state === 3) {
+        this.transfer = false
+        console.log(this.transfer)
+      }
+      if (state === 4) {
+        this.detailsPage = false
+        console.log(this.detailsPage)
+      }
+    },
+    // 关闭弹框
     toggleSelection(rows) {
       if (rows) {
         rows.forEach(row => {
@@ -242,7 +271,10 @@ export default {
   }
 }
 </script>
-<style scoped lang="scss">
+<style
+  scoped
+  lang="scss"
+    >
 .el-select .el-input {
   width: 130px;
 }
@@ -250,7 +282,7 @@ export default {
   background-color: #fff;
 }
 .head {
-  margin-left: 30px;
+  margin-right: 30px;
   height: 100px;
   align-items: center;
   display: flex;
@@ -263,6 +295,7 @@ export default {
 .paging {
   height: 100px;
   display: flex;
+  margin-right: 120px;
   justify-content: flex-end;
   align-items: center;
   .paging-right {
@@ -279,4 +312,3 @@ export default {
   font-size: 15px;
 }
 </style>
-

@@ -151,7 +151,7 @@ export default {
     }
 
     .avatar-container {
-      margin-right: 95px;
+      margin-right: 30px;
 
       .avatar-wrapper {
         margin-top: 5px;
