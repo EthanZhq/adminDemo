@@ -3,7 +3,7 @@
     <el-dialog
       title="确认回款"
       :visible.sync="isShow"
-      width="65%"
+      width="75%"
       :before-close="handleClose"
       @close="cancel"
     >
@@ -12,10 +12,11 @@
           style="margin:0 auto"
           class="cap"
           align="center"
-        >南京绿地之窗业绩确认单</h4>
+        >南京绿地之窗佣金开票</h4>
         <div class="twoSpan">
           <span class="firstSpan">购房信息</span>
           <span class="secondSpan">结算信息</span>
+          <span class="thirdSpan">回款信息</span>
         </div>
       </div>
       <table
@@ -35,8 +36,9 @@
           <td>身份证号：123123122342245677</td>
           <td>签约时间：2019-01-31&nbsp;09:00:00</td>
           <td style="border-left:1px solid #CCCCCC;">累计单套损失：50000</td>
+          <td style="border-left:1px solid #CCCCCC;">本次单套损失：50000</td>
           <td style="border-left:1px solid #CCCCCC;">
-            单套损失：
+            本次回款金额：
             <input
               type="text"
               style="width:40px;"
@@ -51,7 +53,8 @@
           <td>成交总价(元)：3655333.12</td>
           <td>费用类型：带看费</td>
           <td style=" border-left:1px solid #CCCCCC;">累计分摊损失：0</td>
-          <td style=" border-left:1px solid #CCCCCC;">分摊损失：0</td>
+          <td style=" border-left:1px solid #CCCCCC;">本次分摊损失：0</td>
+          <td style=" border-left:1px solid #CCCCCC;">累积开票金额：1000</td>
         </tr>
         <tr>
           <td>
@@ -61,13 +64,8 @@
           <td>佣金标准（元）：20000</td>
           <td>应结佣金：50000</td>
           <td style=" border-left:1px solid #CCCCCC;">累计结算佣金：0</td>
-          <td style=" border-left:1px solid #CCCCCC;">
-            结算损失：
-            <input
-              type="text"
-              style="width:40px;"
-            >
-          </td>
+          <td style=" border-left:1px solid #CCCCCC;">本次结算佣金：0</td>
+          <td style=" border-left:1px solid #CCCCCC;">累积回款金额：100</td>
         </tr>
       </table>
       <div style="margin-top:30px;">
@@ -114,7 +112,7 @@
         slot="footer"
         class="dialog-footer"
       >
-        <el-button @click="cancel">取 消</el-button>
+        <el-button @click="cancel">导 出</el-button>
         <el-button type="primary">确 定</el-button>
       </span>
     </el-dialog>
@@ -192,6 +190,10 @@ export default {
     .secondSpan {
       margin-left: auto;
       margin-right: 150px;
+    }
+    .thirdSpan {
+      // margin-left: auto;
+      margin-right: 90px;
     }
   }
 }

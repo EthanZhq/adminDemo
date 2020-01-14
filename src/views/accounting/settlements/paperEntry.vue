@@ -65,7 +65,7 @@
           <td>应结佣金：50000</td>
           <td style=" border-left:1px solid #CCCCCC;">累计结算佣金：0</td>
           <td style=" border-left:1px solid #CCCCCC;">本次结算佣金：0</td>
-          <td style=" border-left:1px solid #CCCCCC;">累积开票金额：100</td>
+          <td style=" border-left:1px solid #CCCCCC;">剩余 开票金额：100</td>
         </tr>
       </table>
       <div class="content-center">
@@ -121,7 +121,7 @@
             />
           </el-form-item>
           <el-form-item
-            label="付款方："
+            label="收款方："
             size="mini"
             style="margin-right:90px;"
           >
@@ -150,10 +150,24 @@
           </el-form-item>
         </el-form>
       </div>
+      <!-- 上传图片 -->
       <div>
-        <span>业绩确认单文件：</span>
-        <span>绿地之窗业绩确认单确定版.pdf</span>
-        <el-link type="primary">下载文件</el-link>
+        <el-upload
+          style="margin-top:20px;"
+          class="upload-demo"
+          action="https://jsonplaceholder.typicode.com/posts/"
+          :on-preview="handlePreview"
+          :on-remove="handleRemove"
+          :before-remove="beforeRemove"
+          multiple
+          :limit="3"
+          :on-exceed="handleExceed"
+          :file-list="fileList"
+        >
+          <span style="font-weight:bold;">发票上传：</span>
+          <el-button size="mini">点击上传</el-button>
+          <span class="el-upload__tip">支持扩展名：.rar .zip .doc .docx .pdf .jpg...</span>
+        </el-upload>
       </div>
       <span
         slot="footer"
@@ -168,7 +182,7 @@
 <script>
 export default {
   props: {
-    makeOut: {
+    paperEntry: {
       type: Boolean,
       default() {
         return false
@@ -200,16 +214,16 @@ export default {
     }
   },
   watch: {
-    makeOut(newVal) {
+    paperEntry(newVal) {
       this.isShow = newVal
     },
     isShow(newVal) {
-      this.makeOut = newVal
+      this.paperEntry = newVal
     }
   },
   created() {
-    console.log(this.makeOut)
-    this.isShow = this.makeOut
+    console.log(this.paperEntry)
+    this.isShow = this.paperEntry
   },
   methods: {
     cancel() {

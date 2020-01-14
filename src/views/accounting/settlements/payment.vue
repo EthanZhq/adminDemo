@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-dialog
-      title="开票"
+      title="确认支付"
       :visible.sync="isShow"
       width="75%"
       :before-close="handleClose"
@@ -16,7 +16,7 @@
         <div class="twoSpan">
           <span class="firstSpan">购房信息</span>
           <span class="secondSpan">结算信息</span>
-          <span class="thirdSpan">开票信息</span>
+          <span class="thirdSpan">支付信息</span>
         </div>
       </div>
       <table
@@ -38,7 +38,7 @@
           <td style="border-left:1px solid #CCCCCC;">累计单套损失：50000</td>
           <td style="border-left:1px solid #CCCCCC;">本次单套损失：50000</td>
           <td style="border-left:1px solid #CCCCCC;">
-            本次开票金额：
+            本次支付金额：
             <input
               type="text"
               style="width:40px;"
@@ -65,95 +65,48 @@
           <td>应结佣金：50000</td>
           <td style=" border-left:1px solid #CCCCCC;">累计结算佣金：0</td>
           <td style=" border-left:1px solid #CCCCCC;">本次结算佣金：0</td>
-          <td style=" border-left:1px solid #CCCCCC;">累积开票金额：100</td>
+          <td style=" border-left:1px solid #CCCCCC;">累积支付金额：100</td>
         </tr>
       </table>
-      <div class="content-center">
+      <div style="margin-top:30px;">
         <el-form
           :inline="true"
           :model="formInline"
           class="demo-form-inline"
         >
           <el-form-item
-            label="扣款佣金："
-            size="mini"
-            style="margin-right:110px;"
-          >
-            50000
-          </el-form-item>
-          <el-form-item
-            label="本次应付款："
-            size="mini"
-            style="margin-right:110px;"
-          >
-            1000
-          </el-form-item>
-          <el-form-item
-            label="开票金额："
-            size="mini"
-            style="margin-right:110px;"
-          >
-            100
-          </el-form-item>
-          <el-form-item
-            label="累积开票金额："
-            size="mini"
-            style="margin-right:110px;"
-          >
-            100
-          </el-form-item>
-        </el-form>
-      </div>
-      <div>
-        <el-form
-          :inline="true"
-          :model="formInline"
-          class="demo-form-inline"
-        >
-          <el-form-item
-            label="发票抬头："
-            size="mini"
-          >
-            <el-input
-              v-model="formInline.user"
-              placeholder="发票号："
-              style="width:140px;"
-            />
-          </el-form-item>
-          <el-form-item
-            label="付款方："
+            label="本次支付金额："
             size="mini"
             style="margin-right:90px;"
           >
-            南京绿地之窗
+            20000
           </el-form-item>
           <el-form-item
-            label="审批人"
-            size="mini"
-          >
-            <el-input
-              v-model="formInline.user"
-              placeholder="审批人"
-              style="width:150px;"
-            />
-          </el-form-item>
-          <el-form-item
-            label="开票时间："
+            label="支付时间："
             size="mini"
           >
             <el-input
               v-model="formInline.user"
               placeholder="2015-10-02"
               suffix-icon="el-icon-date"
-              style="width:150px;"
+              style="width:150px;margin-right:20px;"
             />
+            <el-form-item
+              label="累计支付金额："
+              size="mini"
+              style="margin-right:90px;"
+            >
+              100
+            </el-form-item>
+            <el-form-item
+              label="收款方："
+              size="mini"
+              style="margin-right:90px;"
+            >
+              南京绿地之窗
+            </el-form-item>
           </el-form-item>
         </el-form>
-      </div>
-      <div>
-        <span>业绩确认单文件：</span>
-        <span>绿地之窗业绩确认单确定版.pdf</span>
-        <el-link type="primary">下载文件</el-link>
       </div>
       <span
         slot="footer"
@@ -168,7 +121,7 @@
 <script>
 export default {
   props: {
-    makeOut: {
+    payment: {
       type: Boolean,
       default() {
         return false
@@ -177,11 +130,9 @@ export default {
   },
   data() {
     return {
-      input1: '',
       requireTable: [{}, {}],
       selectShow: true,
-      isShow: false,
-      formInline: {
+      isShow: false, formInline: {
         user: '',
         region: '',
         date1: '',
@@ -200,16 +151,16 @@ export default {
     }
   },
   watch: {
-    makeOut(newVal) {
+    payment(newVal) {
       this.isShow = newVal
     },
     isShow(newVal) {
-      this.makeOut = newVal
+      this.payment = newVal
     }
   },
   created() {
-    console.log(this.makeOut)
-    this.isShow = this.makeOut
+    console.log(this.payment)
+    this.isShow = this.payment
   },
   methods: {
     cancel() {
@@ -244,13 +195,6 @@ export default {
       // margin-left: auto;
       margin-right: 90px;
     }
-  }
-}
-.content-center {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  span {
-    margin-right: 120px;
   }
 }
 </style>
