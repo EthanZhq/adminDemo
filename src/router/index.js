@@ -71,36 +71,17 @@ export const constantRoutes = [
         meta: { title: '楼栋管理', icon: 'table' }
       },
       {
-        path: 'newAdd',
-        name: 'newAdd',
-        component: () => import('@/views/project/building/newAdd'),
-        meta: { title: '新增', icon: 'table' }
-      },
-      {
-        path: 'change',
-        name: 'nechangewAdd',
-        component: () => import('@/views/project/building/change'),
-        meta: { title: '修改', icon: 'table' }
+        path: 'a',
+        name: 'a',
+        component: () => import('@/views/project/building/a'),
+        meta: { title: '配置', icon: 'table' }
       },
       {
         path: 'prePa',
         name: 'PrePa',
         component: () => import('@/views/project/prePa/index'),
         meta: { title: '项目立项', icon: 'tree' }
-      },
-      {
-        path: 'allocation',
-        name: 'allocation',
-        component: () => import('@/views/project/prePa/allocation'),
-        meta: { title: '配置', icon: 'tree' }
-      },
-      {
-        path: 'organization',
-        name: 'organization',
-        component: () => import('@/views/project/prePa/organization'),
-        meta: { title: '配置机构', icon: 'tree' }
       }
-
     ]
   },
 
@@ -124,22 +105,10 @@ export const constantRoutes = [
         meta: { title: '经纪门店管理', icon: 'tree' }
       },
       {
-        path: 'storeNewAdd',
-        name: 'storeNewAdd',
-        component: () => import('@/views/economics/store/newAdd'),
-        meta: { title: '经纪门店管理新增', icon: 'tree' }
-      },
-      {
         path: 'middleman',
         name: 'Middleman',
         component: () => import('@/views/economics/middleman/index'),
         meta: { title: '经纪人管理', icon: 'table' }
-      },
-      {
-        path: 'newAdd',
-        name: 'newAdd',
-        component: () => import('@/views/economics/newAdd/index'),
-        meta: { title: '新增', icon: 'table' }
       }
     ]
   },

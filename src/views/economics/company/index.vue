@@ -42,7 +42,16 @@
           </div>
           <div style="margin-left:100px;">
             <el-button type="primary">搜索</el-button>
-            <el-button type="primary">添加</el-button>
+            <el-button type="primary" @click="newAdd = true">添加</el-button>
+            <el-dialog title="添加" :visible.sync="newAdd" width="70%" :before-close="handleClose">
+              <span>
+                <newAdd />
+              </span>
+              <span slot="footer" class="dialog-footer">
+                <el-button @click="newAdd = false">取 消</el-button>
+                <el-button type="primary" @click="newAdd = false">确 定</el-button>
+              </span>
+            </el-dialog>
           </div>
         </div>
       </div>
@@ -123,7 +132,7 @@
             :current-page="currentPage4"
             :page-size="100"
             :total="400"
-            pager-count="5"
+            :pager-count="5"
             :page-sizes="[100, 200, 300, 400]"
             layout="total, sizes, prev, pager, next, jumper"
             @size-change="handleSizeChange"
@@ -132,14 +141,17 @@
         </div>
       </div>
     </div>
+    <A />
   </div>
 </template>
 
 <script>
+import newAdd from '@/components/company/borker/newAdd.vue'
 // import ThemeSettings from '@/components/theme/theme-settings'
 // import ThemeView from '@/components/theme/theme-view'
 export default {
   components: {
+    newAdd
     // ThemeSettings,
     // ThemeView
   },
@@ -177,7 +189,8 @@ export default {
       currentPage4: 10,
       tableData: [{}, {}, {}, {}, {}, {}, {}],
       visible: false,
-      dialogVisible: false
+      dialogVisible: false,
+      newAdd: false
     }
   },
   created() {

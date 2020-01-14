@@ -1,14 +1,7 @@
 <template>
   <div>
-    <div>我是经纪门店管理新增</div>
     <div class="wrap">
       <div class="wrap-msg">
-        <div class="tittle">
-          <div>新增</div>
-          <div>
-            <i class="el-icon-close" />
-          </div>
-        </div>
         <div class="dis msg">
           <div>
             <el-form
@@ -174,7 +167,7 @@
           <div />
           <div style="line-height：20px;margin-left:30px;flex:1;" />
         </div>
-      </div>5
+      </div>
     </div>
   </div>
 </template>

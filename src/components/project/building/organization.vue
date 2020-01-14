@@ -1,12 +1,5 @@
 <template>
   <div>
-    <div class="tittle dis">
-      <div>配置机构</div>
-      <div>
-        <i class="el-icon-close" />
-      </div>
-    </div>
-
     <div class="msg dis">
       <div class="msgRight">
         <div class="head">
@@ -161,9 +154,5 @@ export default {
   div {
     margin: 0 20px 0 0;
   }
-}
-.tittle {
-  line-height: 60px;
-  justify-content: space-between;
 }
 </style>

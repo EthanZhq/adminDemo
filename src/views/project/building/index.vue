@@ -33,15 +33,33 @@
           </div>
           <div class="head-right">
             <el-button type="primary" plain>搜索</el-button>
-            <el-button type="primary" plain>新增</el-button>
+            <el-button type="primary" plain @click="newAdd = true">新增</el-button>
+            <el-dialog title="新增" :visible.sync="newAdd" width="60%">
+              <span>
+                <newAdd />
+              </span>
+              <span slot="footer" class="dialog-footer">
+                <el-button @click="newAdd = false">取 消</el-button>
+                <el-button type="primary" @click="newAdd = false">确 定</el-button>
+              </span>
+            </el-dialog>
           </div>
         </div>
       </div>
 
       <div class="head">
-        <el-button type="primary" plain>编辑</el-button>
+        <el-button type="primary" plain @click="change = true">编辑</el-button>
+        <el-dialog title="修改" :visible.sync="change" width="60%">
+          <span>
+            <change />
+          </span>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="change = false">取 消</el-button>
+            <el-button type="primary" @click="change = false">确 定</el-button>
+          </span>
+        </el-dialog>
 
-        <el-button type="primary" @click="dialogVisible = true">有效</el-button>
+        <el-button type="primary">有效</el-button>
 
         <el-dialog title="提示" :visible.sync="dialogVisible" :before-close="handleClose">
           <span>
@@ -60,7 +78,11 @@
           </span>
         </el-dialog>
 
-        <el-button plain style="background:#a6a6a6;color:#1c1c1c;margin-left:10px;">失效</el-button>
+        <el-button
+          plain
+          style="background:#a6a6a6;color:#1c1c1c;margin-left:10px;"
+          @click="dialogVisible = true"
+        >失效</el-button>
         <el-button plain style="background:#a6a6a6;color:#1c1c1c;">修改记录</el-button>
       </div>
       <!-- 表格 -->
@@ -114,17 +136,22 @@
     </div>
   </div>
 </template>
-
 <script>
+import change from '@/components/project/building/change.vue'
+import newAdd from '@/components/project/building/newAdd.vue'
 // import ThemeSettings from '@/components/theme/theme-settings'
 // import ThemeView from '@/components/theme/theme-view'
 export default {
   components: {
+    newAdd,
+    change
     // ThemeSettings,
     // ThemeView
   },
   data() {
     return {
+      change: false,
+      newAdd: false,
       dialogVisible: false,
       options: [
         {
