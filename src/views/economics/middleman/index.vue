@@ -129,7 +129,7 @@
             :current-page="currentPage4"
             :page-size="100"
             :total="400"
-            pager-count="5"
+            :pager-count="5"
             :page-sizes="[100, 200, 300, 400]"
             layout="total, sizes, prev, pager, next, jumper"
             @size-change="handleSizeChange"
@@ -183,10 +183,17 @@ export default {
       tableData: [{}, {}, {}, {}, {}, {}, {}]
     }
   },
-  created() {
-    this.theme = this.list[0]
-  },
+  // created() {
+  //   this.theme = this.list[0]
+  // },
   methods: {
+    handleClose(done) {
+      this.$confirm('确认关闭？')
+        .then(_ => {
+          done()
+        })
+        .catch(_ => {})
+    },
     toggleSelection(rows) {
       if (rows) {
         rows.forEach(row => {
