@@ -1,103 +1,144 @@
 <template>
-  <div>
+  <div class="content">
     <div style="padding:0 30px">
-      <div>
-        <div style="margin-top: 15px;display:flex;">
-          <el-input
-            v-model="input"
-            style="width:200px;marging-right:20px;"
-            placeholder="请输入内容"
-            clearable
-          />
-
-          <div style="margin-left: 20px;">
-            <el-select v-model="value" clearable placeholder="请选择">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+      <div class="content-top">
+        <div class="content-top-head">
+          <el-row>
+            <el-col :span="3">
+              <el-avatar
+                style="width:100px;height:100px;"
+                :src="circleUrl"
               />
-            </el-select>
-          </div>
-
-          <div style="margin-left: 20px;">
-            <el-select v-model="value" clearable placeholder="请选择">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              />
-            </el-select>
-          </div>
-          <div style="margin-left: 20px;">
-            <el-select v-model="value" clearable placeholder="请选择">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              />
-            </el-select>
-          </div>
+            </el-col>
+            <el-col :span="12">
+              <el-row class="top">
+                <span>张三</span>
+                <span>12312341234</span>
+              </el-row>
+              <el-row class="bottom">
+                <span>南京总部</span>
+                <span>市场部</span>
+                <span>市场专员</span>
+              </el-row>
+            </el-col>
+          </el-row>
         </div>
       </div>
+      <div class="content-center">
+        <h4>待审核确认</h4>
+        <el-row style="marginBottom:20px;">
+          <el-col
+            :span="5"
+            style="textAlign:center"
+          ><span>合作伙伴</span></el-col>
+          <el-col
+            :span="5"
+            style="textAlign:center"
+          ><span>合作门店</span></el-col>
+          <el-col
+            :span="5"
+            style="textAlign:center"
+          ><span>合作经纪人</span></el-col>
+          <el-col
+            :span="5"
+            style="textAlign:center"
+          ><span>结算单审核</span></el-col>
+          <el-col
+            :span="4"
+            style="textAlign:center"
+          ><span>回款确认</span></el-col>
+        </el-row>
+        <el-row class="el2">
+          <el-col
+            :span="5"
+            style="textAlign:center"
+          ><span>20</span></el-col>
+          <el-col
+            :span="5"
+            style="textAlign:center"
+          ><span>20</span></el-col>
+          <el-col
+            :span="5"
+            style="textAlign:center"
+          ><span>20</span></el-col>
+          <el-col
+            :span="5"
+            style="textAlign:center"
+          ><span>20</span></el-col>
+          <el-col
+            :span="4"
+            style="textAlign:center"
+          ><span>20</span></el-col>
+        </el-row>
+      </div>
+      <div class="content-bottom">
+        <h4>简报</h4>
+        <el-row class="row1">
+          <el-col
+            :span="7"
+            class="col1"
+          >
+            <el-row class="clienthead">
+              <h4>客户</h4>
+            </el-row>
+            <el-row class="clientcontent">
+              <el-col
+                :span="5"
+                :offset="2"
+                style="textAlign:center"
+              >项目名称</el-col>
+              <el-col
+                :span="5"
+                style="textAlign:center"
+              >新增来电</el-col>
+              <el-col
+                :span="5"
+                style="textAlign:center"
+              >新增到访</el-col>
+              <el-col
+                :span="5"
+                style="textAlign:center"
+              >新增关注</el-col>
+            </el-row>
+            <el-row
+              class="clientcontent1"
+              style="textAlign:center"
+            >
+              <el-col
+                :span="5"
+                :offset="2"
+              >绿地之窗</el-col>
+              <el-col
+                :span="5"
+                style="textAlign:center"
+              >21 </el-col>
+              <el-col
+                :span="5"
+                style="textAlign:center"
+              >21</el-col>
+              <el-col
+                :span="5"
+                style="textAlign:center"
+              >21</el-col>
+            </el-row>
+          </el-col>
 
-      <div class="head">
-        <el-button type="primary" plain>编辑</el-button>
-        <el-button type="primary" plain>审核</el-button>
-        <el-button type="primary" plain>启用</el-button>
-        <el-button type="primary" plain>禁用</el-button>
-        <el-button type="primary" plain>免费</el-button>
-        <el-button plain style="background:none;color:#1c1c1c;">删除</el-button>
-        <el-button plain style="background:none;color:#1c1c1c;">历史合作记录</el-button>
-      </div>
-      <!-- 表格 -->
-      <div>
-        <el-table
-          ref="multipleTable"
-          :data="tableData"
-          border
-          tooltip-effect="dark"
-          style="width: 100%"
-          @selection-change="handleSelectionChange"
-        >
-          <el-table-column type="selection" width="55" />
-          <el-table-column prop="name" label="公司编号" width="180">zj00000001</el-table-column>
-          <el-table-column prop="address" label="公司名称" width="150">鏈家</el-table-column>
-          <el-table-column prop="date" label="联系人" width="150">張三</el-table-column>
-          <el-table-column prop="name" label="联系电话" width="150">15225846698</el-table-column>
-          <el-table-column prop="address" label="最近合作时间段" width="230">2001-12-99至2018-09-95</el-table-column>
-          <el-table-column prop="date" label="审核状态" width="150">
-            <span style="color:#4171f9;">待审核</span>
-          </el-table-column>
-          <el-table-column prop="name" label="状态" width="150">
-            <el-switch
-              v-model="value1"
-              active-color="#13ce66"
-              inactive-color="#13ce66"
-              active-text="是"
-              inactive-text="否"
-            />
-          </el-table-column>
-          <el-table-column prop="address" label="创建时间" width="230">2019-11-15 09：00：00</el-table-column>
-          <el-table-column prop="address" label="创建人" width="150">張三</el-table-column>
-        </el-table>
-      </div>
-      <div class="paging">
-        <div class="paging-right">
-          <el-pagination
-            :current-page="currentPage4"
-            :page-size="100"
-            :total="400"
-            :pager-count="5"
-            :page-sizes="[100, 200, 300, 400]"
-            layout="total, sizes, prev, pager, next, jumper"
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-          />
-        </div>
+          <!-- 空白+号 -->
+          <el-col
+            :span="7"
+            class="col2"
+          >
+            <div class="d1">
+              <span class="s1" />
+              <span class="s2" />
+            </div>
+            <div class="d2">
+              <span class="s3" />
+              <span class="s4" />
+            </div>
+
+          </el-col>
+        </el-row>
       </div>
     </div>
   </div>
@@ -108,99 +149,129 @@ export default {
   components: {},
   data() {
     return {
-      options: [
-        {
-          value: '选项1',
-          label: '黄金糕'
-        },
-        {
-          value: '选项2',
-          label: '双皮奶'
-        },
-        {
-          value: '选项3',
-          label: '蚵仔煎'
-        },
-        {
-          value: '选项4',
-          label: '龙须面'
-        },
-        {
-          value: '选项5',
-          label: '北京烤鸭'
-        }
-      ],
-      value: '',
-      input: '',
-      // input1: '',
-      // input2: '',
-      // input3: '',
-      // select: '',
-      value1: true,
-      currentPage4: 10,
-      tableData: [{}, {}, {}, {}, {}, {}, {}]
+      circleUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
     }
   },
+
   // created() {
   //   this.theme = this.list[0]
   // },
   methods: {
-    toggleSelection(rows) {
-      if (rows) {
-        rows.forEach(row => {
-          this.$refs.multipleTable.toggleRowSelection(row)
-        })
-      } else {
-        this.$refs.multipleTable.clearSelection()
-      }
-    },
-    handleSelectionChange(val) {
-      this.multipleSelection = val
-    },
-    handleSizeChange(val) {
-      console.log(`每页 ${val} 条`)
-    },
-    handleCurrentChange(val) {
-      console.log(`当前页: ${val}`)
-    }
   }
 }
 </script>
-<style scoped lang="scss">
-.el-select .el-input {
-  width: 130px;
-}
-.input-with-select .el-input-group__prepend {
-  background-color: #fff;
-}
-.head {
-  margin-left: 30px;
-  height: 100px;
-  align-items: center;
-  display: flex;
-  font-display: row;
-  button {
-    background: #4171f9;
-    color: #ffffff;
+<style lang="scss" scoped>
+.content {
+  .content-top {
+    background-color: #f9f9f9;
+    padding: 20px;
+    height: 150px;
+    margin-bottom: 5px;
+    .content-top-head {
+      .top {
+        margin-top: 20px;
+        > span {
+          margin-right: 10px;
+        }
+      }
+      .bottom {
+        margin-top: 20px;
+        > span {
+          margin-right: 10px;
+        }
+      }
+    }
   }
-}
-.paging {
-  height: 100px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  .paging-right {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .content-center {
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    height: 140px;
+    padding-left: 40px;
+    h4 {
+      padding: 10px 0 10px 0;
+    }
   }
-}
-.container {
-  position: relative;
-  display: flex;
-  padding: 15px 30px;
-  color: #333;
-  font-size: 15px;
+  .content-bottom {
+    background-color: #f9f9f9;
+    height: 360px;
+    > h4 {
+      padding: 20px 0 10px 40px;
+      border-bottom: 1px solid #cccccc;
+    }
+    .row1 {
+      padding-left: 70px;
+      .col1 {
+        border: 1px solid #cccccc;
+        background-color: #ffffff;
+        margin-right: 20px;
+        .clienthead {
+          height: 40px;
+          > h4 {
+            margin-top: 5px;
+            border-bottom: 1px solid #cccccc;
+            padding-bottom: 5px;
+            padding-left: 5px;
+          }
+        }
+        .clientcontent {
+          margin-bottom: 10px;
+          border-bottom: 1px solid #ccc;
+        }
+        .clientcontent1 {
+          margin: 10px 0;
+          border-bottom: 1px solid #ccc;
+
+          .Tett1 {
+            text-align: center;
+          }
+        }
+      }
+      .col2 {
+        border: 1px solid #cccccc;
+        background-color: #ffffff;
+        height: 100px;
+        text-align: center;
+        padding-top: 10px;
+        font-size: 0;
+        .d1 {
+          .s1 {
+            display: inline-block;
+            height: 40px;
+            width: 40px;
+            // background-color: aqua;
+            border-bottom: 3px solid #ccc;
+            border-right: 3px solid #ccc;
+          }
+          .s2 {
+            height: 40px;
+            width: 40px;
+            display: inline-block;
+            // background-color: red;
+            border-bottom: 3px solid #ccc;
+            border-left: 3px solid #ccc;
+          }
+        }
+        .d2 {
+          .s3 {
+            height: 40px;
+            width: 40px;
+            display: inline-block;
+            border-top: 3px solid #ccc;
+            border-right: 3px solid #ccc;
+            // background-color: gold;
+          }
+          .s4 {
+            height: 40px;
+            width: 40px;
+            display: inline-block;
+            border-left: 3px solid #ccc;
+            border-top: 3px solid #ccc;
+            // background-color: aquamarine;
+          }
+        }
+      }
+    }
+  }
 }
 </style>
 
