@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div>我是楼栋管理</div>
     <div style="padding:0 30px">
       <div>
         <div style="margin-top: 15px;display:flex;">
@@ -11,7 +10,11 @@
             clearable
           />
           <div style="margin-left: 20px;">
-            <el-select v-model="value" clearable placeholder="请选择项目区域">
+            <el-select
+              v-model="value"
+              clearable
+              placeholder="请选择项目区域"
+            >
               <el-option
                 v-for="item in options"
                 :key="item.value"
@@ -22,7 +25,11 @@
           </div>
 
           <div style="margin-left: 20px;">
-            <el-select v-model="effect" clearable placeholder="是否有效">
+            <el-select
+              v-model="effect"
+              clearable
+              placeholder="是否有效"
+            >
               <el-option
                 v-for="item in valid"
                 :key="item.value"
@@ -32,15 +39,32 @@
             </el-select>
           </div>
           <div class="head-right">
-            <el-button type="primary" plain>搜索</el-button>
-            <el-button type="primary" plain @click="newAdd = true">新增</el-button>
-            <el-dialog title="新增" :visible.sync="newAdd" width="60%">
+            <el-button
+              type="primary"
+              plain
+            >搜索</el-button>
+            <el-button
+              type="primary"
+              plain
+              @click="newAdd = true"
+            >新增</el-button>
+            <el-dialog
+              title="新增"
+              :visible.sync="newAdd"
+              width="60%"
+            >
               <span>
                 <newAdd />
               </span>
-              <span slot="footer" class="dialog-footer">
+              <span
+                slot="footer"
+                class="dialog-footer"
+              >
                 <el-button @click="newAdd = false">取 消</el-button>
-                <el-button type="primary" @click="newAdd = false">确 定</el-button>
+                <el-button
+                  type="primary"
+                  @click="newAdd = false"
+                >确 定</el-button>
               </span>
             </el-dialog>
           </div>
@@ -48,20 +72,38 @@
       </div>
 
       <div class="head">
-        <el-button type="primary" plain @click="change = true">编辑</el-button>
-        <el-dialog title="修改" :visible.sync="change" width="60%">
+        <el-button
+          type="primary"
+          plain
+          @click="change = true"
+        >编辑</el-button>
+        <el-dialog
+          title="修改"
+          :visible.sync="change"
+          width="60%"
+        >
           <span>
             <change />
           </span>
-          <span slot="footer" class="dialog-footer">
+          <span
+            slot="footer"
+            class="dialog-footer"
+          >
             <el-button @click="change = false">取 消</el-button>
-            <el-button type="primary" @click="change = false">确 定</el-button>
+            <el-button
+              type="primary"
+              @click="change = false"
+            >确 定</el-button>
           </span>
         </el-dialog>
 
         <el-button type="primary">有效</el-button>
 
-        <el-dialog title="提示" :visible.sync="dialogVisible" :before-close="handleClose">
+        <el-dialog
+          title="提示"
+          :visible.sync="dialogVisible"
+          :before-close="handleClose"
+        >
           <span>
             <div>
               <i class="el-icon-warning-outline" />
@@ -72,9 +114,15 @@
               <span>您还要继续吗？</span>
             </div>
           </span>
-          <span slot="footer" class>
+          <span
+            slot="footer"
+            class
+          >
             <el-button @click="dialogVisible = false">取 消</el-button>
-            <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+            <el-button
+              type="primary"
+              @click="dialogVisible = false"
+            >确 定</el-button>
           </span>
         </el-dialog>
 
@@ -83,7 +131,10 @@
           style="background:#a6a6a6;color:#1c1c1c;margin-left:10px;"
           @click="dialogVisible = true"
         >失效</el-button>
-        <el-button plain style="background:#a6a6a6;color:#1c1c1c;">修改记录</el-button>
+        <el-button
+          plain
+          style="background:#a6a6a6;color:#1c1c1c;"
+        >修改记录</el-button>
       </div>
       <!-- 表格 -->
       <div>
@@ -95,14 +146,45 @@
           style="width: 100%"
           @selection-change="handleSelectionChange"
         >
-          <el-table-column type="selection" width="55" />
-          <el-table-column prop="name" label="项目编号" width="180">zj00000001</el-table-column>
-          <el-table-column prop="address" label="项目名称" width="150">万科都荟天地</el-table-column>
-          <el-table-column prop="date" label="省市区" width="230">江苏南京雨花</el-table-column>
-          <el-table-column prop="name" label="项目地址" width="230">南京南站北广场</el-table-column>
-          <el-table-column prop="address" label="期数" width="100">1</el-table-column>
-          <el-table-column prop="date" label="楼栋号" width="100">1</el-table-column>
-          <el-table-column prop="name" label="是否有效" width="150">
+          <el-table-column
+            type="selection"
+            width="55"
+          />
+          <el-table-column
+            prop="name"
+            label="项目编号"
+            width="180"
+          >zj00000001</el-table-column>
+          <el-table-column
+            prop="address"
+            label="项目名称"
+            width="150"
+          >万科都荟天地</el-table-column>
+          <el-table-column
+            prop="date"
+            label="省市区"
+            width="230"
+          >江苏南京雨花</el-table-column>
+          <el-table-column
+            prop="name"
+            label="项目地址"
+            width="230"
+          >南京南站北广场</el-table-column>
+          <el-table-column
+            prop="address"
+            label="期数"
+            width="100"
+          >1</el-table-column>
+          <el-table-column
+            prop="date"
+            label="楼栋号"
+            width="100"
+          >1</el-table-column>
+          <el-table-column
+            prop="name"
+            label="是否有效"
+            width="150"
+          >
             <el-switch
               v-model="effect"
               active-color="#13ce66"
@@ -111,8 +193,16 @@
               inactive-text="否"
             />
           </el-table-column>
-          <el-table-column prop="address" label="创建时间" width="230">2019-11-15 09：00：00</el-table-column>
-          <el-table-column prop="address" label="创建人" width="150">張三</el-table-column>
+          <el-table-column
+            prop="address"
+            label="创建时间"
+            width="230"
+          >2019-11-15 09：00：00</el-table-column>
+          <el-table-column
+            prop="address"
+            label="创建人"
+            width="150"
+          >張三</el-table-column>
         </el-table>
       </div>
       <div class="paging">
@@ -200,7 +290,7 @@ export default {
         .then(_ => {
           done()
         })
-        .catch(_ => {})
+        .catch(_ => { })
     },
     toggleSelection(rows) {
       if (rows) {
