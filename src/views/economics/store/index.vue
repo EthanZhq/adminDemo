@@ -98,7 +98,7 @@
           <el-table-column prop="date" label="联系人" width="120">張三</el-table-column>
           <el-table-column prop="name" label="负责人" width="120">李四</el-table-column>
           <el-table-column prop="address" label="公司名称" width="100">链家</el-table-column>
-          <el-table-column prop="date" label="审核状态" width="150">
+          <el-table-column prop="date" label="审核状态" width="120">
             <span style="color:#4171f9;">待审核</span>
           </el-table-column>
           <el-table-column prop="name" label="状态" width="120">
