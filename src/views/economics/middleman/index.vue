@@ -6,13 +6,23 @@
           <el-input
             v-model="input"
             style="width:200px;marging-right:20px;"
-            placeholder="请输入内容"
+            placeholder="请输入人员名称/手机号"
             clearable
           />
           <div style="margin-left: 20px;">
-            <el-select v-model="value" clearable placeholder="请输入人员名称/手机号">
+            <el-select v-model="personnelValue" clearable placeholder="请选择人员类型">
               <el-option
-                v-for="item in options"
+                v-for="item in selectPersonnel"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+          </div>
+          <div style="margin-left: 20px;">
+            <el-select v-model="companyValue" clearable placeholder="请选择所属公司">
+              <el-option
+                v-for="item in selectCompany"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value"
@@ -21,30 +31,9 @@
           </div>
 
           <div style="margin-left: 20px;">
-            <el-select v-model="value" clearable placeholder="请选择人员类型">
+            <el-select v-model="auditValue" clearable placeholder="请选择审核状态">
               <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              />
-            </el-select>
-          </div>
-          <div style="margin-left: 20px;">
-            <el-select v-model="value" clearable placeholder="请选择所属公司">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              />
-            </el-select>
-          </div>
-
-          <div style="margin-left: 20px;">
-            <el-select v-model="value" clearable placeholder="请选择审核状态">
-              <el-option
-                v-for="item in options"
+                v-for="item in selectAudit"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value"
@@ -102,11 +91,13 @@
           @selection-change="handleSelectionChange"
         >
           <el-table-column type="selection" width="55" />
-          <el-table-column prop="name" label="公司编号" width="180">zj00000001</el-table-column>
-          <el-table-column prop="address" label="公司名称" width="150">鏈家</el-table-column>
-          <el-table-column prop="date" label="联系人" width="150">張三</el-table-column>
-          <el-table-column prop="name" label="联系电话" width="150">15225846698</el-table-column>
-          <el-table-column prop="address" label="最近合作时间段" width="230">2001-12-99至2018-09-95</el-table-column>
+          <el-table-column prop="name" label="人员编号" width="150">zj00000001</el-table-column>
+          <el-table-column prop="address" label="人员名称" width="10">张三</el-table-column>
+          <el-table-column prop="date" label="联系方式" width="150">15244651158</el-table-column>
+          <el-table-column prop="name" label="类型" width="150">门店经纪人</el-table-column>
+          <el-table-column prop="address" label="门店名称" width="120">南京南站店</el-table-column>
+          <el-table-column prop="date" label="公司名称" width="120">链家</el-table-column>
+          <el-table-column prop="date" label="角色" width="120">店长</el-table-column>
           <el-table-column prop="date" label="审核状态" width="150">
             <span style="color:#4171f9;">待审核</span>
           </el-table-column>
@@ -149,7 +140,63 @@ export default {
   },
   data() {
     return {
-      dialogVisible: false,
+      // 选择人员leix
+      selectPersonnel: [
+        {
+          value: '选项1',
+          label: '工人'
+        },
+        {
+          value: '选项2',
+          label: '农名'
+        },
+        {
+          value: '选项3',
+          label: '学生'
+        },
+        {
+          value: '选项4',
+          label: '老师'
+        },
+        {
+          value: '选项5',
+          label: '教授'
+        }
+      ],
+      personnelValue: '',
+      // 选择所属公司
+      selectCompany: [
+        {
+          value: '选项1',
+          label: '镇江房地产'
+        },
+        {
+          value: '选项2',
+          label: '南京房地产'
+        }
+      ],
+      companyValue: '',
+      // 审核状态
+      // 审核状态
+      selectAudit: [
+        {
+          value: '选项1',
+          label: '未审核'
+        },
+        {
+          value: '选项2',
+          label: '审核中'
+        },
+        {
+          value: '选项3',
+          label: '审核成功'
+        },
+        {
+          value: '选项4',
+          label: '审核失败'
+        }
+      ],
+      // 人员状态
       options: [
         {
           value: '选项1',
@@ -173,6 +220,9 @@ export default {
         }
       ],
       value: '',
+      auditValue: '',
+      dialogVisible: false,
+
       input: '',
       // input1: '',
       // input2: '',

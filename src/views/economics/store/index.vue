@@ -6,14 +6,14 @@
           <el-input
             v-model="input"
             style="width:200px;marging-right:20px;"
-            placeholder="请输入经纪管理名称"
+            placeholder="请输入经纪管理公司名称"
             clearable
           />
 
           <div style="margin-left: 20px;">
-            <el-select v-model="value" clearable placeholder="请输入门店名称">
+            <el-select v-model="storeValue" clearable placeholder="请输入门店名称">
               <el-option
-                v-for="item in options"
+                v-for="item in selectStore"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value"
@@ -21,9 +21,9 @@
             </el-select>
           </div>
           <div style="margin-left: 20px;">
-            <el-select v-model="value" clearable placeholder="请选择区域">
+            <el-select v-model="araeValue" clearable placeholder="请选择区域">
               <el-option
-                v-for="item in options"
+                v-for="item in selectArae"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value"
@@ -31,9 +31,9 @@
             </el-select>
           </div>
           <div style="margin-left: 20px;">
-            <el-select v-model="value" clearable placeholder="请选择审核状态">
+            <el-select v-model="auditValue" clearable placeholder="请选择审核状态">
               <el-option
-                v-for="item in options"
+                v-for="item in selectAudit"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value"
@@ -91,15 +91,17 @@
           @selection-change="handleSelectionChange"
         >
           <el-table-column type="selection" width="55" />
-          <el-table-column prop="name" label="公司编号" width="180">zj00000001</el-table-column>
-          <el-table-column prop="address" label="公司名称" width="150">鏈家</el-table-column>
-          <el-table-column prop="date" label="联系人" width="150">張三</el-table-column>
-          <el-table-column prop="name" label="联系电话" width="150">15225846698</el-table-column>
-          <el-table-column prop="address" label="最近合作时间段" width="230">2001-12-99至2018-09-95</el-table-column>
+          <el-table-column prop="name" label="门店编号" width="150">zj00000001</el-table-column>
+          <el-table-column prop="address" label="门店名称" width="150">南京南站店</el-table-column>
+          <el-table-column prop="address" label="省市区" width="150">南京市雨花台区</el-table-column>
+          <el-table-column prop="address" label="地址" width="150">xx路xx号xx栋</el-table-column>
+          <el-table-column prop="date" label="联系人" width="120">張三</el-table-column>
+          <el-table-column prop="name" label="负责人" width="120">李四</el-table-column>
+          <el-table-column prop="address" label="公司名称" width="100">链家</el-table-column>
           <el-table-column prop="date" label="审核状态" width="150">
             <span style="color:#4171f9;">待审核</span>
           </el-table-column>
-          <el-table-column prop="name" label="状态" width="150">
+          <el-table-column prop="name" label="状态" width="120">
             <el-switch
               v-model="value1"
               active-color="#13ce66"
@@ -138,35 +140,89 @@ export default {
   },
   data() {
     return {
-      newAdd: false,
-      options: [
+      // 选择门店
+      selectStore: [
         {
           value: '选项1',
-          label: '黄金糕'
+          label: '大新华府店'
         },
         {
           value: '选项2',
-          label: '双皮奶'
+          label: '东门店'
         },
         {
           value: '选项3',
-          label: '蚵仔煎'
+          label: '天润城店'
         },
         {
           value: '选项4',
-          label: '龙须面'
+          label: '明发店'
+        }
+      ],
+      storeValue: '',
+      // 选择区域
+      selectArae: [
+        {
+          value: '选项1',
+          label: '浦口'
+        },
+        {
+          value: '选项2',
+          label: '柳州东路'
+        },
+        {
+          value: '选项3',
+          label: '大华'
+        },
+        {
+          value: '选项4',
+          label: '顶山'
         },
         {
           value: '选项5',
-          label: '北京烤鸭'
+          label: '东门'
+        }
+      ],
+      araeValue: '',
+      // 审核状态
+      selectAudit: [
+        {
+          value: '选项1',
+          label: '未审核'
+        },
+        {
+          value: '选项2',
+          label: '审核中'
+        },
+        {
+          value: '选项3',
+          label: '审核成功'
+        },
+        {
+          value: '选项4',
+          label: '审核失败'
+        }
+      ],
+      auditValue: '',
+      // 门店状态
+      options: [
+        {
+          value: '选项1',
+          label: '关门'
+        },
+        {
+          value: '选项2',
+          label: '歇业'
+        },
+        {
+          value: '选项3',
+          label: '营业中'
         }
       ],
       value: '',
+      newAdd: false,
+
       input: '',
-      // input1: '',
-      // input2: '',
-      // input3: '',
-      // select: '',
       value1: true,
       currentPage4: 10,
       tableData: [{}, {}, {}, {}, {}, {}, {}]

@@ -49,6 +49,7 @@
         <el-button type="primary" plain>审核</el-button>
         <el-button type="primary" plain>启用</el-button>
         <el-button type="primary" plain>禁用</el-button>
+        <el-button type="primary" plain>免费</el-button>
         <el-button plain style="background:none;color:#1c1c1c;">删除</el-button>
         <el-button plain style="background:none;color:#1c1c1c;">历史合作记录</el-button>
       </div>
@@ -83,10 +84,6 @@
           <el-table-column prop="address" label="创建时间" width="230">2019-11-15 09：00：00</el-table-column>
           <el-table-column prop="address" label="创建人" width="150">張三</el-table-column>
         </el-table>
-        <!-- <div style="margin-top: 20px">
-          <el-button @click="toggleSelection([tableData[1], tableData[2]])">切换第二、第三行的选中状态</el-button>
-          <el-button @click="toggleSelection()">取消选择</el-button>
-        </div>-->
       </div>
       <div class="paging">
         <div class="paging-right">

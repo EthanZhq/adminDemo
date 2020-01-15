@@ -10,9 +10,9 @@
             clearable
           />
           <div style="margin-left: 20px;">
-            <el-select v-model="value" clearable placeholder="请输入审核状态">
+            <el-select v-model="auditState" clearable placeholder="请输入审核状态">
               <el-option
-                v-for="item in options"
+                v-for="item in selectAudit"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value"
@@ -21,9 +21,9 @@
           </div>
 
           <div style="margin-left: 20px;">
-            <el-select v-model="value" clearable placeholder="请选择公司状态">
+            <el-select v-model="companyState" clearable placeholder="请选择公司状态">
               <el-option
-                v-for="item in options"
+                v-for="item in selectCompany"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value"
@@ -147,39 +147,74 @@
 
 <script>
 import newAdd from '@/components/company/borker/newAdd.vue'
-// import ThemeSettings from '@/components/theme/theme-settings'
-// import ThemeView from '@/components/theme/theme-view'
 export default {
   components: {
     newAdd
-    // ThemeSettings,
-    // ThemeView
   },
   data() {
     return {
+      // 合作状态
       options: [
         {
           value: '选项1',
-          label: '黄金糕'
+          label: '合作'
         },
         {
           value: '选项2',
-          label: '双皮奶'
+          label: '分手'
         },
         {
           value: '选项3',
-          label: '蚵仔煎'
+          label: '结婚'
         },
         {
           value: '选项4',
-          label: '龙须面'
+          label: '生娃'
         },
         {
           value: '选项5',
-          label: '北京烤鸭'
+          label: '养老'
         }
       ],
       value: '',
+      // 选择审核状态
+      selectAudit: [
+        {
+          value: '选项1',
+          label: '未审核'
+        },
+        {
+          value: '选项2',
+          label: '审核中'
+        },
+        {
+          value: '选项3',
+          label: '审核通过'
+        },
+        {
+          value: '选项',
+          label: '审核失败'
+        }
+      ],
+      auditState: '',
+      // 选择公司状态
+      selectCompany: [
+        {
+          value: '选项1',
+          label: '民营'
+        },
+
+        {
+          value: '选项2',
+          label: '国营'
+        },
+        {
+          value: '选项3',
+          label: '央企'
+        }
+      ],
+      companyState: '',
+
       input: '',
       // input1: '',
       // input2: '',

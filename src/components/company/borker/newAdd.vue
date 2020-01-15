@@ -108,9 +108,9 @@
                 { type: 'string', message: '必填'}
               ]"
             >
-              <el-select v-model="value" filterable placeholder="请选择" style="width:100%">
+              <el-select v-model="selectValue" filterable placeholder="请选择" style="width:100%">
                 <el-option
-                  v-for="item in options"
+                  v-for="item in selectBank"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
@@ -360,6 +360,8 @@ export default {
       numberValidateForm: {
         age: ''
       },
+      // 选择银行
+      selectBank: [{}],
       options: [
         {
           value: 'zhinan',
@@ -628,9 +630,22 @@ export default {
           ]
         }
       ],
+      selectValue: '',
       value: '',
       value1: '',
-      value2: ''
+      value2: '',
+      fileList: [
+        {
+          name: 'food.jpeg',
+          url:
+            'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
+        },
+        {
+          name: 'food2.jpeg',
+          url:
+            'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
+        }
+      ]
     }
   },
   methods: {

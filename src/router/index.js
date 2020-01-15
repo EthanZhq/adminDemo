@@ -71,12 +71,6 @@ export const constantRoutes = [
         meta: { title: '楼栋管理', icon: 'table' }
       },
       {
-        path: 'a',
-        name: 'a',
-        component: () => import('@/views/project/building/a'),
-        meta: { title: '配置', icon: 'table' }
-      },
-      {
         path: 'prePa',
         name: 'PrePa',
         component: () => import('@/views/project/prePa/index'),

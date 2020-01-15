@@ -1,37 +1,35 @@
 <template>
   <div>
-    我是项目立项首页
     <div class="head">
       <div>
         <el-input v-model="input" style="width:200px;" placeholder="请输入项目名称" clearable />
       </div>
       <div>
-        <el-select slot="prepend" v-model="select" placeholder="请选择">
-          <el-option label="餐厅名" value="1" />
-          <el-option label="订单号" value="2" />
-          <el-option label="用户电话" value="3" />
+        <el-select slot="prepend" v-model="selectArea" placeholder="请选择区域">
+          <el-option label="南京" value="1" />
+          <el-option label="上海" value="2" />
+          <el-option label="杭州" value="3" />
         </el-select>
       </div>
       <div>
-        <el-select slot="prepend" v-model="select" placeholder="请选择">
-          <el-option label="餐厅名" value="1" />
-          <el-option label="订单号" value="2" />
-          <el-option label="用户电话" value="3" />
+        <el-select slot="prepend" v-model="selectState" clearable placeholder="销售状态">
+          <el-option label="未设置" value="1" />
+          <el-option label="未开始" value="2" />
+          <el-option label="进行中" value="3" />
+          <el-option label="已结束" value="4" />
         </el-select>
       </div>
       <div>
-        <el-select slot="prepend" v-model="select" placeholder="请选择">
-          <el-option label="餐厅名" value="1" />
-          <el-option label="订单号" value="2" />
-          <el-option label="用户电话" value="3" />
+        <el-select slot="prepend" v-model="selectHot" clearable placeholder="是否热门">
+          <el-option label="是" value="1" />
+          <el-option label="否" value="2" />
         </el-select>
       </div>
 
       <div>
-        <el-select slot="prepend" v-model="select" placeholder="请选择">
-          <el-option label="餐厅名" value="1" />
-          <el-option label="订单号" value="2" />
-          <el-option label="用户电话" value="3" />
+        <el-select slot="prepend" v-model="selectShow" clearable placeholder="是否显示">
+          <el-option label="是" value="1" />
+          <el-option label="否" value="2" />
         </el-select>
       </div>
       <div>
@@ -42,22 +40,7 @@
       <div style="padding-bottom:20px ;">
         <el-button type="primary" @click="configuration = true">配置</el-button>
 
-        <el-button type="text" @click="outerVisible = true">点击打开外层 Dialog</el-button>
-
-        <el-dialog title="外层 Dialog" :visible.sync="outerVisible">
-          <configuration />
-          <el-dialog
-            width="30%"
-            title="内层 Dialog"
-            :visible.sync="innerVisible"
-            append-to-body
-          >156165</el-dialog>
-          <div slot="footer" class="dialog-footer">
-            <el-button @click="outerVisible = false">取 消</el-button>
-            <el-button type="primary" @click="innerVisible = true">打开内层 Dialog</el-button>
-          </div>
-        </el-dialog>
-        <el-dialog title="配置" :visible.sync="configuration" width="30%" :before-close="handleClose">
+        <el-dialog title="配置" :visible.sync="configuration" width="70%" :before-close="handleClose">
           <span>
             <configuration />
           </span>
@@ -96,11 +79,12 @@
         <el-table-column prop="name" label="销售状态" width="200">以结束</el-table-column>
         <el-table-column prop="address" label="是否热门" width="100">
           <el-switch
-            v-model="value1"
+            v-model="hot"
             active-color="#13ce66"
             inactive-color="#13ce66"
-            active-text="是"
             inactive-text="否"
+            active-text="是"
+            @click="isHot"
           />
         </el-table-column>
         <el-table-column prop="name" label="是否显示" width="150">
@@ -134,13 +118,22 @@
   </div>
 </template>
 <script>
-import configuration from '@/components/project/building/configuration.vue'
+import configuration from '@/components/configuration/configguration.vue'
 export default {
   components: {
     configuration
   },
   data() {
     return {
+      // 选择区域
+      selectArea: '',
+      // 选择销售状态
+      selectState: '',
+      // 是否热门
+      hot: true,
+      selectHot: '',
+      // 是否显示
+      selectShow: '',
       tableData: [{}, {}, {}, {}, {}, {}, {}],
       value: '',
       value1: '',
@@ -157,6 +150,9 @@ export default {
     }
   },
   methods: {
+    isHot() {
+      console.log(515)
+    },
     handleSelectionChange(val) {
       this.multipleSelection = val
     },

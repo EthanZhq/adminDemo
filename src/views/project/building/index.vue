@@ -22,9 +22,9 @@
           </div>
 
           <div style="margin-left: 20px;">
-            <el-select v-model="value" clearable placeholder="是否有效">
+            <el-select v-model="effect" clearable placeholder="是否有效">
               <el-option
-                v-for="item in options"
+                v-for="item in valid"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value"
@@ -104,7 +104,7 @@
           <el-table-column prop="date" label="楼栋号" width="100">1</el-table-column>
           <el-table-column prop="name" label="是否有效" width="150">
             <el-switch
-              v-model="value1"
+              v-model="effect"
               active-color="#13ce66"
               inactive-color="#13ce66"
               active-text="是"
@@ -114,10 +114,6 @@
           <el-table-column prop="address" label="创建时间" width="230">2019-11-15 09：00：00</el-table-column>
           <el-table-column prop="address" label="创建人" width="150">張三</el-table-column>
         </el-table>
-        <!-- <div style="margin-top: 20px">
-          <el-button @click="toggleSelection([tableData[1], tableData[2]])">切换第二、第三行的选中状态</el-button>
-          <el-button @click="toggleSelection()">取消选择</el-button>
-        </div>-->
       </div>
       <div class="paging">
         <div class="paging-right">
@@ -153,34 +149,46 @@ export default {
       change: false,
       newAdd: false,
       dialogVisible: false,
+      // 区域选择列表
       options: [
         {
           value: '选项1',
-          label: '黄金糕'
+          label: '南京'
         },
         {
           value: '选项2',
-          label: '双皮奶'
+          label: '北京'
         },
         {
           value: '选项3',
-          label: '蚵仔煎'
+          label: '天津'
         },
         {
           value: '选项4',
-          label: '龙须面'
+          label: '西京'
         },
         {
           value: '选项5',
-          label: '北京烤鸭'
+          label: '东京'
         }
       ],
+      // 是否有效列表
+      valid: [
+        {
+          valid: '选项1',
+          value: '是'
+        },
+        {
+          valid: '选项2',
+          value: '否'
+        }
+      ],
+
+      // 是否有效双向绑定
+      effect: '',
+      // 区域选择双向绑定
       value: '',
       input: '',
-      // input1: '',
-      // input2: '',
-      // input3: '',
-      // select: '',
       value1: true,
       currentPage4: 10,
       tableData: [{}, {}, {}, {}, {}, {}, {}]
@@ -205,6 +213,7 @@ export default {
     },
     handleSelectionChange(val) {
       this.multipleSelection = val
+      console.log(val)
     },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`)

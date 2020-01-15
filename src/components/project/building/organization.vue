@@ -119,7 +119,9 @@ export default {
           address: '上海市普陀区金沙江路 1516 弄',
           zip: 200333
         }
-      ]
+      ],
+      input: '',
+      currentPage4: 4
     }
   },
   methods: {
