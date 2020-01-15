@@ -319,7 +319,7 @@ export default {
   padding-bottom: 40px;
 
   div {
-    margin-left: 20px;
+    margin-right: 20px;
   }
 }
 </style>
