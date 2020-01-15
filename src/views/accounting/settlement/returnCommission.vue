@@ -10,7 +10,7 @@
       <div class="topCaption">
         <div class="twoSpan">
           <span class="firstSpan">购房信息</span>
-          <span class="secondSpan">回款信息</span>
+          <span class="secondSpan">结算信息</span>
         </div>
       </div>
       <table
@@ -28,7 +28,7 @@
           <td>电话：13900001111</td>
           <td>身份证号：123123122342245677</td>
           <td>签约时间：2019-01-31&nbsp;09:00:00</td>
-          <td style=" border-left:1px solid #CCCCCC;">累计单套损失：50000</td>
+          <td style=" border-left:1px solid #CCCCCC;">累计单套扣款：50000</td>
         </tr>
         <tr>
           <td>
@@ -37,7 +37,7 @@
           <td>面积(m²)：93m²</td>
           <td>成交总价(元)：3655333.12</td>
           <td>费用类型：带看费</td>
-          <td style=" border-left:1px solid #CCCCCC;">累计分摊损失：0</td>
+          <td style=" border-left:1px solid #CCCCCC;">累计分摊扣款：0</td>
         </tr>
         <tr>
           <td>
@@ -46,7 +46,7 @@
           <td>定价方式：阶梯定价</td>
           <td>佣金标准（元）：20000</td>
           <td>应结佣金：50000</td>
-          <td style=" border-left:1px solid #CCCCCC;">累计回款佣金：0</td>
+          <td style=" border-left:1px solid #CCCCCC;">累计结算佣金：0</td>
         </tr>
       </table>
       <el-form

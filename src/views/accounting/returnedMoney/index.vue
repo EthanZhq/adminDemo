@@ -69,7 +69,6 @@
           <div style="margin-left: 200px;">
             <el-button type="primary">搜索</el-button>
           </div>
-
         </div>
       </div>
 
@@ -88,17 +87,17 @@
           type="primary"
           plain
           @click="open(2)"
-        >跟进</el-button>
+        >跟 进</el-button>
         <el-button
           type="primary"
           plain
           @click="open(3)"
-        >退佣</el-button>
+        >退 佣</el-button>
         <el-button
           plain
           style="background:#F3F3F3;color:#1c1c1c;"
           @click="open(4)"
-        >查看</el-button>
+        >查 看</el-button>
         <el-button
           plain
           style="background:#F3F3F3;color:#1c1c1c;"
@@ -118,7 +117,7 @@
           border
           tooltip-effect="dark"
           style="width:95%"
-          height="550"
+          height="450"
           @selection-change="handleSelectionChange"
         >
           <el-table-column
@@ -404,7 +403,7 @@ export default {
   background-color: #fff;
 }
 .head {
-  margin-left: 30px;
+  margin-right: 30px;
   height: 100px;
   align-items: center;
   display: flex;
@@ -417,6 +416,7 @@ export default {
 .paging {
   height: 100px;
   display: flex;
+  margin-right: 120px;
   justify-content: flex-end;
   align-items: center;
   .paging-right {

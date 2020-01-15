@@ -5,15 +5,15 @@
         <div style="margin-top: 15px;display:flex;">
           <el-input
             v-model="input"
-            style="width:200px;marging-right:20px;"
-            placeholder="请输入内容"
+            style="width:215px;marging-right:20px;"
+            placeholder="经纪公司/独立经纪人"
             clearable
           />
           <div style="margin-left: 20px;">
             <el-select
               v-model="value"
               clearable
-              placeholder="请选择"
+              placeholder="请选择支付状态"
             >
               <el-option
                 v-for="item in options"
@@ -22,36 +22,25 @@
                 :value="item.value"
               />
             </el-select>
+          </div>
+          <div style="margin-left: 20px;">
+            <el-select
+              v-model="value"
+              clearable
+              placeholder="请选择开票状态"
+            >
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+          </div>
+          <div style="margin-left: 300px;">
+            <el-button type="primary">搜索</el-button>
           </div>
 
-          <div style="margin-left: 20px;">
-            <el-select
-              v-model="value"
-              clearable
-              placeholder="请选择"
-            >
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              />
-            </el-select>
-          </div>
-          <div style="margin-left: 20px;">
-            <el-select
-              v-model="value"
-              clearable
-              placeholder="请选择"
-            >
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              />
-            </el-select>
-          </div>
         </div>
       </div>
 
@@ -59,27 +48,38 @@
         <el-button
           type="primary"
           plain
-        >编辑</el-button>
+          @click="open(0)"
+        >票据录入</el-button>
         <el-button
           type="primary"
           plain
-        >审核</el-button>
-        <el-button
-          type="primary"
-          plain
-        >启用</el-button>
-        <el-button
-          type="primary"
-          plain
-        >禁用</el-button>
+          @click="open(1)"
+        >确认支付</el-button>
         <el-button
           plain
-          style="background:none;color:#1c1c1c;"
-        >删除</el-button>
+          style="background:#F3F3F3;color:#1c1c1c;"
+          @click="open(2)"
+        >票据录入历史</el-button>
         <el-button
           plain
-          style="background:none;color:#1c1c1c;"
-        >历史合作记录</el-button>
+          style="background:#F3F3F3;color:#1c1c1c;"
+          @click="open(3)"
+        >支付历史</el-button>
+        <el-button
+          plain
+          style="background:#F3F3F3;color:#1c1c1c;"
+          @click="open(4)"
+        >查 看</el-button>
+        <el-button
+          plain
+          style="background:#F3F3F3;color:#1c1c1c;"
+          @click="open(5)"
+        >导 出</el-button>
+        <el-button
+          plain
+          style="background:#F3F3F3;color:#1c1c1c;"
+          @click="open(6)"
+        >操作记录</el-button>
       </div>
       <!-- 表格 -->
       <div>
@@ -88,7 +88,8 @@
           :data="tableData"
           border
           tooltip-effect="dark"
-          style="width: 100%"
+          style="width:95%"
+          height="450"
           @selection-change="handleSelectionChange"
         >
           <el-table-column
@@ -96,65 +97,63 @@
             width="55"
           />
           <el-table-column
-            prop="name"
-            label="公司编号"
+            prop="id"
+            label="编号"
             width="180"
-          >zj00000001</el-table-column>
-          <el-table-column
-            prop="address"
-            label="公司名称"
-            width="150"
-          >鏈家</el-table-column>
-          <el-table-column
-            prop="date"
-            label="联系人"
-            width="150"
-          >張三</el-table-column>
+          >U2019100001</el-table-column>
           <el-table-column
             prop="name"
-            label="联系电话"
-            width="150"
-          >15225846698</el-table-column>
-          <el-table-column
-            prop="address"
-            label="最近合作时间段"
-            width="230"
-          >2001-12-99至2018-09-95</el-table-column>
-          <el-table-column
-            prop="date"
-            label="审核状态"
-            width="150"
-          >
-            <span style="color:#4171f9;">待审核</span>
-          </el-table-column>
-          <el-table-column
-            prop="name"
-            label="状态"
-            width="150"
-          >
-            <el-switch
-              v-model="value1"
-              active-color="#13ce66"
-              inactive-color="#13ce66"
-              active-text="是"
-              inactive-text="否"
-            />
+            label="经纪公司/独立经纪人"
+            width="180"
+          >万科新都荟
           </el-table-column>
           <el-table-column
             prop="address"
-            label="创建时间"
-            width="230"
-          >2019-11-15 09：00：00</el-table-column>
+            label="套数"
+            width="120"
+          >1</el-table-column>
           <el-table-column
-            prop="address"
-            label="创建人"
-            width="150"
-          >張三</el-table-column>
+            prop="commissioned"
+            label="应结佣金"
+            width="180"
+          >50000</el-table-column>
+          <el-table-column
+            prop="commission"
+            sortable
+            label="实结佣金"
+            width="180"
+          >30000</el-table-column>
+          <el-table-column
+            prop="lossCommission"
+            label="扣款佣金"
+            width="180"
+          >20000</el-table-column>
+          <el-table-column
+            prop="organization"
+            label="累积开票金额"
+            width="180"
+          >
+            <span style="color:#108EE9">20000</span>
+          </el-table-column>
+          <el-table-column
+            prop="organization"
+            label="累积支付金额"
+            width="180"
+          >
+            <span style="color:#108EE9">20000</span>
+          </el-table-column>
+          <el-table-column
+            prop="whether"
+            label="支付状态"
+            width="180"
+          >未开票</el-table-column>
+          <el-table-column
+            prop="state"
+            label="生成日期"
+            width="180"
+          >2019-11-15 08:00:00
+          </el-table-column>
         </el-table>
-        <!-- <div style="margin-top: 20px">
-          <el-button @click="toggleSelection([tableData[1], tableData[2]])">切换第二、第三行的选中状态</el-button>
-          <el-button @click="toggleSelection()">取消选择</el-button>
-        </div>-->
       </div>
       <div class="paging">
         <div class="paging-right">
@@ -162,8 +161,8 @@
             :current-page="currentPage4"
             :page-size="100"
             :total="400"
-            pager-count="5"
-            :page-sizes="[100, 200, 300, 400]"
+            :pager-count="5"
+            :page-sizes="[5,100, 200, 300, 400]"
             layout="total, sizes, prev, pager, next, jumper"
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -171,40 +170,51 @@
         </div>
       </div>
     </div>
+
+    <paperEntry
+      :paper-entry="paperEntry"
+      @cancel="cancels(0)"
+    />
+    <payment
+      :payment="payment"
+      @cancel="cancels(1)"
+    />
   </div>
 </template>
 
 <script>
-// import ThemeSettings from '@/components/theme/theme-settings'
-// import ThemeView from '@/components/theme/theme-view'
+import PaperEntry from './paperEntry'
+import Payment from './payment'
 export default {
   components: {
-    // ThemeSettings,
-    // ThemeView
+    PaperEntry, Payment
   },
   data() {
     return {
-      options: [
-        {
-          value: '选项1',
-          label: '黄金糕'
-        },
-        {
-          value: '选项2',
-          label: '双皮奶'
-        },
-        {
-          value: '选项3',
-          label: '蚵仔煎'
-        },
-        {
-          value: '选项4',
-          label: '龙须面'
-        },
-        {
-          value: '选项5',
-          label: '北京烤鸭'
-        }
+      paperEntry: false,
+      payment: false,
+      follow: false,
+      returnCommission: false,
+      options: [{
+        value: '选项1',
+        label: '黄金糕'
+      },
+      {
+        value: '选项2',
+        label: '双皮奶'
+      },
+      {
+        value: '选项3',
+        label: '蚵仔煎'
+      },
+      {
+        value: '选项4',
+        label: '龙须面'
+      },
+      {
+        value: '选项5',
+        label: '北京烤鸭'
+      }
       ],
       value: '',
       input: '',
@@ -214,13 +224,38 @@ export default {
       // select: '',
       value1: true,
       currentPage4: 10,
-      tableData: [{}, {}, {}, {}, {}, {}, {}]
+      tableData: [{}, {}, {}, {}, {}, {}, {}, {}, {}],
+      requireTable: [{}, {}, {}, {}, {}, {}, {}, {}, {}]
     }
   },
   created() {
-    this.theme = this.list[0]
+    // this.theme = this.list[0]
   },
   methods: {
+    // 打开生成页面
+    open(state) {
+      if (state === 0) {
+        console.log(this.paperEntry)
+        this.paperEntry = true
+        console.log(this.paperEntry)
+      }
+      if (state === 1) {
+        console.log(this.payment)
+        this.payment = true
+        console.log(this.payment)
+      }
+    },
+    cancels(state) {
+      if (state === 0) {
+        this.paperEntry = false
+        console.log(this.paperEntry)
+      }
+      if (state === 1) {
+        this.payment = false
+        console.log(this.payment)
+      }
+    },
+    // 关闭弹框
     toggleSelection(rows) {
       if (rows) {
         rows.forEach(row => {
@@ -242,7 +277,10 @@ export default {
   }
 }
 </script>
-<style scoped lang="scss">
+<style
+  scoped
+  lang="scss"
+    >
 .el-select .el-input {
   width: 130px;
 }
@@ -250,7 +288,7 @@ export default {
   background-color: #fff;
 }
 .head {
-  margin-left: 30px;
+  margin-right: 30px;
   height: 100px;
   align-items: center;
   display: flex;
@@ -263,6 +301,7 @@ export default {
 .paging {
   height: 100px;
   display: flex;
+  margin-right: 120px;
   justify-content: flex-end;
   align-items: center;
   .paging-right {
@@ -279,4 +318,3 @@ export default {
   font-size: 15px;
 }
 </style>
-

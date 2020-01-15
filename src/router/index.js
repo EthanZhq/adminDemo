@@ -68,7 +68,7 @@ export const constantRoutes = [
         path: 'building',
         name: 'Building',
         component: () => import('@/views/project/building/index'),
-        meta: { title: '楼栋管理', icon: 'table' }
+        meta: { title: '楼栋管理', icon: 'tree' }
       },
       {
         path: 'prePa',
@@ -90,7 +90,7 @@ export const constantRoutes = [
         path: 'company',
         name: 'Company',
         component: () => import('@/views/economics/company/index'),
-        meta: { title: '经纪公司管理', icon: 'table' }
+        meta: { title: '经纪公司管理', icon: 'tree' }
       },
       {
         path: 'store',
@@ -102,7 +102,7 @@ export const constantRoutes = [
         path: 'middleman',
         name: 'Middleman',
         component: () => import('@/views/economics/middleman/index'),
-        meta: { title: '经纪人管理', icon: 'table' }
+        meta: { title: '经纪人管理', icon: 'tree' }
       }
     ]
   },
@@ -115,15 +115,15 @@ export const constantRoutes = [
     meta: { title: '客户管理', icon: 'example' },
     children: [
       {
-        path: 'commercialOpportunity',
-        name: 'CommercialOpportunity',
-        component: () => import('@/views/client/commercialOpportunity/index'),
-        meta: { title: '意向客户管理', icon: 'table' }
-      },
-      {
         path: 'potentialClients',
         name: 'PotentialClients',
         component: () => import('@/views/client/potentialClients/index'),
+        meta: { title: '意向客户管理', icon: 'tree' }
+      },
+      {
+        path: 'commercialOpportunity',
+        name: 'CommercialOpportunity',
+        component: () => import('@/views/client/commercialOpportunity/index'),
         meta: { title: '商机管理', icon: 'tree' }
       }
     ]
@@ -140,7 +140,7 @@ export const constantRoutes = [
         path: 'returnedMoney',
         name: 'ReturnedMoney',
         component: () => import('@/views/accounting/returnedMoney/index'),
-        meta: { title: '回款管理', icon: 'table' }
+        meta: { title: '回款管理', icon: 'tree' }
       },
       {
         path: 'invoice',
@@ -152,7 +152,7 @@ export const constantRoutes = [
         path: 'settlement',
         name: 'Settlement',
         component: () => import('@/views/accounting/settlement/index'),
-        meta: { title: '结算管理', icon: 'table' }
+        meta: { title: '结算管理', icon: 'tree' }
       },
       {
         path: 'settlements',

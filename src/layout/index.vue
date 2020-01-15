@@ -11,7 +11,7 @@
     <sidebar class="sidebar-container" />
     <div
       class="main-container"
-      style="width:calc(100% - 145px);"
+      style="width:calc(100% - 200px);"
     >
       <div
         class=""

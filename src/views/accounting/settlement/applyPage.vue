@@ -1,8 +1,8 @@
 /* 生成确认单*/
 <template>
-  <div class="requirePage">
+  <div class="applyPage">
     <el-dialog
-      title="确认回款确认单"
+      title="申请结算单"
       :visible.sync="isShow"
       width="67%"
       :before-close="handleClose"
@@ -35,9 +35,9 @@
           <td>电话：13900001111</td>
           <td>身份证号：123123122342245677</td>
           <td>签约时间：2019-01-31&nbsp;09:00:00</td>
-          <td style="border-left:1px solid #CCCCCC;">累计单套损失：50000</td>
+          <td style="border-left:1px solid #CCCCCC;">累计单套扣款：50000</td>
           <td style="border-left:1px solid #CCCCCC;">
-            单套损失：
+            单套扣款：
             <input
               type="text"
               style="width:40px;"
@@ -51,8 +51,8 @@
           <td>面积(m²)：93m²</td>
           <td>成交总价(元)：3655333.12</td>
           <td>费用类型：带看费</td>
-          <td style=" border-left:1px solid #CCCCCC;">累计分摊损失：0</td>
-          <td style=" border-left:1px solid #CCCCCC;">分摊损失：0</td>
+          <td style=" border-left:1px solid #CCCCCC;">累计分摊扣款：0</td>
+          <td style=" border-left:1px solid #CCCCCC;">分摊扣款：0</td>
         </tr>
         <tr>
           <td>
@@ -63,7 +63,7 @@
           <td>应结佣金：50000</td>
           <td style=" border-left:1px solid #CCCCCC;">累计结算佣金：0</td>
           <td style=" border-left:1px solid #CCCCCC;">
-            结算损失：
+            结算扣款：
             <input
               type="text"
               style="width:40px;"
@@ -72,7 +72,7 @@
         </tr>
       </table>
       <div style="margin-top:10px;">
-        <span>存在分摊损失佣金：</span>
+        <span>存在分摊扣款佣金：</span>
         <el-switch
           v-model="selectShow"
           active-color="#87D068"
@@ -85,7 +85,7 @@
         v-show="selectShow"
         class="content-center"
       >
-        <!-- 分摊损失 -->
+        <!-- 分摊扣款 -->
         <div
           clas="content-center-text"
           style="overflow:hidden;border-bottom:1px solid #CCCCCC;;margin-bottom:7px;"
@@ -93,7 +93,7 @@
           <h5
             class="firstSpan"
             style="float:left;"
-          >分摊损失</h5>
+          >分摊扣款</h5>
           <el-button
             type="text"
             style="float:right;"
@@ -110,19 +110,19 @@
         >
 
           <el-form-item
-            label="损失类型"
+            label="扣款类型"
             prop="region"
           >
             <el-select
               v-model="formInline.region"
-              placeholder="请选择损失类型"
+              placeholder="请选择扣款类型"
             >
               <el-option
-                label="损失类型一"
+                label="扣款类型一"
                 value="shanghai"
               />
               <el-option
-                label="损失类型2"
+                label="扣款类型2"
                 value="beijing"
               />
             </el-select>
@@ -133,7 +133,7 @@
           >
             <el-input
               v-model="formInline.user"
-              placeholder="请输入损失金额"
+              placeholder="请输入扣款金额"
             />
           </el-form-item>
           <el-form-item
@@ -142,7 +142,7 @@
           >
             <el-input
               v-model="formInline.user"
-              placeholder="请输入损失说明"
+              placeholder="请输入扣款说明"
             />
           </el-form-item>
           <el-form-item style="float:right;margin-right:-1px;">
@@ -209,7 +209,7 @@
       </div>
       <div class="content-bottm">
         <div clas="content-center-text">
-          <h5 class="firstSpan">回款汇总</h5>
+          <h5 class="firstSpan">结算汇总</h5>
         </div>
         <el-table
           :data="tableData"
@@ -218,95 +218,35 @@
         >
           <el-table-column
             prop="date"
-            label="本次回款"
+            label="本次结算"
             width="180"
           >50000</el-table-column>
           <el-table-column
             prop="name"
-            label="本次单套损失"
+            label="本次单套扣款"
             width="180"
           >0</el-table-column>
           <el-table-column
             prop="address"
-            label="本次公摊损失"
+            label="本次公摊扣款"
           >1000</el-table-column>
           <el-table-column
             prop="address"
-            label="本次冲抵金额"
-          >50000</el-table-column>
-          <el-table-column
-            prop="address"
-            label="累计回款"
+            label="累计结算佣金"
           >10000</el-table-column>
           <el-table-column
             prop="address"
-            label="累计单套损失"
+            label="累计单套扣款"
           >0</el-table-column>
           <el-table-column
             prop="address"
-            label="累计公摊损失"
+            label="累计公摊扣款"
           >20000</el-table-column>
           <el-table-column
             prop="address"
-            label="总应结佣金"
+            label="总应付佣金"
           >20000</el-table-column>
         </el-table>
-        <!-- 上传图片 -->
-        <el-upload
-          style="margin-top:20px;"
-          class="upload-demo"
-          action="https://jsonplaceholder.typicode.com/posts/"
-          :on-preview="handlePreview"
-          :on-remove="handleRemove"
-          :before-remove="beforeRemove"
-          multiple
-          :limit="3"
-          :on-exceed="handleExceed"
-          :file-list="fileList"
-        >
-          <span style="font-weight:bold;margin:10px;">业绩确认单上传：</span>
-          <el-button size="mini">点击上传</el-button>
-          <span class="el-upload__tip">支持扩展名：.rar .zip .doc .docx .pdf .jpg...</span>
-        </el-upload>
-
-        <!-- 确认形式 -->
-        <el-form
-          ref="form"
-          :model="form"
-          label-width="80px"
-          size="mini"
-          style="margin-top:20px;"
-        >
-          <el-form-item
-            label="确认形式:"
-            style="width: 500px; margin-left:45px;"
-          >
-            <el-select
-              v-model="formInline.region"
-              placeholder="请选择确实形式"
-            >
-              <el-option
-                label="形式一"
-                value="shanghai"
-              />
-              <el-option
-                label="形式2"
-                value="beijing"
-              />
-            </el-select>
-          </el-form-item>
-          <!-- 确认时间 -->
-          <el-form-item
-            label="确认时间:"
-            style="margin-left:45px;"
-          >
-            <el-date-picker
-              v-model="formInline.date1"
-              type="date"
-              placeholder="确认日期"
-            />
-          </el-form-item>
-        </el-form>
       </div>
       <span
         slot="footer"
@@ -345,7 +285,7 @@
         </el-form-item>
 
         <el-form-item
-          label="本次回款金额："
+          label="本次结算金额："
           prop="region"
         >30000
         </el-form-item>
@@ -374,7 +314,7 @@
 <script>
 export default {
   props: {
-    requirePage: {
+    applyPage: {
       type: Boolean,
       default() {
         return false
@@ -413,16 +353,16 @@ export default {
     }
   },
   watch: {
-    requirePage(newVal) {
+    applyPage(newVal) {
       this.isShow = newVal
     },
     isShow(newVal) {
-      this.requirePage = newVal
+      this.applyPage = newVal
     }
   },
   created() {
-    console.log(this.requirePage)
-    this.isShow = this.requirePage
+    console.log(this.applyPage)
+    this.isShow = this.applyPage
   },
   methods: {
     onSubmit() {
@@ -455,7 +395,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.requirePage {
+.applyPage {
   .topCaption {
     background-color: #f9f9f9;
     .cap {

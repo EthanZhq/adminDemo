@@ -1,16 +1,22 @@
 <template>
   <div>
     <el-dialog
-      title="退佣"
+      title="确认支付"
       :visible.sync="isShow"
-      width="56%"
+      width="75%"
       :before-close="handleClose"
       @close="cancel"
     >
       <div class="topCaption">
+        <h4
+          style="margin:0 auto"
+          class="cap"
+          align="center"
+        >南京绿地之窗佣金开票</h4>
         <div class="twoSpan">
           <span class="firstSpan">购房信息</span>
-          <span class="secondSpan">回款信息</span>
+          <span class="secondSpan">结算信息</span>
+          <span class="thirdSpan">支付信息</span>
         </div>
       </div>
       <table
@@ -19,16 +25,25 @@
         border="0"
         style=" border:1px solid #CCCCCC;"
         cellspacing="0"
-        cellpadding="4"
+        cellpadding="5"
       >
         <tr>
+          <td rowspan="3">1</td>
           <td>
             签约姓名：张先生
           </td>
           <td>电话：13900001111</td>
           <td>身份证号：123123122342245677</td>
           <td>签约时间：2019-01-31&nbsp;09:00:00</td>
-          <td style=" border-left:1px solid #CCCCCC;">累计单套损失：50000</td>
+          <td style="border-left:1px solid #CCCCCC;">累计单套损失：50000</td>
+          <td style="border-left:1px solid #CCCCCC;">本次单套损失：50000</td>
+          <td style="border-left:1px solid #CCCCCC;">
+            本次支付金额：
+            <input
+              type="text"
+              style="width:40px;"
+            >
+          </td>
         </tr>
         <tr>
           <td>
@@ -38,6 +53,8 @@
           <td>成交总价(元)：3655333.12</td>
           <td>费用类型：带看费</td>
           <td style=" border-left:1px solid #CCCCCC;">累计分摊损失：0</td>
+          <td style=" border-left:1px solid #CCCCCC;">本次分摊损失：0</td>
+          <td style=" border-left:1px solid #CCCCCC;">累积开票金额：1000</td>
         </tr>
         <tr>
           <td>
@@ -46,66 +63,51 @@
           <td>定价方式：阶梯定价</td>
           <td>佣金标准（元）：20000</td>
           <td>应结佣金：50000</td>
-          <td style=" border-left:1px solid #CCCCCC;">累计回款佣金：0</td>
+          <td style=" border-left:1px solid #CCCCCC;">累计结算佣金：0</td>
+          <td style=" border-left:1px solid #CCCCCC;">本次结算佣金：0</td>
+          <td style=" border-left:1px solid #CCCCCC;">累积支付金额：100</td>
         </tr>
       </table>
-      <el-form
-        :model="formInline"
-        :rules="rules"
-        class="demo-form-inline"
-        autosize
-        size="mini"
-        :inline="true"
-        style="margin-top:20px;"
-      >
-        <el-form-item
-          label="退佣方式："
-          prop="region"
+      <div style="margin-top:30px;">
+        <el-form
+          :inline="true"
+          :model="formInline"
+          class="demo-form-inline"
         >
-          <el-select
-            v-model="formInline.region"
-            placeholder="请选择退佣方式"
-            style="width: 250px;"
+          <el-form-item
+            label="本次支付金额："
+            size="mini"
+            style="margin-right:90px;"
           >
-            <el-option
-              label="冲抵"
-              value="冲抵"
+            20000
+          </el-form-item>
+          <el-form-item
+            label="支付时间："
+            size="mini"
+          >
+            <el-input
+              v-model="formInline.user"
+              placeholder="2015-10-02"
+              suffix-icon="el-icon-date"
+              style="width:150px;margin-right:20px;"
             />
-            <el-option
-              label="现金"
-              value="现金"
-            />
-            <el-option
-              label="转账"
-              value="转账"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item
-          label="退佣金额："
-          prop="region"
-          style="margin-left:50px;"
-        >
-          <el-input
-            v-model="formInline.user"
-            placeholder="10000"
-            style="width: 250px;"
-          />
-        </el-form-item>
-        <el-form-item
-          label="退佣说明："
-          style="margin-left:10px;"
-        >
-          <el-input
-            v-model="formInline.textarea"
-            type="textarea"
-            placeholder="请输入退佣说明"
-            style="width: 670px;"
-            maxlength="100"
-            show-word-limit
-          />
-        </el-form-item>
-      </el-form>
+            <el-form-item
+              label="累计支付金额："
+              size="mini"
+              style="margin-right:90px;"
+            >
+              100
+            </el-form-item>
+            <el-form-item
+              label="收款方："
+              size="mini"
+              style="margin-right:90px;"
+            >
+              南京绿地之窗
+            </el-form-item>
+          </el-form-item>
+        </el-form>
+      </div>
       <span
         slot="footer"
         class="dialog-footer"
@@ -119,7 +121,7 @@
 <script>
 export default {
   props: {
-    returnCommission: {
+    payment: {
       type: Boolean,
       default() {
         return false
@@ -128,14 +130,14 @@ export default {
   },
   data() {
     return {
-      isShow: false,
-      formInline: {
+      requireTable: [{}, {}],
+      selectShow: true,
+      isShow: false, formInline: {
         user: '',
         region: '',
         date1: '',
         textarea: ''
       },
-      requireTable: [{}, {}],
       rules: {
         user: [
           { required: true, message: '请输入活动名称', trigger: 'blur' },
@@ -149,16 +151,16 @@ export default {
     }
   },
   watch: {
-    returnCommission(newVal) {
+    payment(newVal) {
       this.isShow = newVal
     },
     isShow(newVal) {
-      this.returnCommission = newVal
+      this.payment = newVal
     }
   },
   created() {
-    console.log(this.returnCommission)
-    this.isShow = this.returnCommission
+    console.log(this.payment)
+    this.isShow = this.payment
   },
   methods: {
     cancel() {
@@ -176,8 +178,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 .topCaption {
-  padding: 5px 0;
   background-color: #f9f9f9;
+  .cap {
+    padding: 10px;
+  }
   .twoSpan {
     display: flex;
     .firstSpan {
@@ -185,7 +189,11 @@ export default {
     }
     .secondSpan {
       margin-left: auto;
-      margin-right: 40px;
+      margin-right: 150px;
+    }
+    .thirdSpan {
+      // margin-left: auto;
+      margin-right: 90px;
     }
   }
 }

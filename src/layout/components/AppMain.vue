@@ -21,6 +21,12 @@ export default {
     key() {
       return this.$route.path
     }
+  },
+  methods: {
+    toggleSideBar() {
+      this.$store.dispatch('app/toggleSideBar')
+    }
+
   }
 }
 </script>
