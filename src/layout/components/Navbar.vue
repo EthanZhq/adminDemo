@@ -2,25 +2,35 @@
   <div class="navbar">
     <div class="left-menu">
       <div class="jurisdiction">
-        <img
-          src="../../icons/svg/dashboard.svg"
-          alt=""
-        >
-        <span>权限管理</span>
+        <i class="el-icon-lock" />
+        <el-button type="text">权限管理</el-button>
       </div>
       <div class="users">
-        <img
-          src="/icons/svg/dashboard.svg"
-          alt=""
-        >
-        <span>用户管理</span>
+        <i class="el-icon-user" />
+        <el-button type="text">用户管理</el-button>
       </div>
       <div class="systemLog">
-        <img
-          src="/icons/svg/dashboard.svg"
-          alt=""
-        >
-        <span>系统日志</span>
+        <i class="el-icon-s-order" />
+        <el-button type="text">系统日志</el-button>
+      </div>
+    </div>
+    <div class="center-menu">
+      <div class="online">
+        <i class="el-icon-user" />
+        <el-button type="text">在线人数</el-button>
+        <span style="color:#0493FE;fontSize:10px;">130</span>
+      </div>
+      <div class="systemMessage">
+        <i class="el-icon-bell" />
+        <el-badge :value="12">
+          <el-button
+            type="text"
+            size="mini"
+          >
+            系统消息</el-button>
+
+        </el-badge>
+
       </div>
     </div>
     <div class="right-menu">
@@ -46,13 +56,13 @@
           </router-link>
           <a
             target="_blank"
-            href="https://github.com/PanJiaChen/vue-admin-template/"
+            href=""
           >
             <el-dropdown-item>Github</el-dropdown-item>
           </a>
           <a
             target="_blank"
-            href="https://panjiachen.github.io/vue-element-admin-site/#/"
+            href=""
           >
             <el-dropdown-item>Docs</el-dropdown-item>
           </a>
@@ -96,15 +106,58 @@ export default {
   margin-left: -3px;
   .left-menu {
     display: flex;
+    margin-top: 10px;
+    margin-left: 50px;
     color: #bfcbd9;
-    img {
-      width: 128px;
-      height: 100px;
+    i {
+      background-color: #0066ff;
+      border-radius: 50%;
+      text-align: center;
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
     }
     .jurisdiction {
-      > img {
-        width: 128px;
-        height: 100px;
+      margin-left: 100px;
+    }
+    .users {
+      margin-left: 100px;
+    }
+    .systemLog {
+      margin-left: 100px;
+    }
+  }
+  .center-menu {
+    display: flex;
+    color: #bfcbd9;
+    margin-top: 10px;
+    margin-left: 400px;
+    .online {
+      margin-left: 50px;
+      i {
+        background-color: #2aa515;
+        border-radius: 50%;
+        text-align: center;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+      }
+    }
+    .systemMessage {
+      margin-left: 50px;
+      padding-top: 5px;
+
+      i {
+        background-color: #0066ff;
+        border-radius: 50%;
+        text-align: center;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+      }
+      .item {
+        // margin-top: 10px;
+        // margin-right: 40px;
       }
     }
   }

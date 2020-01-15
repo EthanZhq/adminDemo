@@ -124,6 +124,7 @@
           >布点</el-table-column>
           <el-table-column
             prop="whether"
+            sortable
             label="跟进状态"
             width="120"
           >留电</el-table-column>
